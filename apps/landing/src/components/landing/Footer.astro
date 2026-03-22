@@ -59,15 +59,7 @@ const year = new Date().getFullYear();
 
 	<div class="footer-legal">
 		<div class="footer-legal-inner">
-			<p class="footer-biz">
-				<span>모드폴리오</span>
-				<span>대표 김동헌</span>
-				<span>사업자등록번호 104-95-65636</span>
-				<span>통신판매업 제2025-수원팔달-0953호</span>
-				<span>출판사 제2024-000037호</span>
-				<span>경기도 수원시 팔달구 효원로 278, 6층 602호</span>
-				<span>contact@modfolio.io</span>
-			</p>
+			<p class="footer-biz">모드폴리오 &middot; 대표 김동헌 &middot; 사업자등록번호 104-95-65636 &middot; 통신판매업 제2025-수원팔달-0953호 &middot; 출판사 제2024-000037호 &middot; 경기도 수원시 팔달구 효원로 278, 6층 602호 &middot; contact@modfolio.io</p>
 			<p class="footer-copy">&copy; {year} Modfolio. All rights reserved.</p>
 		</div>
 	</div>
@@ -171,43 +163,37 @@ const year = new Date().getFullYear();
 	}
 
 	.footer-legal-inner {
-		display: flex;
-		justify-content: space-between;
-		align-items: flex-end;
+		display: grid;
+		grid-template-columns: 1fr auto;
 		gap: var(--ls-space-6);
+		align-items: end;
 	}
 
 	.footer-biz {
 		font-family: var(--ls-font-story);
-		font-size: 0.6875rem;
+		font-size: 0.625rem;
 		color: var(--ls-text-muted);
-		line-height: 1.6;
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0;
-	}
-
-	.footer-biz span {
-		white-space: nowrap;
-	}
-
-	.footer-biz span:not(:last-child)::after {
-		content: "\00a0\00b7\00a0";
+		line-height: 1.8;
+		text-align: justify;
+		word-break: keep-all;
 	}
 
 	.footer-copy {
 		font-family: var(--ls-font-story);
-		font-size: 0.6875rem;
+		font-size: 0.625rem;
 		color: var(--ls-text-muted);
 		white-space: nowrap;
-		flex-shrink: 0;
+		text-align: right;
 	}
 
 	@media (max-width: 768px) {
 		.footer-legal-inner {
-			flex-direction: column;
-			align-items: flex-start;
+			grid-template-columns: 1fr;
 			gap: var(--ls-space-3);
+		}
+
+		.footer-copy {
+			text-align: left;
 		}
 	}
 </style>
