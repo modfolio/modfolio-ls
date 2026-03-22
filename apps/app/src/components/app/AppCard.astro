@@ -7,16 +7,11 @@ interface Props {
 
 const { app } = Astro.props;
 const href = app.status === "active" ? app.url : app.landingUrl;
-const ctaLabel = app.status === "active" ? "열기" : "시작하기";
+const ctaLabel = app.status === "active" ? "Open" : "View";
 ---
 
 <article class="app-card" data-app={app.id}>
-	<div class="app-card-icon-area">
-		<span class="app-card-icon" aria-hidden="true">
-			{app.category === "travel" ? "✈" : "🎯"}
-		</span>
-	</div>
-
+	<div class="app-card-accent" aria-hidden="true" />
 	<div class="app-card-body">
 		<div class="app-card-header">
 			<h3 class="app-card-name" lang="en">{app.name}</h3>
@@ -28,7 +23,7 @@ const ctaLabel = app.status === "active" ? "열기" : "시작하기";
 		<div class="app-card-meta">
 			<span class="app-card-domain" lang="en">{app.domain}</span>
 			<span class={`app-card-status status-${app.status}`}>
-				{app.status === "active" ? "Active" : "준비 중"}
+				{app.status === "active" ? "Active" : "Coming"}
 			</span>
 		</div>
 
@@ -44,45 +39,22 @@ const ctaLabel = app.status === "active" ? "열기" : "시작하기";
 		border: 1px solid var(--ls-border);
 		border-radius: var(--ls-r-lg);
 		overflow: hidden;
-		transition:
-			transform var(--ls-dur-fast) var(--ls-ease),
-			border-color var(--ls-dur-fast) var(--ls-ease);
+		transition: transform var(--ls-dur-fast), box-shadow var(--ls-dur-fast);
 	}
+	.app-card:hover { transform: translateY(-2px); box-shadow: var(--ls-shadow-md); }
 
-	.app-card:hover {
-		transform: translateY(-2px);
-		border-color: var(--ls-border-hover);
-	}
+	.app-card-accent { height: 3px; background: var(--ls-app-accent, var(--ls-interactive)); }
 
-	.app-card-icon-area {
-		height: 64px;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		background: var(--ls-app-gradient, var(--ls-gradient));
-		opacity: 0.15;
-		position: relative;
-	}
+	.app-card-body { padding: var(--ls-space-5); }
 
-	.app-card-icon {
-		font-size: 1.5rem;
-		position: absolute;
-		opacity: 1;
-	}
-
-	.app-card-body {
-		padding: var(--ls-space-5);
-	}
-
-	.app-card-header {
-		margin-bottom: var(--ls-space-3);
-	}
+	.app-card-header { margin-bottom: var(--ls-space-3); }
 
 	.app-card-name {
 		font-family: var(--ls-font-display);
 		font-size: var(--ls-text-lg);
 		font-weight: 700;
 		line-height: var(--ls-leading-snug);
+		color: var(--ls-text);
 		margin-bottom: var(--ls-space-1);
 	}
 
@@ -124,15 +96,8 @@ const ctaLabel = app.status === "active" ? "열기" : "시작하기";
 		border-radius: var(--ls-r-full);
 	}
 
-	.status-active {
-		background: var(--ls-status-active-bg);
-		color: var(--ls-status-active);
-	}
-
-	.status-landing {
-		background: var(--ls-status-pending-bg);
-		color: var(--ls-status-pending);
-	}
+	.status-active { background: var(--ls-status-active-bg); color: var(--ls-status-active); }
+	.status-landing { background: var(--ls-status-pending-bg); color: var(--ls-status-pending); }
 
 	.app-card-cta {
 		display: inline-flex;
@@ -145,13 +110,10 @@ const ctaLabel = app.status === "active" ? "열기" : "시작하기";
 		padding: var(--ls-space-2) var(--ls-space-4);
 		border: 1px solid var(--ls-border);
 		border-radius: var(--ls-r-md);
-		transition:
-			border-color var(--ls-dur-fast) var(--ls-ease),
-			background var(--ls-dur-fast) var(--ls-ease);
+		transition: border-color var(--ls-dur-fast), background var(--ls-dur-fast);
 	}
-
 	.app-card-cta:hover {
 		border-color: var(--ls-app-accent, var(--ls-interactive));
-		background: oklch(0.72 0.14 320 / 0.06);
+		background: var(--ls-plum-bg);
 	}
 </style>

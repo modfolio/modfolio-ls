@@ -5,18 +5,14 @@ const year = new Date().getFullYear();
 <footer class="footer" role="contentinfo">
 	<div class="container container-wide footer-inner">
 		<div class="footer-grid">
-			<!-- Brand -->
 			<div class="footer-col">
-				<p class="footer-brand">
-					<span lang="en">Modfolio LS</span>
-				</p>
-				<p class="footer-tagline">라이프스타일 그룹</p>
+				<p class="footer-brand" lang="en">Modfolio LS</p>
+				<p class="footer-tagline">Lifestyle Group</p>
 				<p class="footer-parent">
 					A <a href="https://modfolio.io" target="_blank" rel="noopener" lang="en">Modfolio</a> Group
 				</p>
 			</div>
 
-			<!-- Services -->
 			<div class="footer-col">
 				<h3 class="footer-heading" lang="en">Services</h3>
 				<ul class="footer-list">
@@ -25,7 +21,6 @@ const year = new Date().getFullYear();
 				</ul>
 			</div>
 
-			<!-- Ecosystem -->
 			<div class="footer-col">
 				<h3 class="footer-heading" lang="en">Ecosystem</h3>
 				<ul class="footer-list">
@@ -35,12 +30,11 @@ const year = new Date().getFullYear();
 				</ul>
 			</div>
 
-			<!-- Legal -->
 			<div class="footer-col">
-				<h3 class="footer-heading">법률</h3>
+				<h3 class="footer-heading">Legal</h3>
 				<ul class="footer-list">
-					<li><a href="https://modfolio.io/privacy">개인정보처리방침</a></li>
-					<li><a href="https://modfolio.io/terms">이용약관</a></li>
+					<li><a href="https://modfolio.io/privacy">Privacy</a></li>
+					<li><a href="https://modfolio.io/terms">Terms</a></li>
 				</ul>
 			</div>
 		</div>
@@ -57,6 +51,7 @@ const year = new Date().getFullYear();
 		z-index: 1;
 		border-top: 1px solid var(--ls-border);
 		padding-block: var(--ls-space-10) var(--ls-space-6);
+		background: var(--ls-surface-raised);
 	}
 
 	.footer-grid {
@@ -67,16 +62,10 @@ const year = new Date().getFullYear();
 	}
 
 	@media (max-width: 768px) {
-		.footer-grid {
-			grid-template-columns: repeat(2, 1fr);
-			gap: var(--ls-space-6);
-		}
+		.footer-grid { grid-template-columns: repeat(2, 1fr); gap: var(--ls-space-6); }
 	}
-
 	@media (max-width: 480px) {
-		.footer-grid {
-			grid-template-columns: 1fr;
-		}
+		.footer-grid { grid-template-columns: 1fr; }
 	}
 
 	.footer-brand {
@@ -84,6 +73,7 @@ const year = new Date().getFullYear();
 		font-size: var(--ls-text-md);
 		font-weight: 700;
 		letter-spacing: var(--ls-tracking-wide);
+		color: var(--ls-text);
 		margin-bottom: var(--ls-space-2);
 	}
 
@@ -99,15 +89,8 @@ const year = new Date().getFullYear();
 		font-size: var(--ls-text-xs);
 		color: var(--ls-text-muted);
 	}
-
-	.footer-parent a {
-		color: var(--ls-text-secondary);
-		transition: color var(--ls-dur-fast) var(--ls-ease);
-	}
-
-	.footer-parent a:hover {
-		color: var(--ls-text);
-	}
+	.footer-parent a { color: var(--ls-text-secondary); transition: color var(--ls-dur-fast); }
+	.footer-parent a:hover { color: var(--ls-interactive); }
 
 	.footer-heading {
 		font-family: var(--ls-font-ui);
@@ -119,23 +102,14 @@ const year = new Date().getFullYear();
 		margin-bottom: var(--ls-space-4);
 	}
 
-	.footer-list {
-		list-style: none;
-		display: flex;
-		flex-direction: column;
-		gap: var(--ls-space-3);
-	}
-
+	.footer-list { list-style: none; display: flex; flex-direction: column; gap: var(--ls-space-3); }
 	.footer-list a {
 		font-family: var(--ls-font-story);
 		font-size: var(--ls-text-sm);
 		color: var(--ls-text-secondary);
-		transition: color var(--ls-dur-fast) var(--ls-ease);
+		transition: color var(--ls-dur-fast);
 	}
-
-	.footer-list a:hover {
-		color: var(--ls-text);
-	}
+	.footer-list a:hover { color: var(--ls-interactive); }
 
 	.footer-bottom {
 		border-top: 1px solid var(--ls-border-subtle);

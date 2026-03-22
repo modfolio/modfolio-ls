@@ -4,42 +4,36 @@ interface Props {
 }
 
 const { user } = Astro.props;
-const displayName = user.name || "탐험가";
+const displayName = user.name || "Explorer";
 const hour = new Date().getHours();
 
 let greeting: string;
-if (hour >= 6 && hour < 12) greeting = "좋은 아침이에요";
-else if (hour >= 12 && hour < 18) greeting = "좋은 오후에요";
-else if (hour >= 18 && hour < 24) greeting = "좋은 저녁이에요";
-else greeting = "밤이 깊었네요";
+if (hour >= 6 && hour < 12) greeting = "Good morning";
+else if (hour >= 12 && hour < 18) greeting = "Good afternoon";
+else if (hour >= 18 && hour < 24) greeting = "Good evening";
+else greeting = "Late night";
 ---
 
-<section class="greeting" aria-label="인사">
+<section class="greeting" aria-label="Greeting">
 	<h1 class="greeting-text">
 		{greeting}, <span class="greeting-name">{displayName}</span>
 	</h1>
-	<p class="greeting-sub">오늘의 라이프스타일</p>
+	<p class="greeting-sub">Your lifestyle today</p>
 </section>
 
 <style>
-	.greeting {
-		padding-block: var(--ls-space-6) var(--ls-space-4);
-	}
+	.greeting { padding-block: var(--ls-space-6) var(--ls-space-4); }
 
 	.greeting-text {
 		font-family: var(--ls-font-display);
 		font-size: var(--ls-text-xl);
 		font-weight: 700;
 		line-height: var(--ls-leading-snug);
+		color: var(--ls-text);
 		margin-bottom: var(--ls-space-2);
 	}
 
-	.greeting-name {
-		background: var(--ls-gradient);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
-	}
+	.greeting-name { color: var(--ls-interactive); }
 
 	.greeting-sub {
 		font-family: var(--ls-font-story);

@@ -1,20 +1,20 @@
 ---
-/* AIDA Interest/Desire: 3 value pillars */
+/* AIDA Interest/Desire: 3 value pillars — geometric icons, no emoji */
 const pillars = [
 	{
-		title: "하나의 계정, 모든 라이프스타일",
-		desc: "Modfolio Connect 계정 하나로 KeepNBuild, Worthee 모두 이용할 수 있습니다.",
-		icon: "🔑",
+		title: "One account, all lifestyle",
+		desc: "Access KeepNBuild and Worthee with a single Modfolio Connect account.",
+		geo: "circle",
 	},
 	{
-		title: "여행에서 습관까지, 연결된 일상",
-		desc: "각 앱은 독립적이지만, 당신의 데이터는 하나의 라이프스타일로 연결됩니다.",
-		icon: "🔗",
+		title: "From travel to habits, connected",
+		desc: "Each app is independent, but your data forms one lifestyle picture.",
+		geo: "rings",
 	},
 	{
-		title: "당신의 데이터, 당신의 것",
-		desc: "모든 데이터는 안전하게 암호화되며, 언제든 내보내기가 가능합니다.",
-		icon: "🛡️",
+		title: "Your data, your ownership",
+		desc: "All data is encrypted and exportable at any time.",
+		geo: "shield",
 	},
 ];
 ---
@@ -22,12 +22,14 @@ const pillars = [
 <section class="value reveal" aria-labelledby="value-heading">
 	<div class="container">
 		<span class="section-label" lang="en">WHY MODFOLIO LS</span>
-		<h2 id="value-heading" class="section-heading">라이프스타일의 새로운 기준</h2>
+		<h2 id="value-heading" class="section-heading">A new standard for lifestyle</h2>
 
 		<div class="value-grid">
 			{pillars.map((p, i) => (
-				<div class={`value-card reveal reveal-delay-${i + 1}`}>
-					<span class="value-icon" aria-hidden="true">{p.icon}</span>
+				<div class="value-card reveal" style={`--reveal-delay: ${(i + 1) * 0.12}s`}>
+					<div class={`value-icon value-icon--${p.geo}`} aria-hidden="true">
+						<span class="value-icon-shape" />
+					</div>
 					<h3 class="value-title">{p.title}</h3>
 					<p class="value-desc">{p.desc}</p>
 				</div>
@@ -56,18 +58,56 @@ const pillars = [
 		padding: var(--ls-space-6);
 		transition:
 			transform var(--ls-dur-fast) var(--ls-ease),
-			border-color var(--ls-dur-fast) var(--ls-ease);
+			box-shadow var(--ls-dur-fast) var(--ls-ease);
 	}
 
 	.value-card:hover {
 		transform: translateY(-2px);
-		border-color: var(--ls-border-hover);
+		box-shadow: var(--ls-shadow-md);
 	}
 
+	/* Geometric icons */
 	.value-icon {
-		display: block;
-		font-size: 1.75rem;
+		width: 40px;
+		height: 40px;
 		margin-bottom: var(--ls-space-4);
+		position: relative;
+	}
+
+	.value-icon--circle .value-icon-shape {
+		display: block;
+		width: 32px;
+		height: 32px;
+		border: 2px solid var(--ls-interactive);
+		border-radius: 50%;
+	}
+
+	.value-icon--rings .value-icon-shape {
+		display: block;
+		width: 28px;
+		height: 28px;
+		border: 2px solid var(--ls-interactive);
+		border-radius: 50%;
+	}
+
+	.value-icon--rings .value-icon-shape::after {
+		content: "";
+		position: absolute;
+		top: 8px;
+		left: 8px;
+		width: 16px;
+		height: 16px;
+		border: 1.5px solid var(--ls-interactive);
+		border-radius: 50%;
+		opacity: 0.5;
+	}
+
+	.value-icon--shield .value-icon-shape {
+		display: block;
+		width: 26px;
+		height: 30px;
+		border: 2px solid var(--ls-interactive);
+		border-radius: 4px 4px 50% 50%;
 	}
 
 	.value-title {
@@ -75,6 +115,7 @@ const pillars = [
 		font-size: var(--ls-text-md);
 		font-weight: 600;
 		line-height: var(--ls-leading-snug);
+		color: var(--ls-text);
 		margin-bottom: var(--ls-space-3);
 	}
 

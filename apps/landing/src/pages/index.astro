@@ -4,7 +4,6 @@ import CallToAction from "../components/landing/CallToAction.astro";
 import Footer from "../components/landing/Footer.astro";
 import Hero from "../components/landing/Hero.astro";
 import ValueProp from "../components/landing/ValueProp.astro";
-import GlowOrb from "../components/shared/GlowOrb.astro";
 import Nav from "../components/shared/Nav.astro";
 import Base from "../layouts/Base.astro";
 
@@ -13,8 +12,6 @@ if (user) return Astro.redirect("https://life.modfolio.io");
 ---
 
 <Base>
-	<GlowOrb variant="plum" />
-	<GlowOrb variant="sky" />
 	<Nav user={user} />
 
 	<main id="main">

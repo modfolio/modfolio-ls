@@ -1,25 +1,25 @@
 ---
-/* FBO Framework: Feature → Benefit → Outcome (lead with Outcome) */
+/* FBO Framework: Feature - Benefit - Outcome (lead with Outcome) */
 const showcaseData = [
 	{
 		id: "keepnbuild",
 		name: "KeepNBuild",
 		landingUrl: "https://keepnbuild.com",
 		badge: "TRAVEL DESIGN",
-		outcome: "완벽하게 당신만의 여행을 완성하세요.",
+		outcome: "Craft your perfect journey.",
 		detail:
-			"여행 일정을 직접 설계하고, 경험을 기록하고, 다음 여행을 미리 그려보세요.",
-		cta: "여행 설계 시작",
+			"Design itineraries, record experiences, and envision your next trip.",
+		cta: "Start Designing",
 	},
 	{
 		id: "worthee",
 		name: "Worthee",
 		landingUrl: "https://worthee.io",
 		badge: "HONOR & HABITS",
-		outcome: "성실함이 증명되는 순간을 경험하세요.",
+		outcome: "Experience the moment your effort is proven.",
 		detail:
-			"매일 습관을 기록하고 인증하면, 커뮤니티가 검증하고 명예 배지가 발급됩니다.",
-		cta: "자기관리 시작",
+			"Log daily habits and verify them. Your community validates, and you earn honor badges.",
+		cta: "Start Building",
 	},
 ];
 ---
@@ -27,11 +27,15 @@ const showcaseData = [
 <section class="showcase reveal" id="showcase" aria-labelledby="showcase-heading">
 	<div class="container">
 		<span class="section-label" lang="en">DISCOVER</span>
-		<h2 id="showcase-heading" class="section-heading">두 가지 라이프스타일 도구</h2>
+		<h2 id="showcase-heading" class="section-heading">Two lifestyle tools</h2>
 
 		<div class="showcase-grid">
-			{showcaseData.map((item) => (
-				<article class="showcase-card" data-app={item.id}>
+			{showcaseData.map((item, i) => (
+				<article
+					class="showcase-card reveal"
+					data-app={item.id}
+					style={`--reveal-delay: ${(i + 1) * 0.15}s`}
+				>
 					<div class="showcase-card-accent" aria-hidden="true" />
 					<div class="showcase-card-content">
 						<span class="showcase-badge" lang="en">{item.badge}</span>
@@ -69,17 +73,17 @@ const showcaseData = [
 		overflow: hidden;
 		transition:
 			transform var(--ls-dur-fast) var(--ls-ease),
-			border-color var(--ls-dur-fast) var(--ls-ease);
+			box-shadow var(--ls-dur-fast) var(--ls-ease);
 	}
 
 	.showcase-card:hover {
 		transform: translateY(-3px);
-		border-color: var(--ls-border-hover);
+		box-shadow: var(--ls-shadow-md);
 	}
 
 	.showcase-card-accent {
 		height: 3px;
-		background: var(--ls-app-gradient, var(--ls-gradient));
+		background: var(--ls-app-accent, var(--ls-interactive));
 	}
 
 	.showcase-card-content {
@@ -101,6 +105,7 @@ const showcaseData = [
 		font-size: var(--ls-text-xl);
 		font-weight: 700;
 		line-height: var(--ls-leading-snug);
+		color: var(--ls-text);
 		margin-bottom: var(--ls-space-4);
 	}
 
@@ -133,6 +138,6 @@ const showcaseData = [
 	}
 
 	.showcase-link:hover {
-		opacity: 0.8;
+		opacity: 0.75;
 	}
 </style>

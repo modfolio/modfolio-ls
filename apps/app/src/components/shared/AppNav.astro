@@ -7,7 +7,7 @@ const { user } = Astro.props;
 const displayName = user.name || user.email?.split("@")[0] || "User";
 ---
 
-<nav class="app-nav" aria-label="앱 내비게이션">
+<nav class="app-nav" aria-label="App navigation">
 	<div class="app-nav-inner container container-wide">
 		<a href="/" class="app-nav-brand">
 			<span class="app-nav-brand-text" lang="en">Modfolio LS</span>
@@ -21,7 +21,7 @@ const displayName = user.name || user.email?.split("@")[0] || "User";
 
 		<div class="app-nav-user">
 			<span class="app-nav-name">{displayName}</span>
-			<a href="/auth/logout" class="app-nav-logout">로그아웃</a>
+			<a href="/auth/logout" class="app-nav-logout">Sign out</a>
 		</div>
 	</div>
 </nav>
@@ -31,8 +31,8 @@ const displayName = user.name || user.email?.split("@")[0] || "User";
 		position: sticky;
 		top: 0;
 		z-index: 100;
-		backdrop-filter: blur(16px);
-		background: oklch(0.08 0.012 275 / 0.85);
+		backdrop-filter: blur(12px);
+		background: oklch(0.97 0.005 80 / 0.85);
 		border-bottom: 1px solid var(--ls-border-subtle);
 	}
 
@@ -64,16 +64,13 @@ const displayName = user.name || user.email?.split("@")[0] || "User";
 		font-size: var(--ls-text-xs);
 		font-weight: 700;
 		letter-spacing: var(--ls-tracking-widest);
-		color: var(--ls-bg);
-		background: var(--ls-gradient);
+		color: #fff;
+		background: var(--ls-interactive);
 		padding: 2px 10px;
 		border-radius: var(--ls-r-full);
 	}
 
-	.app-nav-center {
-		display: flex;
-		gap: var(--ls-space-1);
-	}
+	.app-nav-center { display: flex; gap: var(--ls-space-1); }
 
 	.app-nav-tab {
 		font-family: var(--ls-font-ui);
@@ -82,27 +79,12 @@ const displayName = user.name || user.email?.split("@")[0] || "User";
 		color: var(--ls-text-muted);
 		padding: var(--ls-space-2) var(--ls-space-4);
 		border-radius: var(--ls-r-md);
-		transition:
-			color var(--ls-dur-fast) var(--ls-ease),
-			background var(--ls-dur-fast) var(--ls-ease);
+		transition: color var(--ls-dur-fast) var(--ls-ease), background var(--ls-dur-fast) var(--ls-ease);
 	}
+	.app-nav-tab:hover { color: var(--ls-text-secondary); background: var(--ls-surface-raised); }
+	.app-nav-tab-active { color: var(--ls-text); background: var(--ls-surface); }
 
-	.app-nav-tab:hover {
-		color: var(--ls-text-secondary);
-		background: var(--ls-surface);
-	}
-
-	.app-nav-tab-active {
-		color: var(--ls-text);
-		background: var(--ls-surface-raised);
-	}
-
-	.app-nav-user {
-		display: flex;
-		align-items: center;
-		gap: var(--ls-space-3);
-		flex-shrink: 0;
-	}
+	.app-nav-user { display: flex; align-items: center; gap: var(--ls-space-3); flex-shrink: 0; }
 
 	.app-nav-name {
 		font-family: var(--ls-font-body);
@@ -110,12 +92,7 @@ const displayName = user.name || user.email?.split("@")[0] || "User";
 		color: var(--ls-text-secondary);
 		display: none;
 	}
-
-	@media (min-width: 640px) {
-		.app-nav-name {
-			display: block;
-		}
-	}
+	@media (min-width: 640px) { .app-nav-name { display: block; } }
 
 	.app-nav-logout {
 		font-family: var(--ls-font-ui);
@@ -124,13 +101,7 @@ const displayName = user.name || user.email?.split("@")[0] || "User";
 		padding: var(--ls-space-1) var(--ls-space-3);
 		border: 1px solid var(--ls-border);
 		border-radius: var(--ls-r-sm);
-		transition:
-			color var(--ls-dur-fast) var(--ls-ease),
-			border-color var(--ls-dur-fast) var(--ls-ease);
+		transition: color var(--ls-dur-fast), border-color var(--ls-dur-fast);
 	}
-
-	.app-nav-logout:hover {
-		color: var(--ls-text-secondary);
-		border-color: var(--ls-border-hover);
-	}
+	.app-nav-logout:hover { color: var(--ls-text-secondary); border-color: var(--ls-border-hover); }
 </style>

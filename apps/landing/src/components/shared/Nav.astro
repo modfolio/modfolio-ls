@@ -6,7 +6,7 @@ interface Props {
 const { user } = Astro.props;
 ---
 
-<nav class="nav" aria-label="메인 내비게이션">
+<nav class="nav" aria-label="Main navigation">
 	<div class="nav-inner container container-wide">
 		<a href="/" class="nav-brand">
 			<span class="nav-brand-text" lang="en">Modfolio</span>
@@ -15,9 +15,9 @@ const { user } = Astro.props;
 
 		<div class="nav-actions">
 			{user ? (
-				<a href="https://life.modfolio.io" class="nav-link nav-link-primary">대시보드</a>
+				<a href="https://life.modfolio.io" class="nav-link nav-link-primary" lang="en">Dashboard</a>
 			) : (
-				<a href="/auth/login" class="nav-link nav-link-primary">시작하기</a>
+				<a href="/auth/login" class="nav-link nav-link-primary">Start</a>
 			)}
 		</div>
 	</div>
@@ -29,7 +29,7 @@ const { user } = Astro.props;
 		top: 0;
 		z-index: 100;
 		backdrop-filter: blur(12px);
-		background: oklch(0.08 0.012 275 / 0.8);
+		background: oklch(0.97 0.005 80 / 0.85);
 		border-bottom: 1px solid var(--ls-border-subtle);
 	}
 
@@ -59,36 +59,15 @@ const { user } = Astro.props;
 		font-size: var(--ls-text-xs);
 		font-weight: 700;
 		letter-spacing: var(--ls-tracking-widest);
-		color: var(--ls-text);
-		background: var(--ls-surface-raised);
-		padding: 2px 8px;
-		border-radius: var(--ls-r-sm);
-		border: 1px solid var(--ls-border);
+		color: #fff;
+		background: var(--ls-interactive);
+		padding: 2px 10px;
+		border-radius: var(--ls-r-full);
 	}
 
 	.nav-actions {
 		display: flex;
 		align-items: center;
-		gap: var(--ls-space-4);
-	}
-
-	.nav-user {
-		display: flex;
-		align-items: center;
-		gap: var(--ls-space-4);
-	}
-
-	.nav-email {
-		font-family: var(--ls-font-story);
-		font-size: var(--ls-text-xs);
-		color: var(--ls-text-muted);
-		display: none;
-	}
-
-	@media (min-width: 640px) {
-		.nav-email {
-			display: block;
-		}
 	}
 
 	.nav-link {
@@ -106,15 +85,15 @@ const { user } = Astro.props;
 	}
 
 	.nav-link-primary {
-		color: var(--ls-bg);
-		background: var(--ls-gradient);
+		color: #fff;
+		background: var(--ls-interactive);
 		font-weight: 600;
 		padding: var(--ls-space-2) var(--ls-space-4);
 		border-radius: var(--ls-r-md);
 	}
 
 	.nav-link-primary:hover {
-		opacity: 0.9;
-		color: var(--ls-bg);
+		background: var(--ls-interactive-hover);
+		color: #fff;
 	}
 </style>
