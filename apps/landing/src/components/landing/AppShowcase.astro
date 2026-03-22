@@ -1,10 +1,10 @@
 ---
 /* FBO Framework: Feature → Benefit → Outcome (lead with Outcome) */
-import { apps } from "../../lib/apps";
-
 const showcaseData = [
 	{
-		app: apps[0],
+		id: "keepnbuild",
+		name: "KeepNBuild",
+		landingUrl: "https://keepnbuild.com",
 		badge: "TRAVEL DESIGN",
 		outcome: "완벽하게 당신만의 여행을 완성하세요.",
 		detail:
@@ -12,7 +12,9 @@ const showcaseData = [
 		cta: "여행 설계 시작",
 	},
 	{
-		app: apps[1],
+		id: "worthee",
+		name: "Worthee",
+		landingUrl: "https://worthee.io",
 		badge: "HONOR & HABITS",
 		outcome: "성실함이 증명되는 순간을 경험하세요.",
 		detail:
@@ -29,14 +31,14 @@ const showcaseData = [
 
 		<div class="showcase-grid">
 			{showcaseData.map((item) => (
-				<article class="showcase-card" data-app={item.app.id}>
+				<article class="showcase-card" data-app={item.id}>
 					<div class="showcase-card-accent" aria-hidden="true" />
 					<div class="showcase-card-content">
 						<span class="showcase-badge" lang="en">{item.badge}</span>
-						<h3 class="showcase-name" lang="en">{item.app.name}</h3>
+						<h3 class="showcase-name" lang="en">{item.name}</h3>
 						<p class="showcase-outcome">{item.outcome}</p>
 						<p class="showcase-detail">{item.detail}</p>
-						<a href={item.app.landingUrl} class="showcase-link" target="_blank" rel="noopener">
+						<a href={item.landingUrl} class="showcase-link" target="_blank" rel="noopener">
 							{item.cta} &rarr;
 						</a>
 					</div>

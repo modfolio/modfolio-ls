@@ -4,7 +4,7 @@ import AppCard from "./AppCard.astro";
 ---
 
 <section class="app-grid-section" aria-labelledby="apps-heading">
-	<h2 id="apps-heading" class="section-heading">라이프스타일 앱</h2>
+	<h2 id="apps-heading" class="section-label" lang="en">YOUR APPS</h2>
 	<div class="app-grid">
 		{apps.map((app) => <AppCard app={app} />)}
 	</div>
@@ -12,12 +12,12 @@ import AppCard from "./AppCard.astro";
 
 <style>
 	.app-grid-section {
-		margin-bottom: var(--ls-space-10);
+		margin-bottom: var(--ls-space-6);
 	}
 
 	.app-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-		gap: var(--ls-space-5);
+		display: flex;
+		flex-direction: column;
+		gap: var(--ls-space-4);
 	}
 </style>

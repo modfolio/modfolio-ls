@@ -1,0 +1,31 @@
+---
+import Dashboard from "../components/app/Dashboard.astro";
+import QuickActions from "../components/app/QuickActions.astro";
+import UserGreeting from "../components/app/UserGreeting.astro";
+import AppNav from "../components/shared/AppNav.astro";
+import GlowOrb from "../components/shared/GlowOrb.astro";
+import Base from "../layouts/Base.astro";
+
+const user = Astro.locals.user;
+if (!user) return Astro.redirect("/auth/login");
+---
+
+<Base title={`${user.name || "Life"} — Modfolio LS`}>
+	<GlowOrb variant="plum" />
+	<GlowOrb variant="sky" />
+	<AppNav user={user} />
+
+	<div id="main" class="app-shell container">
+		<UserGreeting user={user} />
+		<QuickActions />
+		<Dashboard />
+	</div>
+</Base>
+
+<style>
+	.app-shell {
+		position: relative;
+		z-index: 1;
+		padding-block: var(--ls-space-2) var(--ls-space-12);
+	}
+</style>

@@ -1,0 +1,49 @@
+---
+interface Props {
+	user: import("@modfolio/connect-sdk/astro").ConnectUser;
+}
+
+const { user } = Astro.props;
+const displayName = user.name || "탐험가";
+const hour = new Date().getHours();
+
+let greeting: string;
+if (hour >= 6 && hour < 12) greeting = "좋은 아침이에요";
+else if (hour >= 12 && hour < 18) greeting = "좋은 오후에요";
+else if (hour >= 18 && hour < 24) greeting = "좋은 저녁이에요";
+else greeting = "밤이 깊었네요";
+---
+
+<section class="greeting" aria-label="인사">
+	<h1 class="greeting-text">
+		{greeting}, <span class="greeting-name">{displayName}</span>
+	</h1>
+	<p class="greeting-sub">오늘의 라이프스타일</p>
+</section>
+
+<style>
+	.greeting {
+		padding-block: var(--ls-space-6) var(--ls-space-4);
+	}
+
+	.greeting-text {
+		font-family: var(--ls-font-display);
+		font-size: var(--ls-text-xl);
+		font-weight: 700;
+		line-height: var(--ls-leading-snug);
+		margin-bottom: var(--ls-space-2);
+	}
+
+	.greeting-name {
+		background: var(--ls-gradient);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+	}
+
+	.greeting-sub {
+		font-family: var(--ls-font-story);
+		font-size: var(--ls-text-sm);
+		color: var(--ls-text-secondary);
+	}
+</style>

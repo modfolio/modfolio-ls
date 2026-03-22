@@ -1,0 +1,164 @@
+---
+const tabs = [
+	{ id: "all", label: "전체" },
+	{ id: "travel", label: "여행" },
+	{ id: "wellness", label: "웰니스" },
+];
+---
+
+<section class="feed" id="feed" aria-labelledby="feed-heading">
+	<h2 id="feed-heading" class="section-label" lang="en">LIFESTYLE FEED</h2>
+
+	<div class="feed-tabs" role="tablist" aria-label="콘텐츠 필터">
+		{tabs.map((tab, i) => (
+			<button
+				role="tab"
+				aria-selected={i === 0 ? "true" : "false"}
+				data-feed={tab.id}
+				class={`feed-tab ${i === 0 ? "feed-tab-active" : ""}`}
+			>
+				{tab.label}
+			</button>
+		))}
+	</div>
+
+	<div class="feed-grid" role="tabpanel">
+		{Array.from({ length: 4 }).map((_, i) => (
+			<div class="feed-card" aria-hidden="true">
+				<div class="feed-card-badge">
+					{i % 2 === 0 ? "여행" : "웰니스"}
+				</div>
+				<div class="feed-card-title-skeleton" />
+				<div class="feed-card-body-skeleton" />
+				<div class="feed-card-body-skeleton short" />
+				<div class="feed-card-footer">
+					<span class="feed-card-source">—</span>
+					<span class="feed-card-date">—</span>
+				</div>
+			</div>
+		))}
+	</div>
+
+	<div class="feed-empty">
+		<p class="feed-empty-icon" aria-hidden="true">📡</p>
+		<p class="feed-empty-text">
+			곧 여행 뉴스, 웰니스 아티클,
+			<span lang="en">Modfolio Press</span> 뉴스레터가 여기에 표시됩니다.
+		</p>
+	</div>
+</section>
+
+<style>
+	.feed {
+		flex: 1;
+		min-width: 0;
+	}
+
+	.feed-tabs {
+		display: flex;
+		gap: var(--ls-space-2);
+		margin-bottom: var(--ls-space-5);
+	}
+
+	.feed-tab {
+		font-family: var(--ls-font-ui);
+		font-size: var(--ls-text-xs);
+		font-weight: 500;
+		letter-spacing: var(--ls-tracking-wide);
+		padding: var(--ls-space-2) var(--ls-space-4);
+		border-radius: var(--ls-r-full);
+		color: var(--ls-text-muted);
+		border: 1px solid var(--ls-border);
+		transition:
+			color var(--ls-dur-fast) var(--ls-ease),
+			border-color var(--ls-dur-fast) var(--ls-ease),
+			background var(--ls-dur-fast) var(--ls-ease);
+	}
+
+	.feed-tab:hover {
+		color: var(--ls-text-secondary);
+		border-color: var(--ls-border-hover);
+	}
+
+	.feed-tab-active {
+		color: var(--ls-text);
+		border-color: var(--ls-interactive);
+		background: oklch(0.72 0.14 320 / 0.08);
+	}
+
+	.feed-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+		gap: var(--ls-space-4);
+		margin-bottom: var(--ls-space-6);
+	}
+
+	.feed-card {
+		background: var(--ls-surface);
+		border: 1px solid var(--ls-border);
+		border-radius: var(--ls-r-md);
+		padding: var(--ls-space-4);
+		opacity: 0.5;
+	}
+
+	.feed-card-badge {
+		display: inline-block;
+		font-family: var(--ls-font-ui);
+		font-size: var(--ls-text-xs);
+		font-weight: 600;
+		letter-spacing: var(--ls-tracking-wide);
+		color: var(--ls-text-muted);
+		background: var(--ls-surface-raised);
+		padding: 2px var(--ls-space-2);
+		border-radius: var(--ls-r-sm);
+		margin-bottom: var(--ls-space-3);
+	}
+
+	.feed-card-title-skeleton,
+	.feed-card-body-skeleton {
+		height: 12px;
+		border-radius: var(--ls-r-sm);
+		background: var(--ls-surface-overlay);
+		margin-bottom: var(--ls-space-2);
+	}
+
+	.feed-card-title-skeleton {
+		width: 75%;
+		height: 16px;
+		margin-bottom: var(--ls-space-3);
+	}
+
+	.feed-card-body-skeleton.short {
+		width: 50%;
+	}
+
+	.feed-card-footer {
+		display: flex;
+		justify-content: space-between;
+		margin-top: var(--ls-space-3);
+		font-family: var(--ls-font-story);
+		font-size: var(--ls-text-xs);
+		color: var(--ls-text-muted);
+	}
+
+	.feed-empty {
+		text-align: center;
+		padding: var(--ls-space-6) var(--ls-space-4);
+		background: var(--ls-surface);
+		border: 1px dashed var(--ls-border);
+		border-radius: var(--ls-r-md);
+	}
+
+	.feed-empty-icon {
+		font-size: 2rem;
+		margin-bottom: var(--ls-space-3);
+	}
+
+	.feed-empty-text {
+		font-family: var(--ls-font-story);
+		font-size: var(--ls-text-sm);
+		color: var(--ls-text-muted);
+		max-width: 40ch;
+		margin-inline: auto;
+	}
+</style>

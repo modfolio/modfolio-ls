@@ -1,0 +1,44 @@
+---
+import AppGrid from "./AppGrid.astro";
+import ContentFeed from "./ContentFeed.astro";
+---
+
+<div class="dashboard">
+	<aside class="dashboard-sidebar">
+		<AppGrid />
+	</aside>
+	<main class="dashboard-content">
+		<ContentFeed />
+	</main>
+</div>
+
+<style>
+	.dashboard {
+		display: flex;
+		gap: var(--ls-app-content-gap);
+		align-items: flex-start;
+	}
+
+	.dashboard-sidebar {
+		position: sticky;
+		top: 72px;
+		width: var(--ls-app-sidebar-w);
+		flex-shrink: 0;
+	}
+
+	.dashboard-content {
+		flex: 1;
+		min-width: 0;
+	}
+
+	@media (max-width: 860px) {
+		.dashboard {
+			flex-direction: column;
+		}
+
+		.dashboard-sidebar {
+			position: static;
+			width: 100%;
+		}
+	}
+</style>

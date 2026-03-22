@@ -1,0 +1,102 @@
+---
+import { apps } from "../../lib/apps";
+
+const actions = [
+	{
+		label: "여행 설계하기",
+		href: apps[0].status === "active" ? apps[0].url : apps[0].landingUrl,
+		appId: apps[0].id,
+		icon: "✈",
+	},
+	{
+		label: "습관 기록하기",
+		href: apps[1].status === "active" ? apps[1].url : apps[1].landingUrl,
+		appId: apps[1].id,
+		icon: "🎯",
+	},
+	{
+		label: "피드 보기",
+		href: "#feed",
+		appId: null,
+		icon: "📰",
+	},
+];
+---
+
+<section class="quick-actions" aria-label="빠른 액션">
+	<div class="quick-actions-scroll">
+		{actions.map((action) => (
+			<a
+				href={action.href}
+				class="quick-pill"
+				data-app={action.appId}
+				target={action.appId ? "_blank" : undefined}
+				rel={action.appId ? "noopener" : undefined}
+			>
+				<span class="quick-pill-icon" aria-hidden="true">{action.icon}</span>
+				<span class="quick-pill-label">{action.label}</span>
+			</a>
+		))}
+	</div>
+</section>
+
+<style>
+	.quick-actions {
+		padding-bottom: var(--ls-space-6);
+		overflow: hidden;
+	}
+
+	.quick-actions-scroll {
+		display: flex;
+		gap: var(--ls-space-3);
+		overflow-x: auto;
+		scrollbar-width: none;
+		-webkit-overflow-scrolling: touch;
+		padding-bottom: var(--ls-space-2);
+	}
+
+	.quick-actions-scroll::-webkit-scrollbar {
+		display: none;
+	}
+
+	.quick-pill {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--ls-space-2);
+		padding: var(--ls-space-3) var(--ls-space-5);
+		background: var(--ls-surface);
+		border: 1px solid var(--ls-border);
+		border-radius: var(--ls-r-full);
+		white-space: nowrap;
+		flex-shrink: 0;
+		transition:
+			background var(--ls-dur-fast) var(--ls-ease),
+			border-color var(--ls-dur-fast) var(--ls-ease),
+			transform var(--ls-dur-fast) var(--ls-ease);
+	}
+
+	.quick-pill:hover {
+		background: var(--ls-surface-raised);
+		border-color: var(--ls-border-hover);
+		transform: translateY(-1px);
+	}
+
+	.quick-pill[data-app="keepnbuild"]:hover {
+		border-color: var(--ls-app-accent, var(--ls-interactive));
+	}
+
+	.quick-pill[data-app="worthee"]:hover {
+		border-color: var(--ls-app-accent, var(--ls-interactive));
+	}
+
+	.quick-pill-icon {
+		font-size: 1.125rem;
+	}
+
+	.quick-pill-label {
+		font-family: var(--ls-font-ui);
+		font-size: var(--ls-text-sm);
+		font-weight: 500;
+		color: var(--ls-text);
+	}
+</style>

@@ -1,0 +1,132 @@
+/* ============================================================
+   Modfolio LS — Design Tokens
+   "Twilight Drift: 고요한 황혼, 일상의 리듬"
+   3-Tier: Primitives → Semantic → Accent
+   ============================================================ */
+
+:root {
+	/* ── Primitives: Surfaces (deep midnight) ── */
+	--ls-void: oklch(0.08 0.012 275);
+	--ls-ink-1: oklch(0.11 0.012 275);
+	--ls-ink-2: oklch(0.14 0.012 275);
+	--ls-ink-3: oklch(0.18 0.015 275);
+	--ls-ink-4: oklch(0.24 0.015 275);
+
+	/* ── Primitives: Text ── */
+	--ls-snow: oklch(0.95 0.008 300);
+	--ls-cloud: oklch(0.88 0.01 295);
+	--ls-mist: oklch(0.6 0.02 285);
+	--ls-mist-dim: oklch(0.45 0.02 280);
+
+	/* ── Primitives: Brand (plum twilight + sky dawn) ── */
+	--ls-plum: oklch(0.72 0.14 320);
+	--ls-plum-soft: oklch(0.8 0.1 320);
+	--ls-plum-deep: oklch(0.55 0.16 320);
+	--ls-sky: oklch(0.78 0.1 225);
+	--ls-sky-soft: oklch(0.85 0.07 225);
+	--ls-sky-deep: oklch(0.6 0.12 225);
+
+	/* ── Primitives: Status ── */
+	--ls-green: oklch(0.8 0.12 170);
+	--ls-amber: oklch(0.85 0.12 85);
+
+	/* ── Semantic: Surfaces ── */
+	--ls-bg: var(--ls-void);
+	--ls-surface: var(--ls-ink-1);
+	--ls-surface-raised: var(--ls-ink-2);
+	--ls-surface-overlay: var(--ls-ink-3);
+
+	/* ── Semantic: Text ── */
+	--ls-text: var(--ls-snow);
+	--ls-text-secondary: var(--ls-mist);
+	--ls-text-muted: var(--ls-mist-dim);
+
+	/* ── Semantic: Interactive ── */
+	--ls-interactive: var(--ls-plum);
+	--ls-interactive-hover: var(--ls-plum-soft);
+	--ls-focus-ring: var(--ls-sky);
+
+	/* ── Semantic: Borders ── */
+	--ls-border: oklch(0.2 0.01 280);
+	--ls-border-hover: oklch(0.28 0.01 280);
+	--ls-border-subtle: oklch(0.15 0.01 280);
+
+	/* ── Semantic: Status ── */
+	--ls-status-active: var(--ls-green);
+	--ls-status-active-bg: oklch(0.8 0.12 170 / 0.12);
+	--ls-status-pending: var(--ls-amber);
+	--ls-status-pending-bg: oklch(0.85 0.12 85 / 0.12);
+
+	/* ── Accent: LS Group ── */
+	--ls-gradient: linear-gradient(135deg, var(--ls-plum), var(--ls-sky));
+	--ls-glow-plum: color-mix(in oklch, var(--ls-plum) 6%, transparent);
+	--ls-glow-sky: color-mix(in oklch, var(--ls-sky) 6%, transparent);
+
+	/* ── 8pt Spacing Grid ── */
+	--ls-space-1: 0.25rem; /* 4px */
+	--ls-space-2: 0.5rem; /* 8px */
+	--ls-space-3: 0.75rem; /* 12px */
+	--ls-space-4: 1rem; /* 16px */
+	--ls-space-5: 1.5rem; /* 24px */
+	--ls-space-6: 2rem; /* 32px */
+	--ls-space-7: 2.5rem; /* 40px */
+	--ls-space-8: 3rem; /* 48px */
+	--ls-space-10: 4rem; /* 64px */
+	--ls-space-12: 5rem; /* 80px */
+	--ls-space-16: 8rem; /* 128px */
+
+	/* ── Radius ── */
+	--ls-r-sm: 6px;
+	--ls-r-md: 10px;
+	--ls-r-lg: 16px;
+	--ls-r-xl: 24px;
+	--ls-r-full: 9999px;
+
+	/* ── Timing (spring-influenced) ── */
+	--ls-ease: cubic-bezier(0.16, 1, 0.3, 1);
+	--ls-ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+	--ls-ease-float: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+	--ls-dur-fast: 0.3s;
+	--ls-dur-base: 0.5s;
+	--ls-dur-slow: 0.8s;
+	--ls-dur-breath: 8s;
+
+	/* ── Shadows ── */
+	--ls-shadow-sm: 0 2px 8px oklch(0 0 0 / 0.25);
+	--ls-shadow-md: 0 6px 20px oklch(0 0 0 / 0.3);
+	--ls-shadow-lg: 0 12px 36px oklch(0 0 0 / 0.35);
+	--ls-edge:
+		inset 0 1px 0 oklch(1 0 0 / 0.04), inset 1px 0 0 oklch(1 0 0 / 0.02),
+		inset 0 -1px 0 oklch(1 0 0 / 0.01), inset -1px 0 0 oklch(1 0 0 / 0.015);
+
+	/* ── Layout ── */
+	--ls-content-max: 960px;
+	--ls-content-wide: 1200px;
+
+	/* ── App Portal ── */
+	--ls-app-sidebar-w: 320px;
+	--ls-app-content-gap: var(--ls-space-6);
+	--ls-app-card-min: 280px;
+}
+
+/* ── Per-app accent scoping ── */
+[data-app="keepnbuild"] {
+	--ls-app-accent: oklch(0.78 0.14 75);
+	--ls-app-accent-2: oklch(0.72 0.1 180);
+	--ls-app-gradient: linear-gradient(
+		135deg,
+		oklch(0.78 0.14 75),
+		oklch(0.72 0.1 180)
+	);
+}
+
+[data-app="worthee"] {
+	--ls-app-accent: oklch(0.72 0.16 55);
+	--ls-app-accent-2: oklch(0.65 0.15 20);
+	--ls-app-gradient: linear-gradient(
+		135deg,
+		oklch(0.72 0.16 55),
+		oklch(0.65 0.15 20)
+	);
+}

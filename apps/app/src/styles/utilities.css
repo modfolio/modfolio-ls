@@ -1,0 +1,87 @@
+/* ── Utility Classes ── */
+
+/* Screen reader only */
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border-width: 0;
+}
+
+/* Skip link */
+.skip-link {
+	position: absolute;
+	top: -100%;
+	left: var(--ls-space-4);
+	z-index: 9999;
+	padding: var(--ls-space-2) var(--ls-space-4);
+	background: var(--ls-surface-raised);
+	color: var(--ls-text);
+	font-family: var(--ls-font-ui);
+	font-size: var(--ls-text-sm);
+	border-radius: var(--ls-r-sm);
+	transition: top var(--ls-dur-fast) var(--ls-ease);
+}
+
+.skip-link:focus {
+	top: var(--ls-space-4);
+}
+
+/* Content container */
+.container {
+	width: 100%;
+	max-width: var(--ls-content-max);
+	margin-inline: auto;
+	padding-inline: var(--ls-space-5);
+}
+
+.container-wide {
+	max-width: var(--ls-content-wide);
+}
+
+/* Section label (EN uppercase) */
+.section-label {
+	font-family: var(--ls-font-ui);
+	font-size: var(--ls-text-xs);
+	font-weight: 600;
+	letter-spacing: var(--ls-tracking-widest);
+	text-transform: uppercase;
+	color: var(--ls-text-muted);
+	margin-bottom: var(--ls-space-3);
+}
+
+/* Section heading */
+.section-heading {
+	font-family: var(--ls-font-display);
+	font-size: var(--ls-text-2xl);
+	font-weight: 700;
+	line-height: var(--ls-leading-tight);
+	letter-spacing: var(--ls-tracking-tight);
+	color: var(--ls-text);
+	margin-bottom: var(--ls-space-5);
+}
+
+/* Gradient text */
+.gradient-text {
+	background: var(--ls-gradient);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+}
+
+/* Grain overlay (wabi-sabi texture) */
+.grain-overlay {
+	position: fixed;
+	inset: 0;
+	z-index: 9998;
+	pointer-events: none;
+	opacity: 0.03;
+	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+	background-repeat: repeat;
+	background-size: 256px 256px;
+}

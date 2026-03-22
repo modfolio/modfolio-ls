@@ -7,29 +7,35 @@ interface Props {
 
 const { app } = Astro.props;
 const href = app.status === "active" ? app.url : app.landingUrl;
-const linkLabel = app.status === "active" ? "앱 열기" : "랜딩 보기";
+const ctaLabel = app.status === "active" ? "열기" : "시작하기";
 ---
 
 <article class="app-card" data-app={app.id}>
-	<div class="app-card-header">
-		<div class="app-card-meta">
-			<h3 class="app-card-name" lang="en">{app.name}</h3>
-			<span class="app-card-tagline" lang="en">{app.tagline}</span>
-		</div>
-	</div>
-
-	<p class="app-card-desc">{app.desc}</p>
-
-	<div class="app-card-footer">
-		<span class="app-card-domain" lang="en">{app.domain}</span>
-		<span class={`app-card-status status-${app.status}`}>
-			{app.status === "active" ? "Active" : "준비 중"}
+	<div class="app-card-icon-area">
+		<span class="app-card-icon" aria-hidden="true">
+			{app.category === "travel" ? "✈" : "🎯"}
 		</span>
 	</div>
 
-	<a href={href} class="app-card-link" target="_blank" rel="noopener">
-		{linkLabel} &rarr;
-	</a>
+	<div class="app-card-body">
+		<div class="app-card-header">
+			<h3 class="app-card-name" lang="en">{app.name}</h3>
+			<span class="app-card-tagline" lang="en">{app.tagline}</span>
+		</div>
+
+		<p class="app-card-desc">{app.desc}</p>
+
+		<div class="app-card-meta">
+			<span class="app-card-domain" lang="en">{app.domain}</span>
+			<span class={`app-card-status status-${app.status}`}>
+				{app.status === "active" ? "Active" : "준비 중"}
+			</span>
+		</div>
+
+		<a href={href} class="app-card-cta" target="_blank" rel="noopener">
+			{ctaLabel} &rarr;
+		</a>
+	</div>
 </article>
 
 <style>
@@ -37,7 +43,7 @@ const linkLabel = app.status === "active" ? "앱 열기" : "랜딩 보기";
 		background: var(--ls-surface);
 		border: 1px solid var(--ls-border);
 		border-radius: var(--ls-r-lg);
-		padding: var(--ls-space-5);
+		overflow: hidden;
 		transition:
 			transform var(--ls-dur-fast) var(--ls-ease),
 			border-color var(--ls-dur-fast) var(--ls-ease);
@@ -48,11 +54,28 @@ const linkLabel = app.status === "active" ? "앱 열기" : "랜딩 보기";
 		border-color: var(--ls-border-hover);
 	}
 
-	.app-card-header {
+	.app-card-icon-area {
+		height: 64px;
 		display: flex;
 		align-items: center;
-		gap: var(--ls-space-3);
-		margin-bottom: var(--ls-space-4);
+		justify-content: center;
+		background: var(--ls-app-gradient, var(--ls-gradient));
+		opacity: 0.15;
+		position: relative;
+	}
+
+	.app-card-icon {
+		font-size: 1.5rem;
+		position: absolute;
+		opacity: 1;
+	}
+
+	.app-card-body {
+		padding: var(--ls-space-5);
+	}
+
+	.app-card-header {
+		margin-bottom: var(--ls-space-3);
 	}
 
 	.app-card-name {
@@ -60,6 +83,7 @@ const linkLabel = app.status === "active" ? "앱 열기" : "랜딩 보기";
 		font-size: var(--ls-text-lg);
 		font-weight: 700;
 		line-height: var(--ls-leading-snug);
+		margin-bottom: var(--ls-space-1);
 	}
 
 	.app-card-tagline {
@@ -74,10 +98,10 @@ const linkLabel = app.status === "active" ? "앱 열기" : "랜딩 보기";
 		font-size: var(--ls-text-sm);
 		color: var(--ls-text-secondary);
 		line-height: var(--ls-leading-normal);
-		margin-bottom: var(--ls-space-5);
+		margin-bottom: var(--ls-space-4);
 	}
 
-	.app-card-footer {
+	.app-card-meta {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
@@ -110,7 +134,7 @@ const linkLabel = app.status === "active" ? "앱 열기" : "랜딩 보기";
 		color: var(--ls-status-pending);
 	}
 
-	.app-card-link {
+	.app-card-cta {
 		display: inline-flex;
 		align-items: center;
 		gap: var(--ls-space-2);
@@ -118,10 +142,16 @@ const linkLabel = app.status === "active" ? "앱 열기" : "랜딩 보기";
 		font-size: var(--ls-text-sm);
 		font-weight: 600;
 		color: var(--ls-app-accent, var(--ls-interactive));
-		transition: opacity var(--ls-dur-fast) var(--ls-ease);
+		padding: var(--ls-space-2) var(--ls-space-4);
+		border: 1px solid var(--ls-border);
+		border-radius: var(--ls-r-md);
+		transition:
+			border-color var(--ls-dur-fast) var(--ls-ease),
+			background var(--ls-dur-fast) var(--ls-ease);
 	}
 
-	.app-card-link:hover {
-		opacity: 0.8;
+	.app-card-cta:hover {
+		border-color: var(--ls-app-accent, var(--ls-interactive));
+		background: oklch(0.72 0.14 320 / 0.06);
 	}
 </style>

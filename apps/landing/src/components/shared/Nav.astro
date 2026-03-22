@@ -15,10 +15,7 @@ const { user } = Astro.props;
 
 		<div class="nav-actions">
 			{user ? (
-				<div class="nav-user">
-					<span class="nav-email">{user.email}</span>
-					<a href="/auth/logout" class="nav-link">로그아웃</a>
-				</div>
+				<a href="https://life.modfolio.io" class="nav-link nav-link-primary">대시보드</a>
 			) : (
 				<a href="/auth/login" class="nav-link nav-link-primary">시작하기</a>
 			)}
