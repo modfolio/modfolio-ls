@@ -2,22 +2,17 @@
 	"name": "modfolio-ls",
 	"compatibility_date": "2026-03-01",
 	"compatibility_flags": ["nodejs_compat"],
-	// Observability — CF Automatic Tracing + OTLP → SigNoz
 	"observability": {
 		"traces": {
 			"enabled": true,
 			"head_sampling_rate": 1,
-			"destinations": [
-				"modfolio-signoz"
-			],
+			"destinations": ["modfolio-signoz"],
 			"persist": false
 		},
 		"logs": {
 			"enabled": true,
 			"head_sampling_rate": 1,
-			"destinations": [
-				"modfolio-signoz-logs"
-			],
+			"destinations": ["modfolio-signoz-logs"],
 			"persist": false
 		}
 	}
