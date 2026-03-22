@@ -1,0 +1,85 @@
+/* ============================================================
+   Typography — CLS Metric Overrides + Font Stacks + Fluid Scale
+   ============================================================ */
+
+/* ── CLS Prevention: Fallback metric overrides ── */
+
+@font-face {
+	font-family: "goldenbook-fallback";
+	src: local("Georgia"), local("Noto Serif KR");
+	ascent-override: 95%;
+	descent-override: 25%;
+	line-gap-override: 0%;
+	size-adjust: 105%;
+}
+
+@font-face {
+	font-family: "brandon-grotesque-fallback";
+	src: local("Arial"), local("Pretendard Variable"), local("Pretendard");
+	ascent-override: 98%;
+	descent-override: 24%;
+	line-gap-override: 0%;
+	size-adjust: 101%;
+}
+
+@font-face {
+	font-family: "neue-haas-unica-fallback";
+	src: local("Arial"), local("Pretendard Variable"), local("Pretendard");
+	ascent-override: 100%;
+	descent-override: 22%;
+	line-gap-override: 0%;
+	size-adjust: 100%;
+}
+
+@font-face {
+	font-family: "acumin-pro-fallback";
+	src: local("Arial"), local("Pretendard Variable"), local("Pretendard");
+	ascent-override: 97%;
+	descent-override: 25%;
+	line-gap-override: 0%;
+	size-adjust: 99%;
+}
+
+/* ── Font Stacks ── */
+
+:root {
+	--ls-font-display:
+		"goldenbook", "goldenbook-fallback", "sandoll-jebi2", "Noto Serif KR", serif;
+
+	--ls-font-body:
+		"neue-haas-unica", "neue-haas-unica-fallback", "Pretendard Variable",
+		"Pretendard", sans-serif;
+
+	--ls-font-story:
+		"acumin-pro", "acumin-pro-fallback", "Pretendard Variable", "Pretendard",
+		sans-serif;
+
+	--ls-font-ui:
+		"brandon-grotesque", "brandon-grotesque-fallback", "Pretendard Variable",
+		"Pretendard", sans-serif;
+
+	--ls-font-code: "degular-mono", "JetBrains Mono", monospace;
+
+	/* ── Line Heights ── */
+	--ls-leading-tight: 1.15;
+	--ls-leading-snug: 1.3;
+	--ls-leading-normal: 1.6;
+	--ls-leading-relaxed: 1.75;
+
+	/* ── Letter Spacing ── */
+	--ls-tracking-tight: -0.02em;
+	--ls-tracking-normal: 0;
+	--ls-tracking-wide: 0.04em;
+	--ls-tracking-widest: 0.12em;
+
+	/* ── Fluid Type Scale ── */
+	--ls-text-xs: clamp(0.7rem, 0.65rem + 0.25vw, 0.75rem);
+	--ls-text-sm: clamp(0.8rem, 0.75rem + 0.25vw, 0.875rem);
+	--ls-text-base: clamp(0.9rem, 0.85rem + 0.25vw, 1rem);
+	--ls-text-md: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
+	--ls-text-lg: clamp(1.125rem, 1rem + 0.6vw, 1.375rem);
+	--ls-text-xl: clamp(1.375rem, 1.1rem + 1.2vw, 2rem);
+	--ls-text-2xl: clamp(1.75rem, 1.3rem + 2vw, 2.75rem);
+	--ls-text-3xl: clamp(2.25rem, 1.5rem + 3.5vw, 4rem);
+	--ls-text-4xl: clamp(3rem, 2rem + 5vw, 5.5rem);
+}

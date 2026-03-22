@@ -1,0 +1,87 @@
+---
+/* AIDA Interest/Desire: 3 value pillars */
+const pillars = [
+	{
+		title: "하나의 계정, 모든 라이프스타일",
+		desc: "Modfolio Connect 계정 하나로 KeepNBuild, Worthee 모두 이용할 수 있습니다.",
+		icon: "🔑",
+	},
+	{
+		title: "여행에서 습관까지, 연결된 일상",
+		desc: "각 앱은 독립적이지만, 당신의 데이터는 하나의 라이프스타일로 연결됩니다.",
+		icon: "🔗",
+	},
+	{
+		title: "당신의 데이터, 당신의 것",
+		desc: "모든 데이터는 안전하게 암호화되며, 언제든 내보내기가 가능합니다.",
+		icon: "🛡️",
+	},
+];
+---
+
+<section class="value reveal" aria-labelledby="value-heading">
+	<div class="container">
+		<span class="section-label" lang="en">WHY MODFOLIO LS</span>
+		<h2 id="value-heading" class="section-heading">라이프스타일의 새로운 기준</h2>
+
+		<div class="value-grid">
+			{pillars.map((p, i) => (
+				<div class={`value-card reveal reveal-delay-${i + 1}`}>
+					<span class="value-icon" aria-hidden="true">{p.icon}</span>
+					<h3 class="value-title">{p.title}</h3>
+					<p class="value-desc">{p.desc}</p>
+				</div>
+			))}
+		</div>
+	</div>
+</section>
+
+<style>
+	.value {
+		position: relative;
+		z-index: 1;
+		padding-block: var(--ls-space-12);
+	}
+
+	.value-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+		gap: var(--ls-space-5);
+	}
+
+	.value-card {
+		background: var(--ls-surface);
+		border: 1px solid var(--ls-border);
+		border-radius: var(--ls-r-lg);
+		padding: var(--ls-space-6);
+		transition:
+			transform var(--ls-dur-fast) var(--ls-ease),
+			border-color var(--ls-dur-fast) var(--ls-ease);
+	}
+
+	.value-card:hover {
+		transform: translateY(-2px);
+		border-color: var(--ls-border-hover);
+	}
+
+	.value-icon {
+		display: block;
+		font-size: 1.75rem;
+		margin-bottom: var(--ls-space-4);
+	}
+
+	.value-title {
+		font-family: var(--ls-font-body);
+		font-size: var(--ls-text-md);
+		font-weight: 600;
+		line-height: var(--ls-leading-snug);
+		margin-bottom: var(--ls-space-3);
+	}
+
+	.value-desc {
+		font-family: var(--ls-font-story);
+		font-size: var(--ls-text-sm);
+		color: var(--ls-text-secondary);
+		line-height: var(--ls-leading-normal);
+	}
+</style>

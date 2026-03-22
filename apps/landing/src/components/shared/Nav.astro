@@ -1,0 +1,123 @@
+---
+interface Props {
+	user: import("@modfolio/connect-sdk/astro").ConnectUser | null;
+}
+
+const { user } = Astro.props;
+---
+
+<nav class="nav" aria-label="메인 내비게이션">
+	<div class="nav-inner container container-wide">
+		<a href="/" class="nav-brand">
+			<span class="nav-brand-text" lang="en">Modfolio</span>
+			<span class="nav-brand-badge" lang="en">LS</span>
+		</a>
+
+		<div class="nav-actions">
+			{user ? (
+				<div class="nav-user">
+					<span class="nav-email">{user.email}</span>
+					<a href="/auth/logout" class="nav-link">로그아웃</a>
+				</div>
+			) : (
+				<a href="/auth/login" class="nav-link nav-link-primary">시작하기</a>
+			)}
+		</div>
+	</div>
+</nav>
+
+<style>
+	.nav {
+		position: sticky;
+		top: 0;
+		z-index: 100;
+		backdrop-filter: blur(12px);
+		background: oklch(0.08 0.012 275 / 0.8);
+		border-bottom: 1px solid var(--ls-border-subtle);
+	}
+
+	.nav-inner {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		height: 56px;
+	}
+
+	.nav-brand {
+		display: flex;
+		align-items: center;
+		gap: var(--ls-space-2);
+	}
+
+	.nav-brand-text {
+		font-family: var(--ls-font-ui);
+		font-size: var(--ls-text-sm);
+		font-weight: 600;
+		letter-spacing: var(--ls-tracking-wide);
+		color: var(--ls-text-secondary);
+	}
+
+	.nav-brand-badge {
+		font-family: var(--ls-font-ui);
+		font-size: var(--ls-text-xs);
+		font-weight: 700;
+		letter-spacing: var(--ls-tracking-widest);
+		color: var(--ls-text);
+		background: var(--ls-surface-raised);
+		padding: 2px 8px;
+		border-radius: var(--ls-r-sm);
+		border: 1px solid var(--ls-border);
+	}
+
+	.nav-actions {
+		display: flex;
+		align-items: center;
+		gap: var(--ls-space-4);
+	}
+
+	.nav-user {
+		display: flex;
+		align-items: center;
+		gap: var(--ls-space-4);
+	}
+
+	.nav-email {
+		font-family: var(--ls-font-story);
+		font-size: var(--ls-text-xs);
+		color: var(--ls-text-muted);
+		display: none;
+	}
+
+	@media (min-width: 640px) {
+		.nav-email {
+			display: block;
+		}
+	}
+
+	.nav-link {
+		font-family: var(--ls-font-ui);
+		font-size: var(--ls-text-sm);
+		font-weight: 500;
+		color: var(--ls-text-secondary);
+		padding: var(--ls-space-1) var(--ls-space-3);
+		border-radius: var(--ls-r-sm);
+		transition: color var(--ls-dur-fast) var(--ls-ease);
+	}
+
+	.nav-link:hover {
+		color: var(--ls-text);
+	}
+
+	.nav-link-primary {
+		color: var(--ls-bg);
+		background: var(--ls-gradient);
+		font-weight: 600;
+		padding: var(--ls-space-2) var(--ls-space-4);
+		border-radius: var(--ls-r-md);
+	}
+
+	.nav-link-primary:hover {
+		opacity: 0.9;
+		color: var(--ls-bg);
+	}
+</style>

@@ -1,0 +1,127 @@
+---
+import type { LsApp } from "../../lib/apps";
+
+interface Props {
+	app: LsApp;
+}
+
+const { app } = Astro.props;
+const href = app.status === "active" ? app.url : app.landingUrl;
+const linkLabel = app.status === "active" ? "앱 열기" : "랜딩 보기";
+---
+
+<article class="app-card" data-app={app.id}>
+	<div class="app-card-header">
+		<div class="app-card-meta">
+			<h3 class="app-card-name" lang="en">{app.name}</h3>
+			<span class="app-card-tagline" lang="en">{app.tagline}</span>
+		</div>
+	</div>
+
+	<p class="app-card-desc">{app.desc}</p>
+
+	<div class="app-card-footer">
+		<span class="app-card-domain" lang="en">{app.domain}</span>
+		<span class={`app-card-status status-${app.status}`}>
+			{app.status === "active" ? "Active" : "준비 중"}
+		</span>
+	</div>
+
+	<a href={href} class="app-card-link" target="_blank" rel="noopener">
+		{linkLabel} &rarr;
+	</a>
+</article>
+
+<style>
+	.app-card {
+		background: var(--ls-surface);
+		border: 1px solid var(--ls-border);
+		border-radius: var(--ls-r-lg);
+		padding: var(--ls-space-5);
+		transition:
+			transform var(--ls-dur-fast) var(--ls-ease),
+			border-color var(--ls-dur-fast) var(--ls-ease);
+	}
+
+	.app-card:hover {
+		transform: translateY(-2px);
+		border-color: var(--ls-border-hover);
+	}
+
+	.app-card-header {
+		display: flex;
+		align-items: center;
+		gap: var(--ls-space-3);
+		margin-bottom: var(--ls-space-4);
+	}
+
+	.app-card-name {
+		font-family: var(--ls-font-display);
+		font-size: var(--ls-text-lg);
+		font-weight: 700;
+		line-height: var(--ls-leading-snug);
+	}
+
+	.app-card-tagline {
+		font-family: var(--ls-font-ui);
+		font-size: var(--ls-text-xs);
+		color: var(--ls-app-accent, var(--ls-interactive));
+		letter-spacing: var(--ls-tracking-wide);
+	}
+
+	.app-card-desc {
+		font-family: var(--ls-font-story);
+		font-size: var(--ls-text-sm);
+		color: var(--ls-text-secondary);
+		line-height: var(--ls-leading-normal);
+		margin-bottom: var(--ls-space-5);
+	}
+
+	.app-card-footer {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: var(--ls-space-4);
+	}
+
+	.app-card-domain {
+		font-family: var(--ls-font-code);
+		font-size: var(--ls-text-xs);
+		color: var(--ls-text-muted);
+	}
+
+	.app-card-status {
+		font-family: var(--ls-font-ui);
+		font-size: var(--ls-text-xs);
+		font-weight: 600;
+		letter-spacing: var(--ls-tracking-wide);
+		text-transform: uppercase;
+		padding: 2px var(--ls-space-3);
+		border-radius: var(--ls-r-full);
+	}
+
+	.status-active {
+		background: var(--ls-status-active-bg);
+		color: var(--ls-status-active);
+	}
+
+	.status-landing {
+		background: var(--ls-status-pending-bg);
+		color: var(--ls-status-pending);
+	}
+
+	.app-card-link {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--ls-space-2);
+		font-family: var(--ls-font-ui);
+		font-size: var(--ls-text-sm);
+		font-weight: 600;
+		color: var(--ls-app-accent, var(--ls-interactive));
+		transition: opacity var(--ls-dur-fast) var(--ls-ease);
+	}
+
+	.app-card-link:hover {
+		opacity: 0.8;
+	}
+</style>

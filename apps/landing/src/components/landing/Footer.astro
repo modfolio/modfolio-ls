@@ -1,0 +1,150 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="footer" role="contentinfo">
+	<div class="container container-wide footer-inner">
+		<div class="footer-grid">
+			<!-- Brand -->
+			<div class="footer-col">
+				<p class="footer-brand">
+					<span lang="en">Modfolio LS</span>
+				</p>
+				<p class="footer-tagline">라이프스타일 그룹</p>
+				<p class="footer-parent">
+					A <a href="https://modfolio.io" target="_blank" rel="noopener" lang="en">Modfolio</a> Group
+				</p>
+			</div>
+
+			<!-- Services -->
+			<div class="footer-col">
+				<h3 class="footer-heading" lang="en">Services</h3>
+				<ul class="footer-list">
+					<li><a href="https://keepnbuild.com" target="_blank" rel="noopener" lang="en">KeepNBuild</a></li>
+					<li><a href="https://worthee.io" target="_blank" rel="noopener" lang="en">Worthee</a></li>
+				</ul>
+			</div>
+
+			<!-- Ecosystem -->
+			<div class="footer-col">
+				<h3 class="footer-heading" lang="en">Ecosystem</h3>
+				<ul class="footer-list">
+					<li><a href="https://modfolio.io" target="_blank" rel="noopener" lang="en">Modfolio</a></li>
+					<li><a href="https://connect.modfolio.io" target="_blank" rel="noopener" lang="en">Connect</a></li>
+					<li><a href="https://docs.modfolio.io" target="_blank" rel="noopener" lang="en">Docs</a></li>
+				</ul>
+			</div>
+
+			<!-- Legal -->
+			<div class="footer-col">
+				<h3 class="footer-heading">법률</h3>
+				<ul class="footer-list">
+					<li><a href="https://modfolio.io/privacy">개인정보처리방침</a></li>
+					<li><a href="https://modfolio.io/terms">이용약관</a></li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="footer-bottom">
+			<p class="footer-copy">&copy; {year} <span lang="en">Modfolio Inc.</span> All rights reserved.</p>
+		</div>
+	</div>
+</footer>
+
+<style>
+	.footer {
+		position: relative;
+		z-index: 1;
+		border-top: 1px solid var(--ls-border);
+		padding-block: var(--ls-space-10) var(--ls-space-6);
+	}
+
+	.footer-grid {
+		display: grid;
+		grid-template-columns: 1.5fr repeat(3, 1fr);
+		gap: var(--ls-space-8);
+		margin-bottom: var(--ls-space-8);
+	}
+
+	@media (max-width: 768px) {
+		.footer-grid {
+			grid-template-columns: repeat(2, 1fr);
+			gap: var(--ls-space-6);
+		}
+	}
+
+	@media (max-width: 480px) {
+		.footer-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+
+	.footer-brand {
+		font-family: var(--ls-font-ui);
+		font-size: var(--ls-text-md);
+		font-weight: 700;
+		letter-spacing: var(--ls-tracking-wide);
+		margin-bottom: var(--ls-space-2);
+	}
+
+	.footer-tagline {
+		font-family: var(--ls-font-story);
+		font-size: var(--ls-text-sm);
+		color: var(--ls-text-secondary);
+		margin-bottom: var(--ls-space-3);
+	}
+
+	.footer-parent {
+		font-family: var(--ls-font-story);
+		font-size: var(--ls-text-xs);
+		color: var(--ls-text-muted);
+	}
+
+	.footer-parent a {
+		color: var(--ls-text-secondary);
+		transition: color var(--ls-dur-fast) var(--ls-ease);
+	}
+
+	.footer-parent a:hover {
+		color: var(--ls-text);
+	}
+
+	.footer-heading {
+		font-family: var(--ls-font-ui);
+		font-size: var(--ls-text-xs);
+		font-weight: 600;
+		letter-spacing: var(--ls-tracking-widest);
+		text-transform: uppercase;
+		color: var(--ls-text-muted);
+		margin-bottom: var(--ls-space-4);
+	}
+
+	.footer-list {
+		list-style: none;
+		display: flex;
+		flex-direction: column;
+		gap: var(--ls-space-3);
+	}
+
+	.footer-list a {
+		font-family: var(--ls-font-story);
+		font-size: var(--ls-text-sm);
+		color: var(--ls-text-secondary);
+		transition: color var(--ls-dur-fast) var(--ls-ease);
+	}
+
+	.footer-list a:hover {
+		color: var(--ls-text);
+	}
+
+	.footer-bottom {
+		border-top: 1px solid var(--ls-border-subtle);
+		padding-top: var(--ls-space-5);
+	}
+
+	.footer-copy {
+		font-family: var(--ls-font-story);
+		font-size: var(--ls-text-xs);
+		color: var(--ls-text-muted);
+	}
+</style>

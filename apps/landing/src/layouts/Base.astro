@@ -1,0 +1,116 @@
+---
+import "../styles/tokens.css";
+import "../styles/typography.css";
+import "../styles/reset.css";
+import "../styles/animations.css";
+import "../styles/utilities.css";
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const {
+	title = "Modfolio LS — Lifestyle Group",
+	description = "여행 설계부터 자기관리까지. KeepNBuild와 Worthee가 당신의 라이프스타일을 연결합니다.",
+} = Astro.props;
+
+const siteUrl = "https://ls.modfolio.io";
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
+---
+
+<html lang="ko">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>{title}</title>
+	<meta name="description" content={description} />
+	<link rel="canonical" href={canonicalUrl} />
+
+	<!-- Open Graph -->
+	<meta property="og:title" content={title} />
+	<meta property="og:description" content={description} />
+	<meta property="og:url" content={canonicalUrl} />
+	<meta property="og:type" content="website" />
+	<meta property="og:locale" content="ko_KR" />
+	<meta property="og:site_name" content="Modfolio LS" />
+
+	<!-- Structured Data -->
+	<script is:inline type="application/ld+json" set:html={JSON.stringify({
+		"@context": "https://schema.org",
+		"@type": "Organization",
+		"name": "Modfolio LS",
+		"url": siteUrl,
+		"description": description,
+		"parentOrganization": {
+			"@type": "Organization",
+			"name": "Modfolio",
+			"url": "https://modfolio.io",
+		},
+	})} />
+
+	<!-- Theme -->
+	<meta name="theme-color" content="#0d0d17" />
+
+	<!-- Adobe Typekit: master kit fmh4fod (JS API for Korean subsetting) -->
+	<link rel="preconnect" href="https://use.typekit.net" crossorigin />
+	<script is:inline>
+		(function(d) {
+			var config = { kitId: 'fmh4fod', scriptTimeout: 3000, async: true },
+			h=d.documentElement,t=setTimeout(function(){
+				h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";
+			},config.scriptTimeout),tk=d.createElement("script"),f=false,
+			s=d.getElementsByTagName("script")[0],a;
+			h.className+=" wf-loading";
+			tk.src='https://use.typekit.net/'+config.kitId+'.js';
+			tk.async=true;
+			tk.onload=tk.onreadystatechange=function(){
+				a=this.readyState;
+				if(f||a&&a!="complete"&&a!="loaded")return;
+				f=true;clearTimeout(t);
+				try{Typekit.load(config)}catch(e){}
+			};
+			s.parentNode.insertBefore(tk,s)
+		})(document);
+	</script>
+
+	<!-- Pretendard (Korean sans fallback) -->
+	<link
+		rel="stylesheet"
+		href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+	/>
+
+	<!-- JetBrains Mono (code fallback for degular-mono) -->
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link
+		href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap"
+		rel="stylesheet"
+	/>
+</head>
+<body>
+	<a href="#main" class="skip-link">본문으로 건너뛰기</a>
+	<div class="grain-overlay" aria-hidden="true"></div>
+	<slot />
+
+	<!-- Scroll reveal observer -->
+	<script is:inline>
+		(function() {
+			var els = document.querySelectorAll('.reveal');
+			if (!els.length || !('IntersectionObserver' in window)) {
+				els.forEach(function(el) { el.classList.add('visible'); });
+				return;
+			}
+			var observer = new IntersectionObserver(function(entries) {
+				entries.forEach(function(entry) {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('visible');
+						observer.unobserve(entry.target);
+					}
+				});
+			}, { threshold: 0.15 });
+			els.forEach(function(el) { observer.observe(el); });
+		})();
+	</script>
+</body>
+</html>

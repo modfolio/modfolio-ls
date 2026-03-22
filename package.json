@@ -1,10 +1,19 @@
 {
-  "name": "modfolio-ls",
-  "private": true,
-  "workspaces": ["apps/*"],
-  "packageManager": "bun@1.2.4",
-  "scripts": {
-    "build": "cd apps/landing && bun run build",
-    "dev": "cd apps/landing && bun run dev"
-  }
+	"name": "modfolio-ls",
+	"private": true,
+	"workspaces": [
+		"apps/*"
+	],
+	"packageManager": "bun@1.2.4",
+	"scripts": {
+		"build": "bun run --cwd apps/landing build",
+		"dev": "bun run --cwd apps/landing dev",
+		"check": "biome check .",
+		"check:fix": "biome check --write .",
+		"typecheck": "bun run --cwd apps/landing typecheck"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.4.8",
+		"typescript": "^5.9.3"
+	}
 }

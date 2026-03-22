@@ -1,0 +1,82 @@
+/* ── Animations & Motion ── */
+
+/* Glow breathing */
+@keyframes ls-glow-breath {
+	0%,
+	100% {
+		opacity: 0.04;
+	}
+	50% {
+		opacity: 0.08;
+	}
+}
+
+/* Section reveal */
+@keyframes ls-reveal {
+	from {
+		opacity: 0;
+		transform: translateY(16px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* Subtle float */
+@keyframes ls-float {
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-6px);
+	}
+}
+
+/* ── Reveal utility ── */
+.reveal {
+	opacity: 0;
+}
+
+.reveal.visible {
+	animation: ls-reveal var(--ls-dur-slow) var(--ls-ease) forwards;
+}
+
+/* ── Stagger delays ── */
+.reveal-delay-1 {
+	animation-delay: 0.1s;
+}
+.reveal-delay-2 {
+	animation-delay: 0.2s;
+}
+.reveal-delay-3 {
+	animation-delay: 0.3s;
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+
+	.reveal {
+		opacity: 1;
+		animation: none;
+	}
+
+	.reveal.visible {
+		animation: none;
+	}
+
+	.reveal-delay-1,
+	.reveal-delay-2,
+	.reveal-delay-3 {
+		animation-delay: 0s;
+	}
+
+	.glow-orb {
+		animation: none;
+		opacity: 0.04;
+	}
+}

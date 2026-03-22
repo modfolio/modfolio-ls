@@ -1,0 +1,136 @@
+---
+/* FBO Framework: Feature → Benefit → Outcome (lead with Outcome) */
+import { apps } from "../../lib/apps";
+
+const showcaseData = [
+	{
+		app: apps[0],
+		badge: "TRAVEL DESIGN",
+		outcome: "완벽하게 당신만의 여행을 완성하세요.",
+		detail:
+			"여행 일정을 직접 설계하고, 경험을 기록하고, 다음 여행을 미리 그려보세요.",
+		cta: "여행 설계 시작",
+	},
+	{
+		app: apps[1],
+		badge: "HONOR & HABITS",
+		outcome: "성실함이 증명되는 순간을 경험하세요.",
+		detail:
+			"매일 습관을 기록하고 인증하면, 커뮤니티가 검증하고 명예 배지가 발급됩니다.",
+		cta: "자기관리 시작",
+	},
+];
+---
+
+<section class="showcase reveal" id="showcase" aria-labelledby="showcase-heading">
+	<div class="container">
+		<span class="section-label" lang="en">DISCOVER</span>
+		<h2 id="showcase-heading" class="section-heading">두 가지 라이프스타일 도구</h2>
+
+		<div class="showcase-grid">
+			{showcaseData.map((item) => (
+				<article class="showcase-card" data-app={item.app.id}>
+					<div class="showcase-card-accent" aria-hidden="true" />
+					<div class="showcase-card-content">
+						<span class="showcase-badge" lang="en">{item.badge}</span>
+						<h3 class="showcase-name" lang="en">{item.app.name}</h3>
+						<p class="showcase-outcome">{item.outcome}</p>
+						<p class="showcase-detail">{item.detail}</p>
+						<a href={item.app.landingUrl} class="showcase-link" target="_blank" rel="noopener">
+							{item.cta} &rarr;
+						</a>
+					</div>
+				</article>
+			))}
+		</div>
+	</div>
+</section>
+
+<style>
+	.showcase {
+		position: relative;
+		z-index: 1;
+		padding-block: var(--ls-space-12);
+	}
+
+	.showcase-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+		gap: var(--ls-space-5);
+	}
+
+	.showcase-card {
+		position: relative;
+		background: var(--ls-surface);
+		border: 1px solid var(--ls-border);
+		border-radius: var(--ls-r-lg);
+		overflow: hidden;
+		transition:
+			transform var(--ls-dur-fast) var(--ls-ease),
+			border-color var(--ls-dur-fast) var(--ls-ease);
+	}
+
+	.showcase-card:hover {
+		transform: translateY(-3px);
+		border-color: var(--ls-border-hover);
+	}
+
+	.showcase-card-accent {
+		height: 3px;
+		background: var(--ls-app-gradient, var(--ls-gradient));
+	}
+
+	.showcase-card-content {
+		padding: var(--ls-space-6);
+	}
+
+	.showcase-badge {
+		display: inline-block;
+		font-family: var(--ls-font-ui);
+		font-size: var(--ls-text-xs);
+		font-weight: 600;
+		letter-spacing: var(--ls-tracking-widest);
+		color: var(--ls-app-accent, var(--ls-interactive));
+		margin-bottom: var(--ls-space-3);
+	}
+
+	.showcase-name {
+		font-family: var(--ls-font-display);
+		font-size: var(--ls-text-xl);
+		font-weight: 700;
+		line-height: var(--ls-leading-snug);
+		margin-bottom: var(--ls-space-4);
+	}
+
+	.showcase-outcome {
+		font-family: var(--ls-font-body);
+		font-size: var(--ls-text-md);
+		color: var(--ls-text);
+		font-weight: 500;
+		line-height: var(--ls-leading-snug);
+		margin-bottom: var(--ls-space-3);
+	}
+
+	.showcase-detail {
+		font-family: var(--ls-font-story);
+		font-size: var(--ls-text-sm);
+		color: var(--ls-text-secondary);
+		line-height: var(--ls-leading-normal);
+		margin-bottom: var(--ls-space-5);
+	}
+
+	.showcase-link {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--ls-space-2);
+		font-family: var(--ls-font-ui);
+		font-size: var(--ls-text-sm);
+		font-weight: 600;
+		color: var(--ls-app-accent, var(--ls-interactive));
+		transition: opacity var(--ls-dur-fast) var(--ls-ease);
+	}
+
+	.showcase-link:hover {
+		opacity: 0.8;
+	}
+</style>

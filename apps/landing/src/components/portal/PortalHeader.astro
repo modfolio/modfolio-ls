@@ -1,0 +1,44 @@
+---
+interface Props {
+	user: import("@modfolio/connect-sdk/astro").ConnectUser;
+}
+
+const { user } = Astro.props;
+const displayName = user.name || "탐험가";
+---
+
+<header class="portal-header">
+	<div class="portal-greeting">
+		<h1 class="portal-title">
+			반갑습니다, <span class="portal-name">{displayName}</span>
+		</h1>
+		<p class="portal-subtitle">오늘의 라이프스타일</p>
+	</div>
+</header>
+
+<style>
+	.portal-header {
+		margin-bottom: var(--ls-space-8);
+	}
+
+	.portal-title {
+		font-family: var(--ls-font-display);
+		font-size: var(--ls-text-xl);
+		font-weight: 700;
+		line-height: var(--ls-leading-snug);
+		margin-bottom: var(--ls-space-2);
+	}
+
+	.portal-name {
+		background: var(--ls-gradient);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+	}
+
+	.portal-subtitle {
+		font-family: var(--ls-font-story);
+		font-size: var(--ls-text-sm);
+		color: var(--ls-text-secondary);
+	}
+</style>
