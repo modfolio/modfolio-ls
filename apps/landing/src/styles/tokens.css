@@ -89,8 +89,8 @@
 	--ls-shadow-glow: 0 8px 40px var(--ls-glow-plum);
 
 	/* ── Layout ── */
-	--ls-content-max: 960px;
-	--ls-content-wide: 1200px;
+	--ls-content-max: 1200px;
+	--ls-content-wide: 1280px;
 }
 
 /* ── Per-app accents ── */

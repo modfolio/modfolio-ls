@@ -7,10 +7,11 @@ const { user } = Astro.props;
 ---
 
 <nav class="nav" aria-label="Main">
-	<div class="nav-inner container container-wide">
+	<div class="nav-inner">
 		<a href="/" class="nav-brand">
 			<span class="nav-logo" lang="en">Modfolio</span>
 			<span class="nav-badge gradient-text" lang="en">LS</span>
+			<span class="nav-brand-line" aria-hidden="true"></span>
 		</a>
 
 		{user ? (
@@ -23,8 +24,10 @@ const { user } = Astro.props;
 
 <style>
 	.nav {
-		position: sticky;
+		position: fixed;
 		top: 0;
+		left: 0;
+		right: 0;
 		z-index: 100;
 		backdrop-filter: blur(20px) saturate(1.4);
 		background: oklch(0.98 0.005 80 / 0.7);
@@ -35,27 +38,43 @@ const { user } = Astro.props;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		height: 56px;
+		height: 80px;
+		padding-inline: clamp(1rem, 4vw, 2rem);
 	}
 
 	.nav-brand {
+		position: relative;
 		display: flex;
 		align-items: baseline;
 		gap: var(--ls-space-2);
 	}
 
 	.nav-logo {
-		font-family: var(--ls-font-ui);
-		font-size: var(--ls-text-sm);
-		font-weight: 500;
-		letter-spacing: var(--ls-tracking-wide);
-		color: var(--ls-text-muted);
+		font-family: var(--ls-font-display);
+		font-size: var(--ls-text-lg);
+		font-weight: 700;
+		color: var(--ls-text);
 	}
 
 	.nav-badge {
 		font-family: var(--ls-font-display);
-		font-size: var(--ls-text-md);
+		font-size: var(--ls-text-lg);
 		font-weight: 700;
+	}
+
+	.nav-brand-line {
+		position: absolute;
+		bottom: -4px;
+		left: 50%;
+		width: 0;
+		height: 2px;
+		background: var(--ls-gradient);
+		transform: translateX(-50%);
+		transition: width 0.4s var(--ls-ease);
+	}
+
+	.nav-brand:hover .nav-brand-line {
+		width: 100%;
 	}
 
 	.nav-cta {
@@ -74,7 +93,7 @@ const { user } = Astro.props;
 
 	.nav-cta:hover {
 		color: var(--ls-text);
-		border-color: var(--ls-border-hover);
-		box-shadow: var(--ls-shadow-sm);
+		border-color: var(--ls-interactive);
+		box-shadow: 0 4px 20px var(--ls-glow-plum);
 	}
 </style>

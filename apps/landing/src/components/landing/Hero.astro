@@ -27,9 +27,9 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		min-height: 88vh;
+		min-height: 100vh;
 		text-align: center;
-		padding-block: var(--ls-space-16) var(--ls-space-12);
+		padding-block: calc(80px + var(--ls-space-12)) var(--ls-space-12);
 		background:
 			radial-gradient(
 				600px circle at var(--mx, 30%) var(--my, 40%),
@@ -90,7 +90,8 @@
 	}
 
 	.hero-btn:hover {
-		transform: translateY(-2px);
-		box-shadow: var(--ls-shadow-glow);
+		transform: translateY(-3px) scale(1.04);
+		box-shadow: 0 16px 56px var(--ls-glow-plum);
+		background-position: 100% 50%;
 	}
 </style>

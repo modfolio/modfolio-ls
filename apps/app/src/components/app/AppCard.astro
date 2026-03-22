@@ -10,7 +10,7 @@ const href = app.status === "active" ? app.url : app.landingUrl;
 const ctaLabel = app.status === "active" ? "열기" : "보기";
 ---
 
-<a href={href} class="app-card" data-app={app.id} data-tilt target="_blank" rel="noopener">
+<a href={href} class="app-card" data-app={app.id} target="_blank" rel="noopener">
 	<h3 class="app-card-name" lang="en">{app.name}</h3>
 	<p class="app-card-desc">{app.desc}</p>
 	<div class="app-card-footer">
