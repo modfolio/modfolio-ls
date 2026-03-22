@@ -1,0 +1,124 @@
+---
+import Footer from "../components/landing/Footer.astro";
+import Nav from "../components/shared/Nav.astro";
+import Base from "../layouts/Base.astro";
+
+const user = Astro.locals.user;
+
+const features = [
+	{
+		num: "01",
+		title: "하나의 계정, 모든 라이프스타일",
+		body: "Modfolio Connect로 KeepNBuild와 Worthee 모두 이용할 수 있습니다. 별도 가입 없이, 하나의 인증으로 모든 라이프스타일 도구에 접근하세요. SSO(Single Sign-On) 기반이라 비밀번호 관리 부담도 줄어듭니다.",
+	},
+	{
+		num: "02",
+		title: "흩어진 일상이 하나의 그림으로",
+		body: "각 앱은 독립적이지만, 당신의 활동 데이터는 하나의 라이프스타일 프로필을 구성합니다. 여행 기록과 습관 데이터가 함께 쌓이면, 일상의 전체 그림이 보이기 시작합니다.",
+	},
+	{
+		num: "03",
+		title: "당신의 데이터, 당신의 것",
+		body: "모든 데이터는 암호화되어 안전하게 보관됩니다. 언제든 전체 데이터를 내보낼 수 있으며, 삭제를 요청하면 30일 이내에 완전히 제거됩니다. 데이터 소유권은 언제나 당신에게 있습니다.",
+	},
+];
+---
+
+<Base title="Features - Modfolio LS" description="Modfolio LS의 핵심 기능 - 통합 계정, 연결된 데이터, 데이터 소유권.">
+	<Nav user={user} current="/features" />
+
+	<main id="main" class="page">
+		<div class="container">
+			<header class="page-header reveal">
+				<h1 class="page-title">
+					왜 <span class="gradient-text" lang="en">Modfolio LS</span>인가
+				</h1>
+				<p class="page-lead">세 가지 핵심 가치가 당신의 라이프스타일을 바꿉니다.</p>
+			</header>
+
+			<div class="feature-list">
+				{features.map((f, i) => (
+					<article class="feature-item reveal" style={`--reveal-delay: ${(i + 1) * 0.15}s`}>
+						<span class="feature-num gradient-text">{f.num}</span>
+						<div class="feature-body">
+							<h2 class="feature-title">{f.title}</h2>
+							<p class="feature-text">{f.body}</p>
+						</div>
+					</article>
+				))}
+			</div>
+		</div>
+	</main>
+
+	<Footer />
+</Base>
+
+<style>
+	.page {
+		padding-top: calc(80px + var(--ls-space-12));
+		padding-bottom: var(--ls-space-16);
+	}
+
+	.page-header {
+		text-align: center;
+		margin-bottom: var(--ls-space-16);
+	}
+
+	.page-title {
+		font-family: var(--ls-font-display);
+		font-size: var(--ls-text-3xl);
+		font-weight: 700;
+		color: var(--ls-text);
+		margin-bottom: var(--ls-space-5);
+	}
+
+	.page-lead {
+		font-family: var(--ls-font-body);
+		font-size: var(--ls-text-lg);
+		color: var(--ls-text-secondary);
+	}
+
+	.feature-list {
+		display: flex;
+		flex-direction: column;
+		gap: var(--ls-space-12);
+		max-width: 800px;
+		margin-inline: auto;
+	}
+
+	.feature-item {
+		display: flex;
+		gap: var(--ls-space-6);
+		align-items: flex-start;
+	}
+
+	.feature-num {
+		font-family: var(--ls-font-display);
+		font-size: var(--ls-text-4xl);
+		font-weight: 700;
+		line-height: 1;
+		flex-shrink: 0;
+	}
+
+	.feature-title {
+		font-family: var(--ls-font-body);
+		font-size: var(--ls-text-xl);
+		font-weight: 600;
+		color: var(--ls-text);
+		margin-bottom: var(--ls-space-4);
+	}
+
+	.feature-text {
+		font-family: var(--ls-font-story);
+		font-size: var(--ls-text-base);
+		color: var(--ls-text-secondary);
+		line-height: var(--ls-leading-relaxed);
+	}
+
+	@media (max-width: 640px) {
+		.feature-item {
+			flex-direction: column;
+			gap: var(--ls-space-3);
+		}
+	}
+</style>

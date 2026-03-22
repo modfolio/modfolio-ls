@@ -1,0 +1,155 @@
+---
+import Footer from "../components/landing/Footer.astro";
+import Nav from "../components/shared/Nav.astro";
+import Base from "../layouts/Base.astro";
+
+const user = Astro.locals.user;
+---
+
+<Base title="About - Modfolio LS" description="Modfolio LS 그룹의 이야기. 여행과 자기관리를 연결하는 라이프스타일 플랫폼.">
+	<Nav user={user} current="/about" />
+
+	<main id="main" class="page">
+		<div class="container">
+			<header class="page-header reveal">
+				<h1 class="page-title">
+					<span class="gradient-text" lang="en">Modfolio LS</span>의 이야기
+				</h1>
+				<p class="page-lead">
+					여행 설계부터 자기관리까지, 흩어진 일상을 하나로 연결합니다.
+				</p>
+			</header>
+
+			<section class="page-section reveal" style="--reveal-delay: 0.15s">
+				<h2 class="section-title">미션</h2>
+				<p class="section-body">
+					우리는 라이프스타일이 도구의 나열이 아니라 하나의 경험이어야 한다고 믿습니다.
+					여행을 설계하고, 습관을 기록하고, 성실함을 증명하는 모든 순간이
+					자연스럽게 이어지는 일상을 만들어갑니다.
+				</p>
+			</section>
+
+			<section class="page-section reveal" style="--reveal-delay: 0.3s">
+				<h2 class="section-title">두 가지 도구, 하나의 철학</h2>
+				<div class="duo-grid">
+					<div class="duo-card" data-app="keepnbuild">
+						<h3 class="duo-name" lang="en">KeepNBuild</h3>
+						<p class="duo-desc">
+							어디로 떠날지, 무엇을 경험할지 -- 당신만의 여행을 직접 설계하세요.
+							일정을 만들고, 경험을 기록하고, 다음 여행을 미리 그려봅니다.
+						</p>
+					</div>
+					<div class="duo-card" data-app="worthee">
+						<h3 class="duo-name" lang="en">Worthee</h3>
+						<p class="duo-desc">
+							습관을 기록하고 인증하면, 커뮤니티가 검증합니다.
+							매일의 성실함이 쌓여 명예가 되는 곳입니다.
+						</p>
+					</div>
+				</div>
+			</section>
+
+			<section class="page-section reveal" style="--reveal-delay: 0.45s">
+				<h2 class="section-title">생태계</h2>
+				<p class="section-body">
+					<span lang="en">Modfolio LS</span>는
+					<a href="https://modfolio.io" target="_blank" rel="noopener" lang="en">Modfolio</a>
+					생태계의 라이프스타일 그룹입니다.
+					<span lang="en">Modfolio Connect</span> 하나의 계정으로
+					모든 서비스를 이용할 수 있으며, 데이터는 안전하게 암호화됩니다.
+				</p>
+			</section>
+		</div>
+	</main>
+
+	<Footer />
+</Base>
+
+<style>
+	.page {
+		padding-top: calc(80px + var(--ls-space-12));
+		padding-bottom: var(--ls-space-16);
+	}
+
+	.page-header {
+		text-align: center;
+		margin-bottom: var(--ls-space-16);
+	}
+
+	.page-title {
+		font-family: var(--ls-font-display);
+		font-size: var(--ls-text-3xl);
+		font-weight: 700;
+		line-height: var(--ls-leading-tight);
+		color: var(--ls-text);
+		margin-bottom: var(--ls-space-5);
+	}
+
+	.page-lead {
+		font-family: var(--ls-font-body);
+		font-size: var(--ls-text-lg);
+		color: var(--ls-text-secondary);
+		max-width: 48ch;
+		margin-inline: auto;
+	}
+
+	.page-section {
+		max-width: 760px;
+		margin-inline: auto;
+		margin-bottom: var(--ls-space-12);
+	}
+
+	.section-title {
+		font-family: var(--ls-font-display);
+		font-size: var(--ls-text-xl);
+		font-weight: 700;
+		color: var(--ls-text);
+		margin-bottom: var(--ls-space-4);
+	}
+
+	.section-body {
+		font-family: var(--ls-font-story);
+		font-size: var(--ls-text-base);
+		color: var(--ls-text-secondary);
+		line-height: var(--ls-leading-relaxed);
+	}
+
+	.section-body a {
+		color: var(--ls-interactive);
+		text-decoration: underline;
+		text-underline-offset: 3px;
+	}
+
+	.duo-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+		gap: var(--ls-space-6);
+	}
+
+	.duo-card {
+		background: var(--ls-surface);
+		border: 1px solid var(--ls-border);
+		border-radius: var(--ls-r-xl);
+		padding: var(--ls-space-8);
+		transition: box-shadow var(--ls-dur-fast) var(--ls-ease);
+	}
+
+	.duo-card:hover {
+		box-shadow: 0 12px 40px var(--ls-glow-plum);
+	}
+
+	.duo-name {
+		font-family: var(--ls-font-display);
+		font-size: var(--ls-text-lg);
+		font-weight: 700;
+		color: var(--ls-text);
+		margin-bottom: var(--ls-space-3);
+	}
+
+	.duo-desc {
+		font-family: var(--ls-font-story);
+		font-size: var(--ls-text-sm);
+		color: var(--ls-text-secondary);
+		line-height: var(--ls-leading-normal);
+	}
+</style>

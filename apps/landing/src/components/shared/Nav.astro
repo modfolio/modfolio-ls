@@ -1,9 +1,16 @@
 ---
 interface Props {
 	user: import("@modfolio/connect-sdk/astro").ConnectUser | null;
+	current?: string;
 }
 
-const { user } = Astro.props;
+const { user, current } = Astro.props;
+
+const links = [
+	{ href: "/about", label: "About" },
+	{ href: "/features", label: "Features" },
+	{ href: "/blog", label: "Blog" },
+];
 ---
 
 <nav class="nav" aria-label="Main">
@@ -13,6 +20,17 @@ const { user } = Astro.props;
 			<span class="nav-badge gradient-text" lang="en">LS</span>
 			<span class="nav-brand-line" aria-hidden="true"></span>
 		</a>
+
+		<div class="nav-menu">
+			{links.map((link) => (
+				<a
+					href={link.href}
+					class={`nav-link ${current === link.href ? "nav-link-active" : ""}`}
+				>
+					{link.label}
+				</a>
+			))}
+		</div>
 
 		{user ? (
 			<a href="https://life.modfolio.io" class="nav-cta">Life</a>
@@ -77,6 +95,32 @@ const { user } = Astro.props;
 		width: 100%;
 	}
 
+	.nav-menu {
+		display: flex;
+		gap: var(--ls-space-1);
+	}
+
+	.nav-link {
+		font-family: var(--ls-font-ui);
+		font-size: var(--ls-text-sm);
+		font-weight: 500;
+		color: var(--ls-text-muted);
+		padding: var(--ls-space-2) var(--ls-space-4);
+		border-radius: var(--ls-r-md);
+		transition:
+			color var(--ls-dur-fast) var(--ls-ease),
+			background var(--ls-dur-fast) var(--ls-ease);
+	}
+
+	.nav-link:hover {
+		color: var(--ls-text);
+		background: var(--ls-surface-raised);
+	}
+
+	.nav-link-active {
+		color: var(--ls-text);
+	}
+
 	.nav-cta {
 		font-family: var(--ls-font-ui);
 		font-size: var(--ls-text-sm);
@@ -95,5 +139,11 @@ const { user } = Astro.props;
 		color: var(--ls-text);
 		border-color: var(--ls-interactive);
 		box-shadow: 0 4px 20px var(--ls-glow-plum);
+	}
+
+	@media (max-width: 768px) {
+		.nav-menu {
+			display: none;
+		}
 	}
 </style>

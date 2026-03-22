@@ -1,0 +1,97 @@
+---
+import Footer from "../components/landing/Footer.astro";
+import Nav from "../components/shared/Nav.astro";
+import Base from "../layouts/Base.astro";
+
+const user = Astro.locals.user;
+---
+
+<Base title="이용약관 - Modfolio LS">
+	<Nav user={user} />
+
+	<main id="main" class="page">
+		<div class="container">
+			<article class="legal reveal">
+				<h1 class="legal-title">이용약관</h1>
+				<p class="legal-meta">시행일: 2026년 3월 22일</p>
+
+				<section class="legal-section">
+					<h2>1. 목적</h2>
+					<p>이 약관은 모드폴리오(이하 "회사")가 제공하는 Modfolio LS 서비스의 이용 조건을 규정합니다.</p>
+				</section>
+
+				<section class="legal-section">
+					<h2>2. 서비스 내용</h2>
+					<p>Modfolio LS는 KeepNBuild(여행 설계)와 Worthee(자기관리)를 연결하는 라이프스타일 포탈 서비스입니다.</p>
+				</section>
+
+				<section class="legal-section">
+					<h2>3. 이용자 의무</h2>
+					<p>이용자는 관계 법령, 이 약관의 규정, 이용 안내 및 서비스와 관련하여 공지한 주의사항을 준수하여야 합니다.</p>
+				</section>
+
+				<section class="legal-section">
+					<h2>4. 책임 제한</h2>
+					<p>회사는 천재지변 또는 이에 준하는 불가항력으로 인하여 서비스를 제공할 수 없는 경우에는 서비스 제공에 관한 책임이 면제됩니다.</p>
+				</section>
+
+				<section class="legal-section">
+					<h2>5. 문의</h2>
+					<p>서비스 관련 문의: <a href="mailto:contact@modfolio.io">contact@modfolio.io</a></p>
+				</section>
+			</article>
+		</div>
+	</main>
+
+	<Footer />
+</Base>
+
+<style>
+	.page {
+		padding-top: calc(80px + var(--ls-space-12));
+		padding-bottom: var(--ls-space-16);
+	}
+
+	.legal {
+		max-width: 720px;
+		margin-inline: auto;
+	}
+
+	.legal-title {
+		font-family: var(--ls-font-display);
+		font-size: var(--ls-text-2xl);
+		font-weight: 700;
+		color: var(--ls-text);
+		margin-bottom: var(--ls-space-3);
+	}
+
+	.legal-meta {
+		font-family: var(--ls-font-story);
+		font-size: var(--ls-text-sm);
+		color: var(--ls-text-muted);
+		margin-bottom: var(--ls-space-10);
+	}
+
+	.legal-section {
+		margin-bottom: var(--ls-space-8);
+	}
+
+	.legal-section h2 {
+		font-family: var(--ls-font-body);
+		font-size: var(--ls-text-md);
+		font-weight: 600;
+		color: var(--ls-text);
+		margin-bottom: var(--ls-space-3);
+	}
+
+	.legal-section p {
+		font-family: var(--ls-font-story);
+		font-size: var(--ls-text-base);
+		color: var(--ls-text-secondary);
+		line-height: var(--ls-leading-relaxed);
+	}
+
+	.legal-section a {
+		color: var(--ls-interactive);
+	}
+</style>

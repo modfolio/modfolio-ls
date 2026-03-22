@@ -1,0 +1,107 @@
+---
+import Footer from "../components/landing/Footer.astro";
+import Nav from "../components/shared/Nav.astro";
+import Base from "../layouts/Base.astro";
+
+const user = Astro.locals.user;
+---
+
+<Base title="개인정보처리방침 - Modfolio LS">
+	<Nav user={user} />
+
+	<main id="main" class="page">
+		<div class="container">
+			<article class="legal reveal">
+				<h1 class="legal-title">개인정보처리방침</h1>
+				<p class="legal-meta">시행일: 2026년 3월 22일</p>
+
+				<section class="legal-section">
+					<h2>1. 수집하는 개인정보</h2>
+					<p>Modfolio LS는 서비스 이용을 위해 다음 정보를 수집합니다:</p>
+					<ul>
+						<li>이메일 주소 (Modfolio Connect SSO를 통한 인증)</li>
+						<li>이름 (프로필 표시용)</li>
+						<li>서비스 이용 기록</li>
+					</ul>
+				</section>
+
+				<section class="legal-section">
+					<h2>2. 개인정보의 이용 목적</h2>
+					<p>수집된 정보는 서비스 제공, 사용자 인증, 서비스 개선 목적으로만 이용됩니다.</p>
+				</section>
+
+				<section class="legal-section">
+					<h2>3. 개인정보의 보유 및 이용 기간</h2>
+					<p>회원 탈퇴 시 지체 없이 파기합니다. 법령에 따라 보존이 필요한 경우 해당 기간 동안 보관합니다.</p>
+				</section>
+
+				<section class="legal-section">
+					<h2>4. 문의</h2>
+					<p>개인정보 관련 문의: <a href="mailto:contact@modfolio.io">contact@modfolio.io</a></p>
+				</section>
+			</article>
+		</div>
+	</main>
+
+	<Footer />
+</Base>
+
+<style>
+	.page {
+		padding-top: calc(80px + var(--ls-space-12));
+		padding-bottom: var(--ls-space-16);
+	}
+
+	.legal {
+		max-width: 720px;
+		margin-inline: auto;
+	}
+
+	.legal-title {
+		font-family: var(--ls-font-display);
+		font-size: var(--ls-text-2xl);
+		font-weight: 700;
+		color: var(--ls-text);
+		margin-bottom: var(--ls-space-3);
+	}
+
+	.legal-meta {
+		font-family: var(--ls-font-story);
+		font-size: var(--ls-text-sm);
+		color: var(--ls-text-muted);
+		margin-bottom: var(--ls-space-10);
+	}
+
+	.legal-section {
+		margin-bottom: var(--ls-space-8);
+	}
+
+	.legal-section h2 {
+		font-family: var(--ls-font-body);
+		font-size: var(--ls-text-md);
+		font-weight: 600;
+		color: var(--ls-text);
+		margin-bottom: var(--ls-space-3);
+	}
+
+	.legal-section p,
+	.legal-section li {
+		font-family: var(--ls-font-story);
+		font-size: var(--ls-text-base);
+		color: var(--ls-text-secondary);
+		line-height: var(--ls-leading-relaxed);
+	}
+
+	.legal-section ul {
+		padding-left: var(--ls-space-5);
+		margin-top: var(--ls-space-3);
+	}
+
+	.legal-section li {
+		margin-bottom: var(--ls-space-2);
+	}
+
+	.legal-section a {
+		color: var(--ls-interactive);
+	}
+</style>

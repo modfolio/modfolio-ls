@@ -1,0 +1,84 @@
+---
+import Footer from "../components/landing/Footer.astro";
+import Nav from "../components/shared/Nav.astro";
+import Base from "../layouts/Base.astro";
+
+const user = Astro.locals.user;
+---
+
+<Base title="Blog - Modfolio LS" description="Modfolio LS 그룹의 소식과 이야기.">
+	<Nav user={user} current="/blog" />
+
+	<main id="main" class="page">
+		<div class="container">
+			<header class="page-header reveal">
+				<h1 class="page-title">블로그</h1>
+				<p class="page-lead">라이프스타일 그룹의 소식과 이야기</p>
+			</header>
+
+			<div class="blog-empty reveal" style="--reveal-delay: 0.15s">
+				<p class="blog-empty-text">
+					여행, 웰니스, 그리고 일상에 대한 이야기를 준비하고 있습니다.
+				</p>
+				<a href="/" class="blog-back">홈으로 돌아가기</a>
+			</div>
+		</div>
+	</main>
+
+	<Footer />
+</Base>
+
+<style>
+	.page {
+		padding-top: calc(80px + var(--ls-space-12));
+		padding-bottom: var(--ls-space-16);
+	}
+
+	.page-header {
+		text-align: center;
+		margin-bottom: var(--ls-space-12);
+	}
+
+	.page-title {
+		font-family: var(--ls-font-display);
+		font-size: var(--ls-text-3xl);
+		font-weight: 700;
+		color: var(--ls-text);
+		margin-bottom: var(--ls-space-4);
+	}
+
+	.page-lead {
+		font-family: var(--ls-font-body);
+		font-size: var(--ls-text-lg);
+		color: var(--ls-text-secondary);
+	}
+
+	.blog-empty {
+		text-align: center;
+		padding: var(--ls-space-12) var(--ls-space-6);
+		background: var(--ls-surface);
+		border: 1px dashed var(--ls-border);
+		border-radius: var(--ls-r-xl);
+		max-width: 600px;
+		margin-inline: auto;
+	}
+
+	.blog-empty-text {
+		font-family: var(--ls-font-story);
+		font-size: var(--ls-text-base);
+		color: var(--ls-text-muted);
+		margin-bottom: var(--ls-space-6);
+	}
+
+	.blog-back {
+		font-family: var(--ls-font-ui);
+		font-size: var(--ls-text-sm);
+		font-weight: 600;
+		color: var(--ls-interactive);
+	}
+
+	.blog-back:hover {
+		text-decoration: underline;
+		text-underline-offset: 3px;
+	}
+</style>
