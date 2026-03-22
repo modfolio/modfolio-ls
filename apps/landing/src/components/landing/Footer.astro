@@ -163,36 +163,22 @@ const year = new Date().getFullYear();
 	}
 
 	.footer-legal-inner {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		align-items: start;
+		display: flex;
+		flex-direction: column;
+		gap: var(--ls-space-2);
 	}
 
 	.footer-biz {
 		font-family: var(--ls-font-story);
-		font-size: 0.625rem;
+		font-size: 0.5625rem;
 		color: var(--ls-text-muted);
-		line-height: 1.8;
-		text-align: justify;
-		word-break: keep-all;
-		width: 100%;
+		line-height: 1.7;
+		letter-spacing: -0.01em;
 	}
 
 	.footer-copy {
 		font-family: var(--ls-font-story);
-		font-size: 0.625rem;
+		font-size: 0.5625rem;
 		color: var(--ls-text-muted);
-		text-align: right;
-	}
-
-	@media (max-width: 768px) {
-		.footer-legal-inner {
-			grid-template-columns: 1fr;
-			gap: var(--ls-space-3);
-		}
-
-		.footer-copy {
-			text-align: left;
-		}
 	}
 </style>
