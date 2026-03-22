@@ -3,35 +3,34 @@ import { apps } from "../../lib/apps";
 
 const actions = [
 	{
-		label: "Design a trip",
+		label: "여행 설계하기",
 		href: apps[0].status === "active" ? apps[0].url : apps[0].landingUrl,
 		appId: apps[0].id,
 	},
 	{
-		label: "Log a habit",
+		label: "습관 기록하기",
 		href: apps[1].status === "active" ? apps[1].url : apps[1].landingUrl,
 		appId: apps[1].id,
 	},
 	{
-		label: "View feed",
+		label: "피드 보기",
 		href: "#feed",
 		appId: null,
 	},
 ];
 ---
 
-<section class="quick-actions" aria-label="Quick actions">
-	<div class="quick-actions-scroll">
-		{actions.map((action) => (
+<section class="quick-actions" aria-label="빠른 액션">
+	<div class="quick-scroll">
+		{actions.map((a) => (
 			<a
-				href={action.href}
+				href={a.href}
 				class="quick-pill"
-				data-app={action.appId}
-				target={action.appId ? "_blank" : undefined}
-				rel={action.appId ? "noopener" : undefined}
+				data-app={a.appId}
+				target={a.appId ? "_blank" : undefined}
+				rel={a.appId ? "noopener" : undefined}
 			>
-				<span class="quick-pill-geo" aria-hidden="true" />
-				<span class="quick-pill-label">{action.label}</span>
+				{a.label}
 			</a>
 		))}
 	</div>
@@ -40,60 +39,34 @@ const actions = [
 <style>
 	.quick-actions { padding-bottom: var(--ls-space-6); overflow: hidden; }
 
-	.quick-actions-scroll {
+	.quick-scroll {
 		display: flex;
 		gap: var(--ls-space-3);
 		overflow-x: auto;
 		scrollbar-width: none;
-		-webkit-overflow-scrolling: touch;
 		padding-bottom: var(--ls-space-2);
 	}
-	.quick-actions-scroll::-webkit-scrollbar { display: none; }
+	.quick-scroll::-webkit-scrollbar { display: none; }
 
 	.quick-pill {
 		display: inline-flex;
 		align-items: center;
-		gap: var(--ls-space-3);
-		padding: var(--ls-space-3) var(--ls-space-5);
+		padding: var(--ls-space-2) var(--ls-space-5);
 		background: var(--ls-surface);
 		border: 1px solid var(--ls-border);
 		border-radius: var(--ls-r-full);
 		white-space: nowrap;
 		flex-shrink: 0;
-		transition: border-color var(--ls-dur-fast), box-shadow var(--ls-dur-fast), transform var(--ls-dur-fast);
-	}
-
-	.quick-pill:hover {
-		border-color: var(--ls-interactive);
-		box-shadow: var(--ls-shadow-sm);
-		transform: translateY(-1px);
-	}
-
-	.quick-pill-geo {
-		display: block;
-		width: 8px;
-		height: 8px;
-		border: 1.5px solid var(--ls-app-accent, var(--ls-interactive));
-		border-radius: 50%;
-	}
-
-	.quick-pill[data-app="keepnbuild"] .quick-pill-geo {
-		border-radius: 1px;
-		transform: rotate(45deg);
-	}
-
-	.quick-pill:not([data-app]) .quick-pill-geo {
-		width: 10px;
-		height: 2px;
-		border: none;
-		background: var(--ls-interactive);
-		border-radius: 1px;
-	}
-
-	.quick-pill-label {
 		font-family: var(--ls-font-ui);
 		font-size: var(--ls-text-sm);
 		font-weight: 500;
+		color: var(--ls-text-secondary);
+		transition: border-color var(--ls-dur-fast), box-shadow var(--ls-dur-fast), color var(--ls-dur-fast);
+	}
+
+	.quick-pill:hover {
 		color: var(--ls-text);
+		border-color: var(--ls-border-hover);
+		box-shadow: var(--ls-shadow-sm);
 	}
 </style>

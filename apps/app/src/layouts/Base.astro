@@ -74,5 +74,30 @@ const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
 	<a href="#main" class="skip-link">본문으로 건너뛰기</a>
 	<div class="grain-overlay" aria-hidden="true"></div>
 	<slot />
+
+	<script is:inline>
+	(function() {
+		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+			document.querySelectorAll('.reveal').forEach(function(el) { el.classList.add('visible'); });
+			return;
+		}
+		var obs = new IntersectionObserver(function(entries) {
+			entries.forEach(function(e) {
+				if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+			});
+		}, { threshold: 0.12 });
+		document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
+
+		document.querySelectorAll('[data-tilt]').forEach(function(card) {
+			card.addEventListener('mousemove', function(e) {
+				var r = card.getBoundingClientRect();
+				var x = (e.clientX - r.left) / r.width - 0.5;
+				var y = (e.clientY - r.top) / r.height - 0.5;
+				card.style.transform = 'perspective(800px) rotateY(' + (x * 6) + 'deg) rotateX(' + (-y * 6) + 'deg) scale(1.02)';
+			});
+			card.addEventListener('mouseleave', function() { card.style.transform = ''; });
+		});
+	})();
+	</script>
 </body>
 </html>

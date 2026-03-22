@@ -11,7 +11,7 @@ interface Props {
 }
 
 const {
-	title = "Modfolio LS — Lifestyle Group",
+	title = "Modfolio LS",
 	description = "여행 설계부터 자기관리까지. KeepNBuild와 Worthee가 당신의 라이프스타일을 연결합니다.",
 } = Astro.props;
 
@@ -27,7 +27,6 @@ const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
 	<meta name="description" content={description} />
 	<link rel="canonical" href={canonicalUrl} />
 
-	<!-- Open Graph -->
 	<meta property="og:title" content={title} />
 	<meta property="og:description" content={description} />
 	<meta property="og:url" content={canonicalUrl} />
@@ -35,7 +34,6 @@ const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
 	<meta property="og:locale" content="ko_KR" />
 	<meta property="og:site_name" content="Modfolio LS" />
 
-	<!-- Structured Data -->
 	<script is:inline type="application/ld+json" set:html={JSON.stringify({
 		"@context": "https://schema.org",
 		"@type": "Organization",
@@ -49,10 +47,9 @@ const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
 		},
 	})} />
 
-	<!-- Theme -->
-	<meta name="theme-color" content="#f8f7f5" />
+	<meta name="theme-color" content="#f9f8f6" />
 
-	<!-- Adobe Typekit: master kit fmh4fod (JS API for Korean subsetting) -->
+	<!-- Adobe Typekit -->
 	<link rel="preconnect" href="https://use.typekit.net" crossorigin />
 	<script is:inline>
 		(function(d) {
@@ -74,43 +71,60 @@ const canonicalUrl = new URL(Astro.url.pathname, siteUrl).href;
 		})(document);
 	</script>
 
-	<!-- Pretendard (Korean sans fallback) -->
-	<link
-		rel="stylesheet"
-		href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
-	/>
-
-	<!-- JetBrains Mono (code fallback for degular-mono) -->
+	<link rel="stylesheet"
+		href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
 	<link rel="preconnect" href="https://fonts.googleapis.com" />
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-	<link
-		href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap"
-		rel="stylesheet"
-	/>
+	<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 </head>
 <body>
 	<a href="#main" class="skip-link">본문으로 건너뛰기</a>
 	<div class="grain-overlay" aria-hidden="true"></div>
 	<slot />
 
-	<!-- Scroll reveal observer -->
+	<!-- Interactive effects -->
 	<script is:inline>
-		(function() {
-			var els = document.querySelectorAll('.reveal');
-			if (!els.length || !('IntersectionObserver' in window)) {
-				els.forEach(function(el) { el.classList.add('visible'); });
-				return;
-			}
-			var observer = new IntersectionObserver(function(entries) {
-				entries.forEach(function(entry) {
-					if (entry.isIntersecting) {
-						entry.target.classList.add('visible');
-						observer.unobserve(entry.target);
-					}
-				});
-			}, { threshold: 0.15 });
-			els.forEach(function(el) { observer.observe(el); });
-		})();
+	(function() {
+		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+			document.querySelectorAll('.reveal').forEach(function(el) { el.classList.add('visible'); });
+			return;
+		}
+
+		// Scroll reveal
+		var obs = new IntersectionObserver(function(entries) {
+			entries.forEach(function(e) {
+				if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+			});
+		}, { threshold: 0.12 });
+		document.querySelectorAll('.reveal').forEach(function(el) { obs.observe(el); });
+
+		// Hero mouse tracking
+		var hero = document.querySelector('.hero');
+		if (hero) {
+			hero.addEventListener('mousemove', function(e) {
+				var r = hero.getBoundingClientRect();
+				hero.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+				hero.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+			});
+			hero.addEventListener('mouseleave', function() {
+				hero.style.setProperty('--mx', '50%');
+				hero.style.setProperty('--my', '50%');
+			});
+		}
+
+		// Card 3D tilt
+		document.querySelectorAll('[data-tilt]').forEach(function(card) {
+			card.addEventListener('mousemove', function(e) {
+				var r = card.getBoundingClientRect();
+				var x = (e.clientX - r.left) / r.width - 0.5;
+				var y = (e.clientY - r.top) / r.height - 0.5;
+				card.style.transform = 'perspective(800px) rotateY(' + (x * 6) + 'deg) rotateX(' + (-y * 6) + 'deg) scale(1.02)';
+			});
+			card.addEventListener('mouseleave', function() {
+				card.style.transform = '';
+			});
+		});
+	})();
 	</script>
 </body>
 </html>

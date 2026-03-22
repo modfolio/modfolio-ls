@@ -1,20 +1,19 @@
 ---
 const tabs = [
-	{ id: "all", label: "All" },
-	{ id: "travel", label: "Travel" },
-	{ id: "wellness", label: "Wellness" },
+	{ id: "all", label: "전체" },
+	{ id: "travel", label: "여행" },
+	{ id: "wellness", label: "웰니스" },
 ];
 ---
 
 <section class="feed" id="feed" aria-labelledby="feed-heading">
-	<h2 id="feed-heading" class="section-label" lang="en">LIFESTYLE FEED</h2>
+	<h2 id="feed-heading" class="feed-title">라이프스타일 피드</h2>
 
-	<div class="feed-tabs" role="tablist" aria-label="Content filter">
+	<div class="feed-tabs" role="tablist">
 		{tabs.map((tab, i) => (
 			<button
 				role="tab"
 				aria-selected={i === 0 ? "true" : "false"}
-				data-feed={tab.id}
 				class={`feed-tab ${i === 0 ? "feed-tab-active" : ""}`}
 			>
 				{tab.label}
@@ -23,33 +22,31 @@ const tabs = [
 	</div>
 
 	<div class="feed-grid" role="tabpanel">
-		{Array.from({ length: 4 }).map((_, i) => (
+		{Array.from({ length: 3 }).map((_, i) => (
 			<div class="feed-card" aria-hidden="true">
-				<div class="feed-card-badge">
-					{i % 2 === 0 ? "Travel" : "Wellness"}
-				</div>
-				<div class="feed-card-title-skeleton" />
-				<div class="feed-card-body-skeleton" />
-				<div class="feed-card-body-skeleton short" />
-				<div class="feed-card-footer">
-					<span class="feed-card-source">&mdash;</span>
-					<span class="feed-card-date">&mdash;</span>
-				</div>
+				<div class="feed-card-badge">{i % 2 === 0 ? "여행" : "웰니스"}</div>
+				<div class="feed-skeleton feed-skeleton-title" />
+				<div class="feed-skeleton" />
+				<div class="feed-skeleton feed-skeleton-short" />
 			</div>
 		))}
 	</div>
 
-	<div class="feed-empty">
-		<div class="feed-empty-dot" aria-hidden="true"></div>
-		<p class="feed-empty-text">
-			Travel news, wellness articles, and
-			<span lang="en">Modfolio Press</span> newsletters will appear here soon.
-		</p>
-	</div>
+	<p class="feed-note">
+		여행 뉴스, 웰니스 아티클, <span lang="en">Modfolio Press</span> 뉴스레터가 곧 여기에 표시됩니다.
+	</p>
 </section>
 
 <style>
 	.feed { flex: 1; min-width: 0; }
+
+	.feed-title {
+		font-family: var(--ls-font-body);
+		font-size: var(--ls-text-md);
+		font-weight: 600;
+		color: var(--ls-text);
+		margin-bottom: var(--ls-space-4);
+	}
 
 	.feed-tabs { display: flex; gap: var(--ls-space-2); margin-bottom: var(--ls-space-5); }
 
@@ -57,19 +54,18 @@ const tabs = [
 		font-family: var(--ls-font-ui);
 		font-size: var(--ls-text-xs);
 		font-weight: 500;
-		letter-spacing: var(--ls-tracking-wide);
 		padding: var(--ls-space-2) var(--ls-space-4);
 		border-radius: var(--ls-r-full);
 		color: var(--ls-text-muted);
 		border: 1px solid var(--ls-border);
-		transition: color var(--ls-dur-fast), border-color var(--ls-dur-fast), background var(--ls-dur-fast);
+		transition: color var(--ls-dur-fast), border-color var(--ls-dur-fast);
 	}
 	.feed-tab:hover { color: var(--ls-text-secondary); border-color: var(--ls-border-hover); }
-	.feed-tab-active { color: var(--ls-interactive); border-color: var(--ls-interactive); background: var(--ls-plum-bg); }
+	.feed-tab-active { color: var(--ls-interactive); border-color: var(--ls-interactive); }
 
 	.feed-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+		grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
 		gap: var(--ls-space-4);
 		margin-bottom: var(--ls-space-6);
 	}
@@ -79,62 +75,36 @@ const tabs = [
 		border: 1px solid var(--ls-border);
 		border-radius: var(--ls-r-md);
 		padding: var(--ls-space-4);
-		opacity: 0.6;
+		opacity: 0.5;
 	}
 
 	.feed-card-badge {
-		display: inline-block;
 		font-family: var(--ls-font-ui);
 		font-size: var(--ls-text-xs);
-		font-weight: 600;
-		letter-spacing: var(--ls-tracking-wide);
 		color: var(--ls-text-muted);
 		background: var(--ls-surface-raised);
 		padding: 2px var(--ls-space-2);
 		border-radius: var(--ls-r-sm);
+		display: inline-block;
 		margin-bottom: var(--ls-space-3);
 	}
 
-	.feed-card-title-skeleton,
-	.feed-card-body-skeleton {
-		height: 12px;
-		border-radius: var(--ls-r-sm);
+	.feed-skeleton {
+		height: 10px;
 		background: var(--ls-surface-overlay);
+		border-radius: var(--ls-r-sm);
 		margin-bottom: var(--ls-space-2);
 	}
-	.feed-card-title-skeleton { width: 75%; height: 16px; margin-bottom: var(--ls-space-3); }
-	.feed-card-body-skeleton.short { width: 50%; }
+	.feed-skeleton-title { height: 14px; width: 70%; margin-bottom: var(--ls-space-3); }
+	.feed-skeleton-short { width: 45%; }
 
-	.feed-card-footer {
-		display: flex;
-		justify-content: space-between;
-		margin-top: var(--ls-space-3);
-		font-family: var(--ls-font-story);
-		font-size: var(--ls-text-xs);
-		color: var(--ls-text-muted);
-	}
-
-	.feed-empty {
-		text-align: center;
-		padding: var(--ls-space-6) var(--ls-space-4);
-		background: var(--ls-surface);
-		border: 1px dashed var(--ls-border);
-		border-radius: var(--ls-r-md);
-	}
-
-	.feed-empty-dot {
-		width: 8px;
-		height: 8px;
-		background: var(--ls-interactive);
-		border-radius: 50%;
-		margin: 0 auto var(--ls-space-3);
-	}
-
-	.feed-empty-text {
+	.feed-note {
 		font-family: var(--ls-font-story);
 		font-size: var(--ls-text-sm);
 		color: var(--ls-text-muted);
-		max-width: 40ch;
-		margin-inline: auto;
+		text-align: center;
+		padding: var(--ls-space-5);
+		border: 1px dashed var(--ls-border);
+		border-radius: var(--ls-r-md);
 	}
 </style>

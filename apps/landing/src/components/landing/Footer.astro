@@ -6,15 +6,12 @@ const year = new Date().getFullYear();
 	<div class="container container-wide footer-inner">
 		<div class="footer-grid">
 			<div class="footer-col">
-				<p class="footer-brand" lang="en">Modfolio LS</p>
-				<p class="footer-tagline">Lifestyle Group</p>
-				<p class="footer-parent">
-					A <a href="https://modfolio.io" target="_blank" rel="noopener" lang="en">Modfolio</a> Group
-				</p>
+				<p class="footer-brand gradient-text" lang="en">Modfolio LS</p>
+				<p class="footer-tagline">라이프스타일 그룹</p>
 			</div>
 
 			<div class="footer-col">
-				<h3 class="footer-heading" lang="en">Services</h3>
+				<h3 class="footer-heading">서비스</h3>
 				<ul class="footer-list">
 					<li><a href="https://keepnbuild.com" target="_blank" rel="noopener" lang="en">KeepNBuild</a></li>
 					<li><a href="https://worthee.io" target="_blank" rel="noopener" lang="en">Worthee</a></li>
@@ -22,25 +19,24 @@ const year = new Date().getFullYear();
 			</div>
 
 			<div class="footer-col">
-				<h3 class="footer-heading" lang="en">Ecosystem</h3>
+				<h3 class="footer-heading">생태계</h3>
 				<ul class="footer-list">
 					<li><a href="https://modfolio.io" target="_blank" rel="noopener" lang="en">Modfolio</a></li>
 					<li><a href="https://connect.modfolio.io" target="_blank" rel="noopener" lang="en">Connect</a></li>
-					<li><a href="https://docs.modfolio.io" target="_blank" rel="noopener" lang="en">Docs</a></li>
 				</ul>
 			</div>
 
 			<div class="footer-col">
-				<h3 class="footer-heading">Legal</h3>
+				<h3 class="footer-heading">법률</h3>
 				<ul class="footer-list">
-					<li><a href="https://modfolio.io/privacy">Privacy</a></li>
-					<li><a href="https://modfolio.io/terms">Terms</a></li>
+					<li><a href="https://modfolio.io/privacy">개인정보</a></li>
+					<li><a href="https://modfolio.io/terms">이용약관</a></li>
 				</ul>
 			</div>
 		</div>
 
 		<div class="footer-bottom">
-			<p class="footer-copy">&copy; {year} <span lang="en">Modfolio Inc.</span> All rights reserved.</p>
+			<p class="footer-copy">&copy; {year} Modfolio Inc.</p>
 		</div>
 	</div>
 </footer>
@@ -51,7 +47,6 @@ const year = new Date().getFullYear();
 		z-index: 1;
 		border-top: 1px solid var(--ls-border);
 		padding-block: var(--ls-space-10) var(--ls-space-6);
-		background: var(--ls-surface-raised);
 	}
 
 	.footer-grid {
@@ -61,43 +56,26 @@ const year = new Date().getFullYear();
 		margin-bottom: var(--ls-space-8);
 	}
 
-	@media (max-width: 768px) {
-		.footer-grid { grid-template-columns: repeat(2, 1fr); gap: var(--ls-space-6); }
-	}
-	@media (max-width: 480px) {
-		.footer-grid { grid-template-columns: 1fr; }
-	}
+	@media (max-width: 768px) { .footer-grid { grid-template-columns: repeat(2, 1fr); gap: var(--ls-space-6); } }
+	@media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } }
 
 	.footer-brand {
-		font-family: var(--ls-font-ui);
-		font-size: var(--ls-text-md);
+		font-family: var(--ls-font-display);
+		font-size: var(--ls-text-lg);
 		font-weight: 700;
-		letter-spacing: var(--ls-tracking-wide);
-		color: var(--ls-text);
 		margin-bottom: var(--ls-space-2);
 	}
 
 	.footer-tagline {
 		font-family: var(--ls-font-story);
 		font-size: var(--ls-text-sm);
-		color: var(--ls-text-secondary);
-		margin-bottom: var(--ls-space-3);
-	}
-
-	.footer-parent {
-		font-family: var(--ls-font-story);
-		font-size: var(--ls-text-xs);
 		color: var(--ls-text-muted);
 	}
-	.footer-parent a { color: var(--ls-text-secondary); transition: color var(--ls-dur-fast); }
-	.footer-parent a:hover { color: var(--ls-interactive); }
 
 	.footer-heading {
 		font-family: var(--ls-font-ui);
 		font-size: var(--ls-text-xs);
 		font-weight: 600;
-		letter-spacing: var(--ls-tracking-widest);
-		text-transform: uppercase;
 		color: var(--ls-text-muted);
 		margin-bottom: var(--ls-space-4);
 	}
@@ -111,14 +89,6 @@ const year = new Date().getFullYear();
 	}
 	.footer-list a:hover { color: var(--ls-interactive); }
 
-	.footer-bottom {
-		border-top: 1px solid var(--ls-border-subtle);
-		padding-top: var(--ls-space-5);
-	}
-
-	.footer-copy {
-		font-family: var(--ls-font-story);
-		font-size: var(--ls-text-xs);
-		color: var(--ls-text-muted);
-	}
+	.footer-bottom { border-top: 1px solid var(--ls-border-subtle); padding-top: var(--ls-space-5); }
+	.footer-copy { font-family: var(--ls-font-story); font-size: var(--ls-text-xs); color: var(--ls-text-muted); }
 </style>

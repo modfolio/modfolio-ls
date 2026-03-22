@@ -6,20 +6,18 @@ interface Props {
 const { user } = Astro.props;
 ---
 
-<nav class="nav" aria-label="Main navigation">
+<nav class="nav" aria-label="Main">
 	<div class="nav-inner container container-wide">
 		<a href="/" class="nav-brand">
-			<span class="nav-brand-text" lang="en">Modfolio</span>
-			<span class="nav-brand-badge" lang="en">LS</span>
+			<span class="nav-logo" lang="en">Modfolio</span>
+			<span class="nav-badge gradient-text" lang="en">LS</span>
 		</a>
 
-		<div class="nav-actions">
-			{user ? (
-				<a href="https://life.modfolio.io" class="nav-link nav-link-primary" lang="en">Dashboard</a>
-			) : (
-				<a href="/auth/login" class="nav-link nav-link-primary">Start</a>
-			)}
-		</div>
+		{user ? (
+			<a href="https://life.modfolio.io" class="nav-cta">Life</a>
+		) : (
+			<a href="/auth/login" class="nav-cta">시작하기</a>
+		)}
 	</div>
 </nav>
 
@@ -28,8 +26,8 @@ const { user } = Astro.props;
 		position: sticky;
 		top: 0;
 		z-index: 100;
-		backdrop-filter: blur(12px);
-		background: oklch(0.97 0.005 80 / 0.85);
+		backdrop-filter: blur(20px) saturate(1.4);
+		background: oklch(0.98 0.005 80 / 0.7);
 		border-bottom: 1px solid var(--ls-border-subtle);
 	}
 
@@ -42,58 +40,41 @@ const { user } = Astro.props;
 
 	.nav-brand {
 		display: flex;
-		align-items: center;
+		align-items: baseline;
 		gap: var(--ls-space-2);
 	}
 
-	.nav-brand-text {
-		font-family: var(--ls-font-ui);
-		font-size: var(--ls-text-sm);
-		font-weight: 600;
-		letter-spacing: var(--ls-tracking-wide);
-		color: var(--ls-text-secondary);
-	}
-
-	.nav-brand-badge {
-		font-family: var(--ls-font-ui);
-		font-size: var(--ls-text-xs);
-		font-weight: 700;
-		letter-spacing: var(--ls-tracking-widest);
-		color: #fff;
-		background: var(--ls-interactive);
-		padding: 2px 10px;
-		border-radius: var(--ls-r-full);
-	}
-
-	.nav-actions {
-		display: flex;
-		align-items: center;
-	}
-
-	.nav-link {
+	.nav-logo {
 		font-family: var(--ls-font-ui);
 		font-size: var(--ls-text-sm);
 		font-weight: 500;
-		color: var(--ls-text-secondary);
-		padding: var(--ls-space-1) var(--ls-space-3);
-		border-radius: var(--ls-r-sm);
-		transition: color var(--ls-dur-fast) var(--ls-ease);
+		letter-spacing: var(--ls-tracking-wide);
+		color: var(--ls-text-muted);
 	}
 
-	.nav-link:hover {
-		color: var(--ls-text);
+	.nav-badge {
+		font-family: var(--ls-font-display);
+		font-size: var(--ls-text-md);
+		font-weight: 700;
 	}
 
-	.nav-link-primary {
-		color: #fff;
-		background: var(--ls-interactive);
+	.nav-cta {
+		font-family: var(--ls-font-ui);
+		font-size: var(--ls-text-sm);
 		font-weight: 600;
-		padding: var(--ls-space-2) var(--ls-space-4);
-		border-radius: var(--ls-r-md);
+		color: var(--ls-text-secondary);
+		padding: var(--ls-space-2) var(--ls-space-5);
+		border: 1px solid var(--ls-border);
+		border-radius: var(--ls-r-full);
+		transition:
+			color var(--ls-dur-fast) var(--ls-ease),
+			border-color var(--ls-dur-fast) var(--ls-ease),
+			box-shadow var(--ls-dur-fast) var(--ls-ease);
 	}
 
-	.nav-link-primary:hover {
-		background: var(--ls-interactive-hover);
-		color: #fff;
+	.nav-cta:hover {
+		color: var(--ls-text);
+		border-color: var(--ls-border-hover);
+		box-shadow: var(--ls-shadow-sm);
 	}
 </style>

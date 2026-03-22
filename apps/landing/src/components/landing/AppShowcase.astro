@@ -1,52 +1,44 @@
 ---
-/* FBO Framework: Feature - Benefit - Outcome (lead with Outcome) */
-const showcaseData = [
+const apps = [
 	{
 		id: "keepnbuild",
 		name: "KeepNBuild",
-		landingUrl: "https://keepnbuild.com",
-		badge: "TRAVEL DESIGN",
-		outcome: "Craft your perfect journey.",
-		detail:
-			"Design itineraries, record experiences, and envision your next trip.",
-		cta: "Start Designing",
+		url: "https://keepnbuild.com",
+		lead: "당신만의 여행을 직접 설계하세요.",
+		desc: "일정을 만들고, 경험을 기록하고, 다음 여행을 미리 그려보세요.",
 	},
 	{
 		id: "worthee",
 		name: "Worthee",
-		landingUrl: "https://worthee.io",
-		badge: "HONOR & HABITS",
-		outcome: "Experience the moment your effort is proven.",
-		detail:
-			"Log daily habits and verify them. Your community validates, and you earn honor badges.",
-		cta: "Start Building",
+		url: "https://worthee.io",
+		lead: "성실함이 증명되는 순간을 경험하세요.",
+		desc: "매일 습관을 기록하고 인증하면, 커뮤니티가 검증합니다.",
 	},
 ];
 ---
 
 <section class="showcase reveal" id="showcase" aria-labelledby="showcase-heading">
 	<div class="container">
-		<span class="section-label" lang="en">DISCOVER</span>
-		<h2 id="showcase-heading" class="section-heading">Two lifestyle tools</h2>
+		<h2 id="showcase-heading" class="showcase-title reveal">
+			두 가지 <span class="gradient-text">라이프스타일</span> 도구
+		</h2>
 
 		<div class="showcase-grid">
-			{showcaseData.map((item, i) => (
-				<article
+			{apps.map((app, i) => (
+				<a
+					href={app.url}
 					class="showcase-card reveal"
-					data-app={item.id}
+					data-app={app.id}
+					data-tilt
+					target="_blank"
+					rel="noopener"
 					style={`--reveal-delay: ${(i + 1) * 0.15}s`}
 				>
-					<div class="showcase-card-accent" aria-hidden="true" />
-					<div class="showcase-card-content">
-						<span class="showcase-badge" lang="en">{item.badge}</span>
-						<h3 class="showcase-name" lang="en">{item.name}</h3>
-						<p class="showcase-outcome">{item.outcome}</p>
-						<p class="showcase-detail">{item.detail}</p>
-						<a href={item.landingUrl} class="showcase-link" target="_blank" rel="noopener">
-							{item.cta} &rarr;
-						</a>
-					</div>
-				</article>
+					<h3 class="showcase-name" lang="en">{app.name}</h3>
+					<p class="showcase-lead">{app.lead}</p>
+					<p class="showcase-desc">{app.desc}</p>
+					<span class="showcase-link" lang="en">{app.name} &rarr;</span>
+				</a>
 			))}
 		</div>
 	</div>
@@ -56,60 +48,52 @@ const showcaseData = [
 	.showcase {
 		position: relative;
 		z-index: 1;
-		padding-block: var(--ls-space-12);
+		padding-block: var(--ls-space-12) var(--ls-space-16);
+	}
+
+	.showcase-title {
+		font-family: var(--ls-font-display);
+		font-size: var(--ls-text-2xl);
+		font-weight: 700;
+		line-height: var(--ls-leading-tight);
+		color: var(--ls-text);
+		text-align: center;
+		margin-bottom: var(--ls-space-10);
 	}
 
 	.showcase-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-		gap: var(--ls-space-5);
+		grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+		gap: var(--ls-space-6);
 	}
 
 	.showcase-card {
-		position: relative;
+		display: block;
 		background: var(--ls-surface);
 		border: 1px solid var(--ls-border);
-		border-radius: var(--ls-r-lg);
-		overflow: hidden;
+		border-radius: var(--ls-r-xl);
+		padding: var(--ls-space-8);
 		transition:
-			transform var(--ls-dur-fast) var(--ls-ease),
-			box-shadow var(--ls-dur-fast) var(--ls-ease);
+			transform 0.4s var(--ls-ease),
+			box-shadow 0.4s var(--ls-ease),
+			border-color 0.3s var(--ls-ease);
+		will-change: transform;
 	}
 
 	.showcase-card:hover {
-		transform: translateY(-3px);
-		box-shadow: var(--ls-shadow-md);
-	}
-
-	.showcase-card-accent {
-		height: 3px;
-		background: var(--ls-app-accent, var(--ls-interactive));
-	}
-
-	.showcase-card-content {
-		padding: var(--ls-space-6);
-	}
-
-	.showcase-badge {
-		display: inline-block;
-		font-family: var(--ls-font-ui);
-		font-size: var(--ls-text-xs);
-		font-weight: 600;
-		letter-spacing: var(--ls-tracking-widest);
-		color: var(--ls-app-accent, var(--ls-interactive));
-		margin-bottom: var(--ls-space-3);
+		border-color: var(--ls-border-hover);
+		box-shadow: var(--ls-shadow-glow);
 	}
 
 	.showcase-name {
 		font-family: var(--ls-font-display);
 		font-size: var(--ls-text-xl);
 		font-weight: 700;
-		line-height: var(--ls-leading-snug);
 		color: var(--ls-text);
 		margin-bottom: var(--ls-space-4);
 	}
 
-	.showcase-outcome {
+	.showcase-lead {
 		font-family: var(--ls-font-body);
 		font-size: var(--ls-text-md);
 		color: var(--ls-text);
@@ -118,26 +102,21 @@ const showcaseData = [
 		margin-bottom: var(--ls-space-3);
 	}
 
-	.showcase-detail {
+	.showcase-desc {
 		font-family: var(--ls-font-story);
 		font-size: var(--ls-text-sm);
 		color: var(--ls-text-secondary);
 		line-height: var(--ls-leading-normal);
-		margin-bottom: var(--ls-space-5);
+		margin-bottom: var(--ls-space-6);
 	}
 
 	.showcase-link {
-		display: inline-flex;
-		align-items: center;
-		gap: var(--ls-space-2);
 		font-family: var(--ls-font-ui);
 		font-size: var(--ls-text-sm);
 		font-weight: 600;
-		color: var(--ls-app-accent, var(--ls-interactive));
-		transition: opacity var(--ls-dur-fast) var(--ls-ease);
-	}
-
-	.showcase-link:hover {
-		opacity: 0.75;
+		background: var(--ls-gradient);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
 	}
 </style>

@@ -1,6 +1,5 @@
 /* ── Utility Classes ── */
 
-/* Screen reader only */
 .sr-only {
 	position: absolute;
 	width: 1px;
@@ -13,14 +12,13 @@
 	border-width: 0;
 }
 
-/* Skip link */
 .skip-link {
 	position: absolute;
 	top: -100%;
 	left: var(--ls-space-4);
 	z-index: 9999;
 	padding: var(--ls-space-2) var(--ls-space-4);
-	background: var(--ls-surface-raised);
+	background: var(--ls-surface);
 	color: var(--ls-text);
 	font-family: var(--ls-font-ui);
 	font-size: var(--ls-text-sm);
@@ -32,7 +30,6 @@
 	top: var(--ls-space-4);
 }
 
-/* Content container */
 .container {
 	width: 100%;
 	max-width: var(--ls-content-max);
@@ -44,66 +41,50 @@
 	max-width: var(--ls-content-wide);
 }
 
-/* Section label (EN uppercase) */
-.section-label {
-	font-family: var(--ls-font-ui);
-	font-size: var(--ls-text-xs);
-	font-weight: 600;
-	letter-spacing: var(--ls-tracking-widest);
-	text-transform: uppercase;
-	color: var(--ls-text-muted);
-	margin-bottom: var(--ls-space-3);
+/* Gradient text (iridescent) */
+.gradient-text {
+	background: var(--ls-gradient);
+	background-size: 200% 200%;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	animation: gradient-shift 6s ease infinite;
 }
 
-/* Section heading */
-.section-heading {
-	font-family: var(--ls-font-display);
-	font-size: var(--ls-text-2xl);
-	font-weight: 700;
-	line-height: var(--ls-leading-tight);
-	letter-spacing: var(--ls-tracking-tight);
-	color: var(--ls-text);
-	margin-bottom: var(--ls-space-5);
+@keyframes gradient-shift {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
 }
 
-/* Plum accent text */
-.accent-text {
-	color: var(--ls-interactive);
+/* Reveal (scroll-triggered) */
+.reveal {
+	opacity: 0;
+	transform: translateY(28px);
+	transition:
+		opacity var(--ls-dur-slow) var(--ls-ease),
+		transform var(--ls-dur-slow) var(--ls-ease);
+	transition-delay: var(--reveal-delay, 0s);
 }
 
-/* Geometric decorations */
-.geo-ring {
-	position: absolute;
-	width: 200px;
-	height: 200px;
-	border: 1px solid var(--ls-border);
-	border-radius: 50%;
-	pointer-events: none;
+.reveal.visible {
+	opacity: 1;
+	transform: translateY(0);
 }
 
-.geo-dot {
-	position: absolute;
-	width: 6px;
-	height: 6px;
-	background: var(--ls-interactive);
-	border-radius: 50%;
-	pointer-events: none;
-}
-
-.geo-line {
-	display: block;
-	width: 40px;
-	height: 1px;
-	background: var(--ls-interactive);
-}
-
-/* Grain overlay (wabi-sabi texture) */
+/* Grain overlay */
 .grain-overlay {
 	position: fixed;
 	inset: 0;
 	z-index: 9998;
 	pointer-events: none;
-	opacity: 0.015;
+	opacity: 0.012;
 	background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
 	background-repeat: repeat;
 	background-size: 256px 256px;

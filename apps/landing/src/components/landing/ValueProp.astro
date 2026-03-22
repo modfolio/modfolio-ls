@@ -1,37 +1,37 @@
 ---
-/* AIDA Interest/Desire: 3 value pillars — geometric icons, no emoji */
 const pillars = [
 	{
-		title: "One account, all lifestyle",
-		desc: "Access KeepNBuild and Worthee with a single Modfolio Connect account.",
-		geo: "circle",
+		num: "01",
+		title: "하나의 계정, 모든 라이프스타일",
+		desc: "Modfolio Connect 하나로 여행 설계와 자기관리를 모두.",
 	},
 	{
-		title: "From travel to habits, connected",
-		desc: "Each app is independent, but your data forms one lifestyle picture.",
-		geo: "rings",
+		num: "02",
+		title: "흩어진 일상이 하나로",
+		desc: "각 앱은 독립적이지만, 당신의 데이터는 하나의 그림이 됩니다.",
 	},
 	{
-		title: "Your data, your ownership",
-		desc: "All data is encrypted and exportable at any time.",
-		geo: "shield",
+		num: "03",
+		title: "당신의 데이터, 당신의 것",
+		desc: "모든 데이터는 암호화되며, 언제든 내보낼 수 있습니다.",
 	},
 ];
 ---
 
 <section class="value reveal" aria-labelledby="value-heading">
 	<div class="container">
-		<span class="section-label" lang="en">WHY MODFOLIO LS</span>
-		<h2 id="value-heading" class="section-heading">A new standard for lifestyle</h2>
+		<h2 id="value-heading" class="value-title reveal">
+			왜 <span class="gradient-text" lang="en">Modfolio LS</span>인가
+		</h2>
 
-		<div class="value-grid">
+		<div class="value-list">
 			{pillars.map((p, i) => (
-				<div class="value-card reveal" style={`--reveal-delay: ${(i + 1) * 0.12}s`}>
-					<div class={`value-icon value-icon--${p.geo}`} aria-hidden="true">
-						<span class="value-icon-shape" />
+				<div class="value-item reveal" style={`--reveal-delay: ${(i + 1) * 0.12}s`}>
+					<span class="value-num gradient-text">{p.num}</span>
+					<div class="value-body">
+						<h3 class="value-heading">{p.title}</h3>
+						<p class="value-desc">{p.desc}</p>
 					</div>
-					<h3 class="value-title">{p.title}</h3>
-					<p class="value-desc">{p.desc}</p>
 				</div>
 			))}
 		</div>
@@ -42,81 +42,46 @@ const pillars = [
 	.value {
 		position: relative;
 		z-index: 1;
-		padding-block: var(--ls-space-12);
-	}
-
-	.value-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-		gap: var(--ls-space-5);
-	}
-
-	.value-card {
-		background: var(--ls-surface);
-		border: 1px solid var(--ls-border);
-		border-radius: var(--ls-r-lg);
-		padding: var(--ls-space-6);
-		transition:
-			transform var(--ls-dur-fast) var(--ls-ease),
-			box-shadow var(--ls-dur-fast) var(--ls-ease);
-	}
-
-	.value-card:hover {
-		transform: translateY(-2px);
-		box-shadow: var(--ls-shadow-md);
-	}
-
-	/* Geometric icons */
-	.value-icon {
-		width: 40px;
-		height: 40px;
-		margin-bottom: var(--ls-space-4);
-		position: relative;
-	}
-
-	.value-icon--circle .value-icon-shape {
-		display: block;
-		width: 32px;
-		height: 32px;
-		border: 2px solid var(--ls-interactive);
-		border-radius: 50%;
-	}
-
-	.value-icon--rings .value-icon-shape {
-		display: block;
-		width: 28px;
-		height: 28px;
-		border: 2px solid var(--ls-interactive);
-		border-radius: 50%;
-	}
-
-	.value-icon--rings .value-icon-shape::after {
-		content: "";
-		position: absolute;
-		top: 8px;
-		left: 8px;
-		width: 16px;
-		height: 16px;
-		border: 1.5px solid var(--ls-interactive);
-		border-radius: 50%;
-		opacity: 0.5;
-	}
-
-	.value-icon--shield .value-icon-shape {
-		display: block;
-		width: 26px;
-		height: 30px;
-		border: 2px solid var(--ls-interactive);
-		border-radius: 4px 4px 50% 50%;
+		padding-block: var(--ls-space-12) var(--ls-space-16);
 	}
 
 	.value-title {
+		font-family: var(--ls-font-display);
+		font-size: var(--ls-text-2xl);
+		font-weight: 700;
+		color: var(--ls-text);
+		text-align: center;
+		margin-bottom: var(--ls-space-10);
+	}
+
+	.value-list {
+		display: flex;
+		flex-direction: column;
+		gap: var(--ls-space-8);
+		max-width: 640px;
+		margin-inline: auto;
+	}
+
+	.value-item {
+		display: flex;
+		gap: var(--ls-space-5);
+		align-items: flex-start;
+	}
+
+	.value-num {
+		font-family: var(--ls-font-display);
+		font-size: var(--ls-text-2xl);
+		font-weight: 700;
+		line-height: 1;
+		flex-shrink: 0;
+	}
+
+	.value-heading {
 		font-family: var(--ls-font-body);
 		font-size: var(--ls-text-md);
 		font-weight: 600;
-		line-height: var(--ls-leading-snug);
 		color: var(--ls-text);
-		margin-bottom: var(--ls-space-3);
+		margin-bottom: var(--ls-space-2);
 	}
 
 	.value-desc {
@@ -124,5 +89,12 @@ const pillars = [
 		font-size: var(--ls-text-sm);
 		color: var(--ls-text-secondary);
 		line-height: var(--ls-leading-normal);
+	}
+
+	@media (max-width: 480px) {
+		.value-item {
+			flex-direction: column;
+			gap: var(--ls-space-3);
+		}
 	}
 </style>

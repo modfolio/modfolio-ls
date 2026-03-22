@@ -1,35 +1,21 @@
 ---
-/* PAS Framework: Problem - Agitate - Solution */
+/* Hero: 마우스 반응형 자개 배경 + 한국어 카피 */
 ---
 
 <section class="hero" aria-labelledby="hero-heading">
-	<!-- Geometric decorations -->
-	<div class="hero-geo" aria-hidden="true">
-		<div class="geo-ring hero-ring"></div>
-		<div class="geo-dot hero-dot-1"></div>
-		<div class="geo-dot hero-dot-2"></div>
-	</div>
-
 	<div class="hero-content container">
-		<span class="section-label" lang="en">LIFESTYLE GROUP</span>
-
-		<h1 id="hero-heading" class="hero-heading">
-			<span class="hero-line">Scattered moments</span>
-			<span class="hero-line accent-text">deserve a center.</span>
+		<h1 id="hero-heading" class="hero-heading reveal">
+			<span class="hero-line">삶의 조각들이</span>
+			<span class="hero-line gradient-text">흩어져 있다면</span>
 		</h1>
 
-		<p class="hero-agitate">
-			Travel plans here, habit logs there.<br />
-			What if your daily life had one home?
+		<p class="hero-sub reveal" style="--reveal-delay: 0.15s">
+			여행 계획은 여기, 습관 기록은 저기.<br />
+			당신의 일상에 하나의 중심이 필요합니다.
 		</p>
 
-		<p class="hero-solution">
-			<strong lang="en">Modfolio LS</strong> connects your lifestyle.
-		</p>
-
-		<div class="hero-actions">
-			<a href="/auth/login" class="btn-primary">Get Started</a>
-			<a href="#showcase" class="btn-ghost">Explore</a>
+		<div class="hero-actions reveal" style="--reveal-delay: 0.3s">
+			<a href="/auth/login" class="hero-btn">시작하기</a>
 		</div>
 	</div>
 </section>
@@ -41,44 +27,29 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		min-height: 85vh;
+		min-height: 88vh;
 		text-align: center;
 		padding-block: var(--ls-space-16) var(--ls-space-12);
-		overflow: hidden;
-	}
-
-	.hero-geo {
-		position: absolute;
-		inset: 0;
-		pointer-events: none;
-	}
-
-	.hero-ring {
-		top: 15%;
-		right: 8%;
-		width: 280px;
-		height: 280px;
-		animation: ls-spin 60s linear infinite;
-	}
-
-	.hero-dot-1 {
-		top: 25%;
-		left: 12%;
-		animation: ls-float var(--ls-dur-breath) var(--ls-ease-float) infinite;
-	}
-
-	.hero-dot-2 {
-		bottom: 20%;
-		right: 15%;
-		width: 4px;
-		height: 4px;
-		opacity: 0.5;
+		background:
+			radial-gradient(
+				600px circle at var(--mx, 30%) var(--my, 40%),
+				var(--ls-glow-plum),
+				transparent 60%
+			),
+			radial-gradient(
+				500px circle at calc(100% - var(--mx, 30%)) calc(100% - var(--my, 40%)),
+				var(--ls-glow-sky),
+				transparent 60%
+			),
+			var(--ls-void);
+		transition: background 0.15s ease;
 	}
 
 	.hero-content {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		max-width: 640px;
 	}
 
 	.hero-heading {
@@ -95,81 +66,31 @@
 		display: block;
 	}
 
-	.hero-agitate {
+	.hero-sub {
 		font-family: var(--ls-font-body);
 		font-size: var(--ls-text-lg);
 		color: var(--ls-text-secondary);
 		line-height: var(--ls-leading-relaxed);
-		margin-bottom: var(--ls-space-4);
-		max-width: 40ch;
-	}
-
-	.hero-solution {
-		font-family: var(--ls-font-story);
-		font-size: var(--ls-text-md);
-		color: var(--ls-text);
 		margin-bottom: var(--ls-space-8);
+		max-width: 36ch;
 	}
 
-	.hero-actions {
-		display: flex;
-		gap: var(--ls-space-4);
-		flex-wrap: wrap;
-		justify-content: center;
-	}
-
-	.btn-primary {
-		display: inline-flex;
-		align-items: center;
-		padding: var(--ls-space-3) var(--ls-space-6);
-		background: var(--ls-interactive);
-		color: #fff;
+	.hero-btn {
 		font-family: var(--ls-font-ui);
 		font-size: var(--ls-text-base);
 		font-weight: 600;
-		border-radius: var(--ls-r-md);
+		color: #fff;
+		padding: var(--ls-space-3) var(--ls-space-8);
+		background: var(--ls-gradient);
+		background-size: 200% 200%;
+		border-radius: var(--ls-r-full);
 		transition:
-			background var(--ls-dur-fast) var(--ls-ease),
-			transform var(--ls-dur-fast) var(--ls-ease);
+			transform var(--ls-dur-fast) var(--ls-ease),
+			box-shadow var(--ls-dur-fast) var(--ls-ease);
 	}
 
-	.btn-primary:hover {
-		background: var(--ls-interactive-hover);
-		transform: translateY(-1px);
-	}
-
-	.btn-ghost {
-		display: inline-flex;
-		align-items: center;
-		padding: var(--ls-space-3) var(--ls-space-6);
-		border: 1px solid var(--ls-border);
-		color: var(--ls-text-secondary);
-		font-family: var(--ls-font-ui);
-		font-size: var(--ls-text-base);
-		font-weight: 500;
-		border-radius: var(--ls-r-md);
-		transition:
-			border-color var(--ls-dur-fast) var(--ls-ease),
-			color var(--ls-dur-fast) var(--ls-ease);
-	}
-
-	.btn-ghost:hover {
-		border-color: var(--ls-interactive);
-		color: var(--ls-text);
-	}
-
-	@keyframes ls-spin {
-		to {
-			transform: rotate(360deg);
-		}
-	}
-
-	@media (max-width: 640px) {
-		.hero-ring {
-			width: 160px;
-			height: 160px;
-			top: 10%;
-			right: -5%;
-		}
+	.hero-btn:hover {
+		transform: translateY(-2px);
+		box-shadow: var(--ls-shadow-glow);
 	}
 </style>

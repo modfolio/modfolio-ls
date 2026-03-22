@@ -4,21 +4,21 @@ interface Props {
 }
 
 const { user } = Astro.props;
-const displayName = user.name || "Explorer";
+const displayName = user.name || "탐험가";
 const hour = new Date().getHours();
 
 let greeting: string;
-if (hour >= 6 && hour < 12) greeting = "Good morning";
-else if (hour >= 12 && hour < 18) greeting = "Good afternoon";
-else if (hour >= 18 && hour < 24) greeting = "Good evening";
-else greeting = "Late night";
+if (hour >= 6 && hour < 12) greeting = "좋은 아침이에요";
+else if (hour >= 12 && hour < 18) greeting = "좋은 오후에요";
+else if (hour >= 18 && hour < 24) greeting = "좋은 저녁이에요";
+else greeting = "밤이 깊었네요";
 ---
 
-<section class="greeting" aria-label="Greeting">
+<section class="greeting" aria-label="인사">
 	<h1 class="greeting-text">
-		{greeting}, <span class="greeting-name">{displayName}</span>
+		{greeting}, <span class="greeting-name gradient-text">{displayName}</span>
 	</h1>
-	<p class="greeting-sub">Your lifestyle today</p>
+	<p class="greeting-sub">오늘의 라이프스타일</p>
 </section>
 
 <style>
@@ -32,8 +32,6 @@ else greeting = "Late night";
 		color: var(--ls-text);
 		margin-bottom: var(--ls-space-2);
 	}
-
-	.greeting-name { color: var(--ls-interactive); }
 
 	.greeting-sub {
 		font-family: var(--ls-font-story);

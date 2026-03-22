@@ -7,62 +7,39 @@ interface Props {
 
 const { app } = Astro.props;
 const href = app.status === "active" ? app.url : app.landingUrl;
-const ctaLabel = app.status === "active" ? "Open" : "View";
+const ctaLabel = app.status === "active" ? "열기" : "보기";
 ---
 
-<article class="app-card" data-app={app.id}>
-	<div class="app-card-accent" aria-hidden="true" />
-	<div class="app-card-body">
-		<div class="app-card-header">
-			<h3 class="app-card-name" lang="en">{app.name}</h3>
-			<span class="app-card-tagline" lang="en">{app.tagline}</span>
-		</div>
-
-		<p class="app-card-desc">{app.desc}</p>
-
-		<div class="app-card-meta">
-			<span class="app-card-domain" lang="en">{app.domain}</span>
-			<span class={`app-card-status status-${app.status}`}>
-				{app.status === "active" ? "Active" : "Coming"}
-			</span>
-		</div>
-
-		<a href={href} class="app-card-cta" target="_blank" rel="noopener">
-			{ctaLabel} &rarr;
-		</a>
+<a href={href} class="app-card" data-app={app.id} data-tilt target="_blank" rel="noopener">
+	<h3 class="app-card-name" lang="en">{app.name}</h3>
+	<p class="app-card-desc">{app.desc}</p>
+	<div class="app-card-footer">
+		<span class="app-card-domain" lang="en">{app.domain}</span>
+		<span class={`app-card-status status-${app.status}`}>
+			{app.status === "active" ? "활성" : "준비 중"}
+		</span>
 	</div>
-</article>
+	<span class="app-card-link gradient-text">{ctaLabel} &rarr;</span>
+</a>
 
 <style>
 	.app-card {
+		display: block;
 		background: var(--ls-surface);
 		border: 1px solid var(--ls-border);
-		border-radius: var(--ls-r-lg);
-		overflow: hidden;
-		transition: transform var(--ls-dur-fast), box-shadow var(--ls-dur-fast);
+		border-radius: var(--ls-r-xl);
+		padding: var(--ls-space-5);
+		transition: transform 0.4s var(--ls-ease), box-shadow 0.4s var(--ls-ease), border-color 0.3s;
+		will-change: transform;
 	}
-	.app-card:hover { transform: translateY(-2px); box-shadow: var(--ls-shadow-md); }
-
-	.app-card-accent { height: 3px; background: var(--ls-app-accent, var(--ls-interactive)); }
-
-	.app-card-body { padding: var(--ls-space-5); }
-
-	.app-card-header { margin-bottom: var(--ls-space-3); }
+	.app-card:hover { border-color: var(--ls-border-hover); box-shadow: var(--ls-shadow-glow); }
 
 	.app-card-name {
 		font-family: var(--ls-font-display);
 		font-size: var(--ls-text-lg);
 		font-weight: 700;
-		line-height: var(--ls-leading-snug);
 		color: var(--ls-text);
-		margin-bottom: var(--ls-space-1);
-	}
-
-	.app-card-tagline {
-		font-family: var(--ls-font-ui);
-		font-size: var(--ls-text-xs);
-		color: var(--ls-app-accent, var(--ls-interactive));
-		letter-spacing: var(--ls-tracking-wide);
+		margin-bottom: var(--ls-space-3);
 	}
 
 	.app-card-desc {
@@ -73,11 +50,11 @@ const ctaLabel = app.status === "active" ? "Open" : "View";
 		margin-bottom: var(--ls-space-4);
 	}
 
-	.app-card-meta {
+	.app-card-footer {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		margin-bottom: var(--ls-space-4);
+		margin-bottom: var(--ls-space-3);
 	}
 
 	.app-card-domain {
@@ -90,30 +67,15 @@ const ctaLabel = app.status === "active" ? "Open" : "View";
 		font-family: var(--ls-font-ui);
 		font-size: var(--ls-text-xs);
 		font-weight: 600;
-		letter-spacing: var(--ls-tracking-wide);
-		text-transform: uppercase;
 		padding: 2px var(--ls-space-3);
 		border-radius: var(--ls-r-full);
 	}
-
 	.status-active { background: var(--ls-status-active-bg); color: var(--ls-status-active); }
 	.status-landing { background: var(--ls-status-pending-bg); color: var(--ls-status-pending); }
 
-	.app-card-cta {
-		display: inline-flex;
-		align-items: center;
-		gap: var(--ls-space-2);
+	.app-card-link {
 		font-family: var(--ls-font-ui);
 		font-size: var(--ls-text-sm);
 		font-weight: 600;
-		color: var(--ls-app-accent, var(--ls-interactive));
-		padding: var(--ls-space-2) var(--ls-space-4);
-		border: 1px solid var(--ls-border);
-		border-radius: var(--ls-r-md);
-		transition: border-color var(--ls-dur-fast), background var(--ls-dur-fast);
-	}
-	.app-card-cta:hover {
-		border-color: var(--ls-app-accent, var(--ls-interactive));
-		background: var(--ls-plum-bg);
 	}
 </style>

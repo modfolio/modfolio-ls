@@ -1,54 +1,61 @@
 /* ============================================================
    Modfolio LS — Design Tokens
-   "Refined Lifestyle: 세련된 일상, 의도된 여백"
-   3-Tier: Primitives → Semantic → Accent
-   Light theme — warm beige + plum highlight
+   "Iridescent Lifestyle: 자개빛 일상"
+   White canvas + plum-to-sky iridescent highlights
    ============================================================ */
 
 :root {
-	/* ── Primitives: Warm Monochrome ── */
-	--ls-void: #f8f7f5;
+	/* ── Surfaces: Warm White ── */
+	--ls-void: #f9f8f6;
 	--ls-surface: #ffffff;
-	--ls-surface-raised: #f2f1ef;
-	--ls-surface-overlay: #ebeae8;
+	--ls-surface-raised: #f4f3f0;
+	--ls-surface-overlay: #eeedea;
 
-	/* ── Primitives: Dark Ink ── */
+	/* ── Ink: Dark Text ── */
 	--ls-ink: #1a1a1a;
-	--ls-ink-2: #6b6b6b;
-	--ls-ink-3: #9a9a9a;
+	--ls-ink-2: #5a5a5a;
+	--ls-ink-3: #8a8a8a;
 
-	/* ── Primitives: Brand (plum, light-adjusted) ── */
-	--ls-plum: oklch(0.5 0.18 320);
-	--ls-plum-soft: oklch(0.6 0.14 320);
-	--ls-plum-bg: oklch(0.5 0.18 320 / 0.06);
-	--ls-sky: oklch(0.45 0.12 225);
+	/* ── Iridescent Palette (자개) ── */
+	--ls-plum: oklch(0.72 0.14 320);
+	--ls-plum-soft: oklch(0.8 0.1 320);
+	--ls-plum-deep: oklch(0.55 0.16 320);
+	--ls-sky: oklch(0.78 0.1 225);
+	--ls-sky-soft: oklch(0.85 0.07 225);
 
-	/* ── Semantic: Surfaces ── */
+	/* ── Glow (자개 빛) ── */
+	--ls-glow-plum: color-mix(in oklch, var(--ls-plum) 10%, transparent);
+	--ls-glow-sky: color-mix(in oklch, var(--ls-sky) 10%, transparent);
+
+	/* ── Gradients ── */
+	--ls-gradient: linear-gradient(135deg, var(--ls-plum), var(--ls-sky));
+	--ls-gradient-soft: linear-gradient(
+		135deg,
+		oklch(0.8 0.1 320 / 0.12),
+		oklch(0.85 0.07 225 / 0.12)
+	);
+
+	/* ── Semantic ── */
 	--ls-bg: var(--ls-void);
 	--ls-text: var(--ls-ink);
 	--ls-text-secondary: var(--ls-ink-2);
 	--ls-text-muted: var(--ls-ink-3);
-
-	/* ── Semantic: Interactive ── */
 	--ls-interactive: var(--ls-plum);
 	--ls-interactive-hover: var(--ls-plum-soft);
 	--ls-focus-ring: var(--ls-plum);
 
-	/* ── Semantic: Borders ── */
+	/* ── Borders ── */
 	--ls-border: #e2e0dc;
 	--ls-border-hover: #d0cec9;
 	--ls-border-subtle: #edebe8;
 
-	/* ── Semantic: Status ── */
+	/* ── Status ── */
 	--ls-status-active: oklch(0.45 0.15 170);
 	--ls-status-active-bg: oklch(0.45 0.15 170 / 0.08);
 	--ls-status-pending: oklch(0.55 0.15 85);
 	--ls-status-pending-bg: oklch(0.55 0.15 85 / 0.08);
 
-	/* ── Accent: LS Group ── */
-	--ls-gradient: linear-gradient(135deg, var(--ls-plum), var(--ls-sky));
-
-	/* ── 8pt Spacing Grid ── */
+	/* ── Spacing (8pt) ── */
 	--ls-space-1: 0.25rem;
 	--ls-space-2: 0.5rem;
 	--ls-space-3: 0.75rem;
@@ -68,33 +75,29 @@
 	--ls-r-xl: 24px;
 	--ls-r-full: 9999px;
 
-	/* ── Timing (spring-influenced) ── */
+	/* ── Timing ── */
 	--ls-ease: cubic-bezier(0.16, 1, 0.3, 1);
 	--ls-ease-out: cubic-bezier(0.33, 1, 0.68, 1);
 	--ls-ease-float: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-
 	--ls-dur-fast: 0.3s;
 	--ls-dur-base: 0.5s;
 	--ls-dur-slow: 0.8s;
-	--ls-dur-breath: 8s;
 
-	/* ── Shadows (light theme, subtle) ── */
-	--ls-shadow-sm: 0 1px 3px oklch(0 0 0 / 0.06);
-	--ls-shadow-md: 0 4px 12px oklch(0 0 0 / 0.08);
-	--ls-shadow-lg: 0 8px 24px oklch(0 0 0 / 0.1);
+	/* ── Shadows ── */
+	--ls-shadow-sm: 0 1px 3px oklch(0 0 0 / 0.05);
+	--ls-shadow-md: 0 4px 16px oklch(0 0 0 / 0.08);
+	--ls-shadow-glow: 0 8px 40px var(--ls-glow-plum);
 
 	/* ── Layout ── */
 	--ls-content-max: 960px;
 	--ls-content-wide: 1200px;
 }
 
-/* ── Per-app accent scoping (light-adjusted) ── */
+/* ── Per-app accents ── */
 [data-app="keepnbuild"] {
-	--ls-app-accent: oklch(0.55 0.16 75);
-	--ls-app-accent-2: oklch(0.5 0.12 180);
+	--ls-app-accent: oklch(0.65 0.14 75);
 }
 
 [data-app="worthee"] {
-	--ls-app-accent: oklch(0.52 0.18 55);
-	--ls-app-accent-2: oklch(0.48 0.16 20);
+	--ls-app-accent: oklch(0.6 0.16 55);
 }

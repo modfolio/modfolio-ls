@@ -1,17 +1,16 @@
 ---
-/* AIDA Action phase */
 ---
 
 <section class="cta reveal" aria-labelledby="cta-heading">
+	<div class="cta-wash" aria-hidden="true"></div>
 	<div class="container cta-inner">
-		<div class="geo-line cta-line" aria-hidden="true"></div>
 		<h2 id="cta-heading" class="cta-heading">
-			Center your daily life, today.
+			오늘, 일상의 중심을 잡으세요.
 		</h2>
 		<p class="cta-sub">
-			Free with one <span lang="en">Modfolio Connect</span> account.
+			<span lang="en">Modfolio Connect</span> 계정 하나면 충분합니다.
 		</p>
-		<a href="/auth/login" class="cta-btn">Get Started</a>
+		<a href="/auth/login" class="cta-btn">무료로 시작하기</a>
 	</div>
 </section>
 
@@ -19,18 +18,23 @@
 	.cta {
 		position: relative;
 		z-index: 1;
-		padding-block: var(--ls-space-16) var(--ls-space-12);
+		padding-block: var(--ls-space-16);
+		overflow: hidden;
+	}
+
+	.cta-wash {
+		position: absolute;
+		inset: 0;
+		background: var(--ls-gradient-soft);
+		pointer-events: none;
 	}
 
 	.cta-inner {
+		position: relative;
 		text-align: center;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-	}
-
-	.cta-line {
-		margin-bottom: var(--ls-space-6);
 	}
 
 	.cta-heading {
@@ -38,7 +42,6 @@
 		font-size: var(--ls-text-2xl);
 		font-weight: 700;
 		line-height: var(--ls-leading-tight);
-		letter-spacing: var(--ls-tracking-tight);
 		color: var(--ls-text);
 		margin-bottom: var(--ls-space-4);
 	}
@@ -51,22 +54,20 @@
 	}
 
 	.cta-btn {
-		display: inline-flex;
-		align-items: center;
-		padding: var(--ls-space-4) var(--ls-space-8);
-		background: var(--ls-interactive);
-		color: #fff;
 		font-family: var(--ls-font-ui);
-		font-size: var(--ls-text-lg);
+		font-size: var(--ls-text-base);
 		font-weight: 600;
-		border-radius: var(--ls-r-lg);
+		color: #fff;
+		padding: var(--ls-space-3) var(--ls-space-8);
+		background: var(--ls-gradient);
+		border-radius: var(--ls-r-full);
 		transition:
-			background var(--ls-dur-fast) var(--ls-ease),
-			transform var(--ls-dur-fast) var(--ls-ease);
+			transform var(--ls-dur-fast) var(--ls-ease),
+			box-shadow var(--ls-dur-fast) var(--ls-ease);
 	}
 
 	.cta-btn:hover {
-		background: var(--ls-interactive-hover);
-		transform: translateY(-1px);
+		transform: translateY(-2px);
+		box-shadow: var(--ls-shadow-glow);
 	}
 </style>
