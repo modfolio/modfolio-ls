@@ -9,17 +9,17 @@ const features = [
 	{
 		num: "01",
 		title: "하나의 계정, 모든 라이프스타일",
-		body: "Modfolio Connect로 KeepNBuild와 Worthee 모두 이용할 수 있습니다. 별도 가입 없이, 하나의 인증으로 모든 라이프스타일 도구에 접근하세요.",
+		body: "Modfolio Connect로 KeepNBuild와 Worthee 모두 이용. 하나의 인증으로 모든 도구에 접근하세요.",
 	},
 	{
 		num: "02",
 		title: "흩어진 일상이 하나의 그림으로",
-		body: "각 앱은 독립적이지만, 당신의 활동 데이터는 하나의 라이프스타일 프로필을 구성합니다. 여행 기록과 습관 데이터가 함께 쌓이면, 일상의 전체 그림이 보이기 시작합니다.",
+		body: "독립적인 앱이지만 하나의 프로필. 여행 기록과 습관 데이터가 함께 일상의 그림을 완성합니다.",
 	},
 	{
 		num: "03",
 		title: "당신의 데이터, 당신의 것",
-		body: "모든 데이터는 암호화되어 안전하게 보관됩니다. 언제든 전체 데이터를 내보낼 수 있으며, 삭제를 요청하면 30일 이내에 완전히 제거됩니다.",
+		body: "암호화 보관, 언제든 내보내기 가능. 삭제 요청 시 30일 이내 완전 제거됩니다.",
 	},
 ];
 ---
@@ -28,7 +28,6 @@ const features = [
 	<Nav user={user} current="/features" />
 
 	<main id="main">
-		<!-- Hero -->
 		<section class="hero" aria-labelledby="features-heading">
 			<div class="container hero-inner">
 				<h1 id="features-heading" class="hero-title reveal">
@@ -40,7 +39,6 @@ const features = [
 			</div>
 		</section>
 
-		<!-- Feature Cards -->
 		<section class="section section-raised">
 			<div class="container">
 				<div class="feature-grid">
@@ -55,7 +53,6 @@ const features = [
 			</div>
 		</section>
 
-		<!-- Comparison -->
 		<section class="section">
 			<div class="container">
 				<h2 class="center-title reveal">
@@ -82,12 +79,15 @@ const features = [
 			</div>
 		</section>
 
-		<!-- CTA -->
-		<section class="section section-gradient" style="text-align:center">
-			<div class="container reveal" style="--reveal-delay: 0.2s">
-				<h2 class="cta-title">지금 시작해보세요</h2>
-				<p class="cta-sub"><span lang="en">Modfolio Connect</span> 계정 하나면 충분합니다.</p>
-				<a href="/auth/login" class="cta-btn">무료로 시작하기</a>
+		<section class="section section-gradient">
+			<div class="container">
+				<div class="cta-card reveal" style="--reveal-delay: 0.2s">
+					<h2 class="cta-title">지금 시작해보세요</h2>
+					<p class="cta-sub">
+						<span lang="en">Modfolio Connect</span> 계정 하나면 충분합니다.
+					</p>
+					<a href="/auth/login" class="cta-btn">무료로 시작하기</a>
+				</div>
 			</div>
 		</section>
 	</main>
@@ -145,7 +145,6 @@ const features = [
 		margin-bottom: var(--ls-space-10);
 	}
 
-	/* Feature cards */
 	.feature-grid {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
@@ -190,9 +189,10 @@ const features = [
 		font-size: var(--ls-text-base);
 		color: var(--ls-text-secondary);
 		line-height: var(--ls-leading-normal);
+		max-width: 28ch;
+		margin-inline: auto;
 	}
 
-	/* Before/After comparison */
 	.compare-grid {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
@@ -262,17 +262,26 @@ const features = [
 	.compare-before .compare-list li::before { background: var(--ls-text-muted); }
 	.compare-after .compare-list li::before { background: var(--ls-interactive); }
 
-	/* CTA */
+	.cta-card {
+		max-width: 700px;
+		margin-inline: auto;
+		text-align: center;
+		background: var(--ls-surface);
+		border: 1px solid var(--ls-border);
+		border-radius: var(--ls-r-xl);
+		padding: var(--ls-space-12) var(--ls-space-8);
+	}
+
 	.cta-title {
 		font-family: var(--ls-font-display);
-		font-size: var(--ls-text-2xl);
+		font-size: var(--ls-text-xl);
 		font-weight: 700;
 		color: var(--ls-text);
 		margin-bottom: var(--ls-space-4);
 	}
 
 	.cta-sub {
-		font-family: var(--ls-font-story);
+		font-family: var(--ls-font-body);
 		font-size: var(--ls-text-md);
 		color: var(--ls-text-secondary);
 		margin-bottom: var(--ls-space-8);
@@ -286,13 +295,18 @@ const features = [
 		color: #fff;
 		padding: var(--ls-space-3) var(--ls-space-8);
 		background: var(--ls-gradient);
+		background-size: 200% 200%;
 		border-radius: var(--ls-r-full);
-		transition: transform var(--ls-dur-fast), box-shadow var(--ls-dur-fast);
+		transition:
+			transform 0.4s var(--ls-ease),
+			box-shadow 0.4s var(--ls-ease),
+			background-position 0.6s var(--ls-ease-out);
 	}
 
 	.cta-btn:hover {
 		transform: translateY(-3px);
 		box-shadow: 0 12px 48px var(--ls-glow-plum);
+		background-position: 100% 50%;
 	}
 
 	@media (max-width: 768px) {

@@ -10,7 +10,6 @@ const user = Astro.locals.user;
 	<Nav user={user} current="/blog" />
 
 	<main id="main">
-		<!-- Hero -->
 		<section class="hero" aria-labelledby="blog-heading">
 			<div class="container hero-inner">
 				<h1 id="blog-heading" class="hero-title reveal">블로그</h1>
@@ -20,21 +19,17 @@ const user = Astro.locals.user;
 			</div>
 		</section>
 
-		<!-- Coming Soon -->
 		<section class="section section-gradient">
 			<div class="container">
 				<div class="coming-card reveal" style="--reveal-delay: 0.2s">
 					<h2 class="coming-title">준비하고 있습니다</h2>
 					<p class="coming-desc">
 						여행, 웰니스, 그리고 일상에 대한 이야기를 곧 들려드리겠습니다.
-					</p>
-					<p class="coming-sub">
 						<span lang="en">Modfolio Press</span> 뉴스레터와 함께
 						라이프스타일 인사이트를 전해드릴 예정입니다.
 					</p>
 				</div>
 
-				<!-- Preview cards -->
 				<div class="preview-grid">
 					<div class="preview-card reveal" style="--reveal-delay: 0.3s">
 						<span class="preview-badge">여행</span>
@@ -58,12 +53,15 @@ const user = Astro.locals.user;
 			</div>
 		</section>
 
-		<!-- CTA -->
-		<section class="section" style="text-align:center">
-			<div class="container reveal" style="--reveal-delay: 0.2s">
-				<h2 class="cta-title">소식을 놓치지 마세요</h2>
-				<p class="cta-sub">계정을 만들면 새 글이 올라올 때 알림을 받을 수 있습니다.</p>
-				<a href="/auth/login" class="cta-btn">계정 만들기</a>
+		<section class="section">
+			<div class="container">
+				<div class="cta-card reveal" style="--reveal-delay: 0.2s">
+					<h2 class="cta-title">소식을 놓치지 마세요</h2>
+					<p class="cta-sub">
+						계정을 만들면 새 글이 올라올 때 알림을 받을 수 있습니다.
+					</p>
+					<a href="/auth/login" class="cta-btn">계정 만들기</a>
+				</div>
 			</div>
 		</section>
 	</main>
@@ -105,7 +103,6 @@ const user = Astro.locals.user;
 	.section { padding-block: var(--ls-space-16); }
 	.section-gradient { background: var(--ls-gradient-soft); }
 
-	/* Coming soon card */
 	.coming-card {
 		max-width: 640px;
 		margin-inline: auto;
@@ -113,7 +110,7 @@ const user = Astro.locals.user;
 		background: var(--ls-surface);
 		border: 1px solid var(--ls-border);
 		border-radius: var(--ls-r-xl);
-		padding: var(--ls-space-12) var(--ls-space-8);
+		padding: var(--ls-space-10) var(--ls-space-8);
 		margin-bottom: var(--ls-space-10);
 	}
 
@@ -126,19 +123,14 @@ const user = Astro.locals.user;
 	}
 
 	.coming-desc {
-		font-family: var(--ls-font-body);
-		font-size: var(--ls-text-base);
-		color: var(--ls-text-secondary);
-		margin-bottom: var(--ls-space-3);
-	}
-
-	.coming-sub {
 		font-family: var(--ls-font-story);
-		font-size: var(--ls-text-sm);
-		color: var(--ls-text-muted);
+		font-size: var(--ls-text-md);
+		color: var(--ls-text-secondary);
+		line-height: var(--ls-leading-normal);
+		max-width: 40ch;
+		margin-inline: auto;
 	}
 
-	/* Preview skeleton cards */
 	.preview-grid {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
@@ -181,17 +173,26 @@ const user = Astro.locals.user;
 
 	.preview-skeleton-short { width: 45%; }
 
-	/* CTA */
+	.cta-card {
+		max-width: 600px;
+		margin-inline: auto;
+		text-align: center;
+		background: var(--ls-surface);
+		border: 1px solid var(--ls-border);
+		border-radius: var(--ls-r-xl);
+		padding: var(--ls-space-12) var(--ls-space-8);
+	}
+
 	.cta-title {
 		font-family: var(--ls-font-display);
-		font-size: var(--ls-text-2xl);
+		font-size: var(--ls-text-xl);
 		font-weight: 700;
 		color: var(--ls-text);
 		margin-bottom: var(--ls-space-4);
 	}
 
 	.cta-sub {
-		font-family: var(--ls-font-story);
+		font-family: var(--ls-font-body);
 		font-size: var(--ls-text-md);
 		color: var(--ls-text-secondary);
 		margin-bottom: var(--ls-space-8);
@@ -205,13 +206,18 @@ const user = Astro.locals.user;
 		color: #fff;
 		padding: var(--ls-space-3) var(--ls-space-8);
 		background: var(--ls-gradient);
+		background-size: 200% 200%;
 		border-radius: var(--ls-r-full);
-		transition: transform var(--ls-dur-fast), box-shadow var(--ls-dur-fast);
+		transition:
+			transform 0.4s var(--ls-ease),
+			box-shadow 0.4s var(--ls-ease),
+			background-position 0.6s var(--ls-ease-out);
 	}
 
 	.cta-btn:hover {
 		transform: translateY(-3px);
 		box-shadow: 0 12px 48px var(--ls-glow-plum);
+		background-position: 100% 50%;
 	}
 
 	@media (max-width: 768px) {

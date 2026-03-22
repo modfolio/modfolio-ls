@@ -10,26 +10,24 @@ const user = Astro.locals.user;
 	<Nav user={user} current="/about" />
 
 	<main id="main">
-		<!-- Hero -->
 		<section class="hero" aria-labelledby="about-heading">
 			<div class="container hero-inner">
 				<h1 id="about-heading" class="hero-title reveal">
 					<span class="gradient-text" lang="en">Modfolio LS</span>의 이야기
 				</h1>
 				<p class="hero-lead reveal" style="--reveal-delay: 0.15s">
-					여행 설계부터 자기관리까지, 흩어진 일상을 하나로 연결합니다.
+					여행 설계부터 자기관리까지,<br />흩어진 일상을 하나로 연결합니다.
 				</p>
 			</div>
 		</section>
 
-		<!-- Mission -->
 		<section class="section">
 			<div class="container">
 				<div class="mission-card reveal" style="--reveal-delay: 0.2s">
-					<h2 class="mission-label">미션</h2>
+					<p class="mission-label">미션</p>
 					<p class="mission-text">
-						우리는 라이프스타일이 도구의 나열이 아니라<br />
-						<strong>하나의 경험</strong>이어야 한다고 믿습니다.
+						라이프스타일이 도구의 나열이 아니라<br />
+						하나의 경험이어야 한다고 믿습니다.
 					</p>
 					<p class="mission-sub">
 						여행을 설계하고, 습관을 기록하고, 성실함을 증명하는 모든 순간이
@@ -39,64 +37,54 @@ const user = Astro.locals.user;
 			</div>
 		</section>
 
-		<!-- Two Apps -->
 		<section class="section section-raised" aria-labelledby="apps-heading">
 			<div class="container">
-				<h2 id="apps-heading" class="center-title reveal">
-					두 가지 도구, 하나의 철학
-				</h2>
+				<h2 id="apps-heading" class="center-title reveal">두 가지 도구, 하나의 철학</h2>
 				<div class="app-grid">
 					<div class="app-card reveal" data-app="keepnbuild" style="--reveal-delay: 0.15s">
 						<h3 class="app-name" lang="en">KeepNBuild</h3>
 						<p class="app-tagline">Custom Travel Design</p>
-						<p class="app-desc">
-							어디로 떠날지, 무엇을 경험할지 -- 당신만의 여행을 직접 설계하세요.
-							일정을 만들고, 경험을 기록하고, 다음 여행을 미리 그려봅니다.
-						</p>
-						<a href="https://keepnbuild.com" class="app-link gradient-text" target="_blank" rel="noopener" lang="en">keepnbuild.com &rarr;</a>
+						<p class="app-desc">어디로 떠날지, 무엇을 경험할지. 당신만의 여행을 직접 설계하고 기록하세요.</p>
+						<a href="https://keepnbuild.com" class="app-link" target="_blank" rel="noopener" lang="en">keepnbuild.com &rarr;</a>
 					</div>
 					<div class="app-card reveal" data-app="worthee" style="--reveal-delay: 0.3s">
 						<h3 class="app-name" lang="en">Worthee</h3>
 						<p class="app-tagline">Honor &amp; Self-Management</p>
-						<p class="app-desc">
-							습관을 기록하고 인증하면, 커뮤니티가 검증합니다.
-							매일의 성실함이 쌓여 명예가 되는 곳입니다.
-						</p>
-						<a href="https://worthee.io" class="app-link gradient-text" target="_blank" rel="noopener" lang="en">worthee.io &rarr;</a>
+						<p class="app-desc">습관을 기록하고 인증하면 커뮤니티가 검증합니다. 성실함이 명예가 되는 곳.</p>
+						<a href="https://worthee.io" class="app-link" target="_blank" rel="noopener" lang="en">worthee.io &rarr;</a>
 					</div>
 				</div>
 			</div>
 		</section>
 
-		<!-- Ecosystem -->
 		<section class="section section-gradient">
 			<div class="container">
 				<div class="eco-card reveal" style="--reveal-delay: 0.2s">
-					<h2 class="eco-title">
-						<span lang="en">Modfolio</span> 생태계
-					</h2>
+					<h2 class="eco-title"><span lang="en">Modfolio</span> 생태계</h2>
 					<p class="eco-body">
 						<span lang="en">Modfolio LS</span>는
-						<a href="https://modfolio.io" target="_blank" rel="noopener" lang="en">Modfolio</a>
-						생태계의 라이프스타일 그룹입니다.
-						<span lang="en">Modfolio Connect</span> 하나의 계정으로
-						모든 서비스를 이용할 수 있으며, 데이터는 안전하게 암호화됩니다.
+						<span lang="en">Modfolio</span> 생태계의 라이프스타일 그룹입니다.
+						하나의 계정으로 모든 서비스를 이용하세요.
 					</p>
 					<div class="eco-links">
-						<a href="https://modfolio.io" target="_blank" rel="noopener" class="eco-link" lang="en">Modfolio</a>
-						<a href="https://connect.modfolio.io" target="_blank" rel="noopener" class="eco-link" lang="en">Connect</a>
-						<a href="https://pay.modfolio.io" target="_blank" rel="noopener" class="eco-link" lang="en">Pay</a>
-						<a href="https://docs.modfolio.io" target="_blank" rel="noopener" class="eco-link" lang="en">Docs</a>
+						<a href="https://modfolio.io" target="_blank" rel="noopener" class="eco-pill" lang="en">Modfolio</a>
+						<a href="https://connect.modfolio.io" target="_blank" rel="noopener" class="eco-pill" lang="en">Connect</a>
+						<a href="https://pay.modfolio.io" target="_blank" rel="noopener" class="eco-pill" lang="en">Pay</a>
+						<a href="https://docs.modfolio.io" target="_blank" rel="noopener" class="eco-pill" lang="en">Docs</a>
 					</div>
 				</div>
 			</div>
 		</section>
 
-		<!-- CTA -->
-		<section class="section" style="text-align:center">
-			<div class="container reveal" style="--reveal-delay: 0.2s">
-				<h2 class="cta-title">일상의 중심을 잡을 준비가 되셨나요?</h2>
-				<a href="/auth/login" class="cta-btn">무료로 시작하기</a>
+		<section class="section">
+			<div class="container">
+				<div class="cta-card reveal" style="--reveal-delay: 0.2s">
+					<h2 class="cta-title">일상의 중심을 잡을 준비가 되셨나요?</h2>
+					<p class="cta-sub">
+						<span lang="en">Modfolio Connect</span> 계정 하나면 충분합니다.
+					</p>
+					<a href="/auth/login" class="cta-btn">무료로 시작하기</a>
+				</div>
 			</div>
 		</section>
 	</main>
@@ -134,8 +122,7 @@ const user = Astro.locals.user;
 		font-family: var(--ls-font-body);
 		font-size: var(--ls-text-lg);
 		color: var(--ls-text-secondary);
-		max-width: 42ch;
-		margin-inline: auto;
+		line-height: var(--ls-leading-relaxed);
 	}
 
 	.section { padding-block: var(--ls-space-16); }
@@ -148,7 +135,7 @@ const user = Astro.locals.user;
 
 	.section-gradient { background: var(--ls-gradient-soft); }
 
-	/* Mission card */
+	/* Mission */
 	.mission-card {
 		max-width: 800px;
 		margin-inline: auto;
@@ -171,7 +158,7 @@ const user = Astro.locals.user;
 
 	.mission-text {
 		font-family: var(--ls-font-display);
-		font-size: var(--ls-text-2xl);
+		font-size: var(--ls-text-xl);
 		font-weight: 700;
 		color: var(--ls-text);
 		line-height: var(--ls-leading-snug);
@@ -180,14 +167,14 @@ const user = Astro.locals.user;
 
 	.mission-sub {
 		font-family: var(--ls-font-story);
-		font-size: var(--ls-text-base);
+		font-size: var(--ls-text-md);
 		color: var(--ls-text-secondary);
-		line-height: var(--ls-leading-relaxed);
-		max-width: 48ch;
+		line-height: var(--ls-leading-normal);
+		max-width: 44ch;
 		margin-inline: auto;
 	}
 
-	/* Center title */
+	/* App cards */
 	.center-title {
 		font-family: var(--ls-font-display);
 		font-size: var(--ls-text-2xl);
@@ -197,7 +184,6 @@ const user = Astro.locals.user;
 		margin-bottom: var(--ls-space-8);
 	}
 
-	/* App cards */
 	.app-grid {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
@@ -247,6 +233,7 @@ const user = Astro.locals.user;
 		font-family: var(--ls-font-ui);
 		font-size: var(--ls-text-sm);
 		font-weight: 600;
+		color: var(--ls-interactive);
 	}
 
 	/* Ecosystem card */
@@ -265,33 +252,27 @@ const user = Astro.locals.user;
 		font-size: var(--ls-text-xl);
 		font-weight: 700;
 		color: var(--ls-text);
-		margin-bottom: var(--ls-space-5);
+		margin-bottom: var(--ls-space-4);
 	}
 
 	.eco-body {
 		font-family: var(--ls-font-story);
-		font-size: var(--ls-text-base);
+		font-size: var(--ls-text-md);
 		color: var(--ls-text-secondary);
-		line-height: var(--ls-leading-relaxed);
+		line-height: var(--ls-leading-normal);
 		margin-bottom: var(--ls-space-6);
-		max-width: 48ch;
+		max-width: 40ch;
 		margin-inline: auto;
-	}
-
-	.eco-body a {
-		color: var(--ls-interactive);
-		text-decoration: underline;
-		text-underline-offset: 3px;
 	}
 
 	.eco-links {
 		display: flex;
 		justify-content: center;
-		gap: var(--ls-space-4);
+		gap: var(--ls-space-3);
 		flex-wrap: wrap;
 	}
 
-	.eco-link {
+	.eco-pill {
 		font-family: var(--ls-font-ui);
 		font-size: var(--ls-text-sm);
 		font-weight: 500;
@@ -302,18 +283,35 @@ const user = Astro.locals.user;
 		transition: color var(--ls-dur-fast), border-color var(--ls-dur-fast), box-shadow var(--ls-dur-fast);
 	}
 
-	.eco-link:hover {
+	.eco-pill:hover {
 		color: var(--ls-text);
 		border-color: var(--ls-interactive);
 		box-shadow: 0 4px 16px var(--ls-glow-plum);
 	}
 
-	/* CTA */
+	/* CTA card */
+	.cta-card {
+		max-width: 700px;
+		margin-inline: auto;
+		text-align: center;
+		background: var(--ls-surface);
+		border: 1px solid var(--ls-border);
+		border-radius: var(--ls-r-xl);
+		padding: var(--ls-space-12) var(--ls-space-8);
+	}
+
 	.cta-title {
 		font-family: var(--ls-font-display);
-		font-size: var(--ls-text-2xl);
+		font-size: var(--ls-text-xl);
 		font-weight: 700;
 		color: var(--ls-text);
+		margin-bottom: var(--ls-space-4);
+	}
+
+	.cta-sub {
+		font-family: var(--ls-font-body);
+		font-size: var(--ls-text-md);
+		color: var(--ls-text-secondary);
 		margin-bottom: var(--ls-space-8);
 	}
 
@@ -325,13 +323,18 @@ const user = Astro.locals.user;
 		color: #fff;
 		padding: var(--ls-space-3) var(--ls-space-8);
 		background: var(--ls-gradient);
+		background-size: 200% 200%;
 		border-radius: var(--ls-r-full);
-		transition: transform var(--ls-dur-fast), box-shadow var(--ls-dur-fast);
+		transition:
+			transform 0.4s var(--ls-ease),
+			box-shadow 0.4s var(--ls-ease),
+			background-position 0.6s var(--ls-ease-out);
 	}
 
 	.cta-btn:hover {
 		transform: translateY(-3px);
 		box-shadow: 0 12px 48px var(--ls-glow-plum);
+		background-position: 100% 50%;
 	}
 
 	@media (max-width: 640px) {
