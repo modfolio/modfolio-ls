@@ -21,17 +21,49 @@ const user = Astro.locals.user;
 		</section>
 
 		<!-- Coming Soon -->
-		<section class="coming section-gradient">
+		<section class="section section-gradient">
 			<div class="container">
 				<div class="coming-card reveal" style="--reveal-delay: 0.2s">
 					<h2 class="coming-title">준비하고 있습니다</h2>
 					<p class="coming-desc">
 						여행, 웰니스, 그리고 일상에 대한 이야기를 곧 들려드리겠습니다.
+					</p>
+					<p class="coming-sub">
 						<span lang="en">Modfolio Press</span> 뉴스레터와 함께
 						라이프스타일 인사이트를 전해드릴 예정입니다.
 					</p>
-					<a href="/" class="coming-link gradient-text">홈으로 돌아가기 &rarr;</a>
 				</div>
+
+				<!-- Preview cards -->
+				<div class="preview-grid">
+					<div class="preview-card reveal" style="--reveal-delay: 0.3s">
+						<span class="preview-badge">여행</span>
+						<div class="preview-skeleton preview-skeleton-title"></div>
+						<div class="preview-skeleton"></div>
+						<div class="preview-skeleton preview-skeleton-short"></div>
+					</div>
+					<div class="preview-card reveal" style="--reveal-delay: 0.4s">
+						<span class="preview-badge">웰니스</span>
+						<div class="preview-skeleton preview-skeleton-title"></div>
+						<div class="preview-skeleton"></div>
+						<div class="preview-skeleton preview-skeleton-short"></div>
+					</div>
+					<div class="preview-card reveal" style="--reveal-delay: 0.5s">
+						<span class="preview-badge">소식</span>
+						<div class="preview-skeleton preview-skeleton-title"></div>
+						<div class="preview-skeleton"></div>
+						<div class="preview-skeleton preview-skeleton-short"></div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- CTA -->
+		<section class="section" style="text-align:center">
+			<div class="container reveal" style="--reveal-delay: 0.2s">
+				<h2 class="cta-title">소식을 놓치지 마세요</h2>
+				<p class="cta-sub">계정을 만들면 새 글이 올라올 때 알림을 받을 수 있습니다.</p>
+				<a href="/auth/login" class="cta-btn">계정 만들기</a>
 			</div>
 		</section>
 	</main>
@@ -70,25 +102,19 @@ const user = Astro.locals.user;
 		color: var(--ls-text-secondary);
 	}
 
-	.coming {
-		padding-block: var(--ls-space-16);
-		min-height: 50vh;
-		display: flex;
-		align-items: center;
-	}
+	.section { padding-block: var(--ls-space-16); }
+	.section-gradient { background: var(--ls-gradient-soft); }
 
-	.section-gradient {
-		background: var(--ls-gradient-soft);
-	}
-
+	/* Coming soon card */
 	.coming-card {
-		max-width: 600px;
+		max-width: 640px;
 		margin-inline: auto;
 		text-align: center;
 		background: var(--ls-surface);
 		border: 1px solid var(--ls-border);
 		border-radius: var(--ls-r-xl);
 		padding: var(--ls-space-12) var(--ls-space-8);
+		margin-bottom: var(--ls-space-10);
 	}
 
 	.coming-title {
@@ -96,20 +122,99 @@ const user = Astro.locals.user;
 		font-size: var(--ls-text-xl);
 		font-weight: 700;
 		color: var(--ls-text);
-		margin-bottom: var(--ls-space-5);
+		margin-bottom: var(--ls-space-4);
 	}
 
 	.coming-desc {
-		font-family: var(--ls-font-story);
+		font-family: var(--ls-font-body);
 		font-size: var(--ls-text-base);
 		color: var(--ls-text-secondary);
-		line-height: var(--ls-leading-relaxed);
+		margin-bottom: var(--ls-space-3);
+	}
+
+	.coming-sub {
+		font-family: var(--ls-font-story);
+		font-size: var(--ls-text-sm);
+		color: var(--ls-text-muted);
+	}
+
+	/* Preview skeleton cards */
+	.preview-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: var(--ls-space-5);
+		max-width: 960px;
+		margin-inline: auto;
+	}
+
+	.preview-card {
+		background: var(--ls-surface);
+		border: 1px solid var(--ls-border);
+		border-radius: var(--ls-r-lg);
+		padding: var(--ls-space-6);
+		opacity: 0.6;
+	}
+
+	.preview-badge {
+		display: inline-block;
+		font-family: var(--ls-font-ui);
+		font-size: var(--ls-text-xs);
+		color: var(--ls-text-muted);
+		background: var(--ls-surface-raised);
+		padding: 2px var(--ls-space-3);
+		border-radius: var(--ls-r-sm);
+		margin-bottom: var(--ls-space-4);
+	}
+
+	.preview-skeleton {
+		height: 10px;
+		background: var(--ls-surface-overlay);
+		border-radius: var(--ls-r-sm);
+		margin-bottom: var(--ls-space-2);
+	}
+
+	.preview-skeleton-title {
+		height: 16px;
+		width: 70%;
+		margin-bottom: var(--ls-space-4);
+	}
+
+	.preview-skeleton-short { width: 45%; }
+
+	/* CTA */
+	.cta-title {
+		font-family: var(--ls-font-display);
+		font-size: var(--ls-text-2xl);
+		font-weight: 700;
+		color: var(--ls-text);
+		margin-bottom: var(--ls-space-4);
+	}
+
+	.cta-sub {
+		font-family: var(--ls-font-story);
+		font-size: var(--ls-text-md);
+		color: var(--ls-text-secondary);
 		margin-bottom: var(--ls-space-8);
 	}
 
-	.coming-link {
+	.cta-btn {
+		display: inline-block;
 		font-family: var(--ls-font-ui);
-		font-size: var(--ls-text-sm);
+		font-size: var(--ls-text-base);
 		font-weight: 600;
+		color: #fff;
+		padding: var(--ls-space-3) var(--ls-space-8);
+		background: var(--ls-gradient);
+		border-radius: var(--ls-r-full);
+		transition: transform var(--ls-dur-fast), box-shadow var(--ls-dur-fast);
+	}
+
+	.cta-btn:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 12px 48px var(--ls-glow-plum);
+	}
+
+	@media (max-width: 768px) {
+		.preview-grid { grid-template-columns: 1fr; max-width: 360px; }
 	}
 </style>

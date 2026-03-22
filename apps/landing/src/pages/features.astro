@@ -9,7 +9,7 @@ const features = [
 	{
 		num: "01",
 		title: "하나의 계정, 모든 라이프스타일",
-		body: "Modfolio Connect로 KeepNBuild와 Worthee 모두 이용할 수 있습니다. 별도 가입 없이, 하나의 인증으로 모든 라이프스타일 도구에 접근하세요. SSO 기반이라 비밀번호 관리 부담도 줄어듭니다.",
+		body: "Modfolio Connect로 KeepNBuild와 Worthee 모두 이용할 수 있습니다. 별도 가입 없이, 하나의 인증으로 모든 라이프스타일 도구에 접근하세요.",
 	},
 	{
 		num: "02",
@@ -41,7 +41,7 @@ const features = [
 		</section>
 
 		<!-- Feature Cards -->
-		<section class="features section-raised">
+		<section class="section section-raised">
 			<div class="container">
 				<div class="feature-grid">
 					{features.map((f, i) => (
@@ -55,9 +55,36 @@ const features = [
 			</div>
 		</section>
 
+		<!-- Comparison -->
+		<section class="section">
+			<div class="container">
+				<h2 class="center-title reveal">
+					<span class="gradient-text" lang="en">Modfolio LS</span>로 달라지는 것
+				</h2>
+				<div class="compare-grid">
+					<div class="compare-card compare-before reveal" style="--reveal-delay: 0.15s">
+						<h3 class="compare-label">Before</h3>
+						<ul class="compare-list">
+							<li>여행 앱 따로, 습관 앱 따로</li>
+							<li>각각 다른 계정으로 로그인</li>
+							<li>데이터가 흩어져 관리 불가</li>
+						</ul>
+					</div>
+					<div class="compare-card compare-after reveal" style="--reveal-delay: 0.3s">
+						<h3 class="compare-label">After</h3>
+						<ul class="compare-list">
+							<li>하나의 포탈에서 모든 라이프스타일</li>
+							<li>SSO 한 번 로그인으로 전부 접근</li>
+							<li>내 데이터, 내가 소유하고 내보내기</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+
 		<!-- CTA -->
-		<section class="cta-section section-gradient reveal" style="--reveal-delay: 0.2s">
-			<div class="container" style="text-align:center">
+		<section class="section section-gradient" style="text-align:center">
+			<div class="container reveal" style="--reveal-delay: 0.2s">
 				<h2 class="cta-title">지금 시작해보세요</h2>
 				<p class="cta-sub"><span lang="en">Modfolio Connect</span> 계정 하나면 충분합니다.</p>
 				<a href="/auth/login" class="cta-btn">무료로 시작하기</a>
@@ -99,9 +126,7 @@ const features = [
 		color: var(--ls-text-secondary);
 	}
 
-	.features {
-		padding-block: var(--ls-space-16);
-	}
+	.section { padding-block: var(--ls-space-16); }
 
 	.section-raised {
 		background: var(--ls-surface-raised);
@@ -109,10 +134,18 @@ const features = [
 		border-bottom: 1px solid var(--ls-border-subtle);
 	}
 
-	.section-gradient {
-		background: var(--ls-gradient-soft);
+	.section-gradient { background: var(--ls-gradient-soft); }
+
+	.center-title {
+		font-family: var(--ls-font-display);
+		font-size: var(--ls-text-2xl);
+		font-weight: 700;
+		color: var(--ls-text);
+		text-align: center;
+		margin-bottom: var(--ls-space-10);
 	}
 
+	/* Feature cards */
 	.feature-grid {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
@@ -159,10 +192,77 @@ const features = [
 		line-height: var(--ls-leading-normal);
 	}
 
-	.cta-section {
-		padding-block: var(--ls-space-16);
+	/* Before/After comparison */
+	.compare-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: var(--ls-space-6);
+		max-width: 860px;
+		margin-inline: auto;
 	}
 
+	.compare-card {
+		border-radius: var(--ls-r-xl);
+		padding: var(--ls-space-8);
+		transition: transform var(--ls-dur-fast), box-shadow var(--ls-dur-fast);
+	}
+
+	.compare-card:hover {
+		transform: translateY(-4px);
+		box-shadow: var(--ls-shadow-md);
+	}
+
+	.compare-before {
+		background: var(--ls-surface-overlay);
+		border: 1px solid var(--ls-border);
+	}
+
+	.compare-after {
+		background: var(--ls-surface);
+		border: 1px solid var(--ls-border);
+		box-shadow: var(--ls-shadow-sm);
+	}
+
+	.compare-label {
+		font-family: var(--ls-font-ui);
+		font-size: var(--ls-text-sm);
+		font-weight: 700;
+		margin-bottom: var(--ls-space-5);
+	}
+
+	.compare-before .compare-label { color: var(--ls-text-muted); }
+	.compare-after .compare-label { color: var(--ls-interactive); }
+
+	.compare-list {
+		list-style: none;
+		display: flex;
+		flex-direction: column;
+		gap: var(--ls-space-3);
+	}
+
+	.compare-list li {
+		font-family: var(--ls-font-story);
+		font-size: var(--ls-text-base);
+		color: var(--ls-text-secondary);
+		line-height: var(--ls-leading-normal);
+		padding-left: var(--ls-space-4);
+		position: relative;
+	}
+
+	.compare-list li::before {
+		content: "";
+		position: absolute;
+		left: 0;
+		top: 0.6em;
+		width: 6px;
+		height: 6px;
+		border-radius: 50%;
+	}
+
+	.compare-before .compare-list li::before { background: var(--ls-text-muted); }
+	.compare-after .compare-list li::before { background: var(--ls-interactive); }
+
+	/* CTA */
 	.cta-title {
 		font-family: var(--ls-font-display);
 		font-size: var(--ls-text-2xl);
@@ -197,5 +297,6 @@ const features = [
 
 	@media (max-width: 768px) {
 		.feature-grid { grid-template-columns: 1fr; max-width: 420px; }
+		.compare-grid { grid-template-columns: 1fr; }
 	}
 </style>

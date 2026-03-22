@@ -6,7 +6,7 @@ import Base from "../layouts/Base.astro";
 const user = Astro.locals.user;
 ---
 
-<Base title="About - Modfolio LS" description="Modfolio LS 그룹의 이야기. 여행과 자기관리를 연결하는 라이프스타일 플랫폼.">
+<Base title="About - Modfolio LS" description="Modfolio LS 그룹의 이야기.">
 	<Nav user={user} current="/about" />
 
 	<main id="main">
@@ -23,21 +23,26 @@ const user = Astro.locals.user;
 		</section>
 
 		<!-- Mission -->
-		<section class="section reveal" style="--reveal-delay: 0.2s">
-			<div class="container section-narrow">
-				<h2 class="section-title">미션</h2>
-				<p class="section-body">
-					우리는 라이프스타일이 도구의 나열이 아니라 하나의 경험이어야 한다고 믿습니다.
-					여행을 설계하고, 습관을 기록하고, 성실함을 증명하는 모든 순간이
-					자연스럽게 이어지는 일상을 만들어갑니다.
-				</p>
+		<section class="section">
+			<div class="container">
+				<div class="mission-card reveal" style="--reveal-delay: 0.2s">
+					<h2 class="mission-label">미션</h2>
+					<p class="mission-text">
+						우리는 라이프스타일이 도구의 나열이 아니라<br />
+						<strong>하나의 경험</strong>이어야 한다고 믿습니다.
+					</p>
+					<p class="mission-sub">
+						여행을 설계하고, 습관을 기록하고, 성실함을 증명하는 모든 순간이
+						자연스럽게 이어지는 일상을 만들어갑니다.
+					</p>
+				</div>
 			</div>
 		</section>
 
 		<!-- Two Apps -->
 		<section class="section section-raised" aria-labelledby="apps-heading">
 			<div class="container">
-				<h2 id="apps-heading" class="section-title reveal" style="text-align:center">
+				<h2 id="apps-heading" class="center-title reveal">
 					두 가지 도구, 하나의 철학
 				</h2>
 				<div class="app-grid">
@@ -64,17 +69,34 @@ const user = Astro.locals.user;
 		</section>
 
 		<!-- Ecosystem -->
-		<section class="section section-gradient reveal" style="--reveal-delay: 0.2s">
-			<div class="container section-narrow" style="text-align:center">
-				<h2 class="section-title">생태계</h2>
-				<p class="section-body">
-					<span lang="en">Modfolio LS</span>는
-					<a href="https://modfolio.io" target="_blank" rel="noopener" lang="en">Modfolio</a>
-					생태계의 라이프스타일 그룹입니다.
-					<span lang="en">Modfolio Connect</span> 하나의 계정으로
-					모든 서비스를 이용할 수 있으며, 데이터는 안전하게 암호화됩니다.
-				</p>
-				<a href="/auth/login" class="section-cta">시작하기</a>
+		<section class="section section-gradient">
+			<div class="container">
+				<div class="eco-card reveal" style="--reveal-delay: 0.2s">
+					<h2 class="eco-title">
+						<span lang="en">Modfolio</span> 생태계
+					</h2>
+					<p class="eco-body">
+						<span lang="en">Modfolio LS</span>는
+						<a href="https://modfolio.io" target="_blank" rel="noopener" lang="en">Modfolio</a>
+						생태계의 라이프스타일 그룹입니다.
+						<span lang="en">Modfolio Connect</span> 하나의 계정으로
+						모든 서비스를 이용할 수 있으며, 데이터는 안전하게 암호화됩니다.
+					</p>
+					<div class="eco-links">
+						<a href="https://modfolio.io" target="_blank" rel="noopener" class="eco-link" lang="en">Modfolio</a>
+						<a href="https://connect.modfolio.io" target="_blank" rel="noopener" class="eco-link" lang="en">Connect</a>
+						<a href="https://pay.modfolio.io" target="_blank" rel="noopener" class="eco-link" lang="en">Pay</a>
+						<a href="https://docs.modfolio.io" target="_blank" rel="noopener" class="eco-link" lang="en">Docs</a>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- CTA -->
+		<section class="section" style="text-align:center">
+			<div class="container reveal" style="--reveal-delay: 0.2s">
+				<h2 class="cta-title">일상의 중심을 잡을 준비가 되셨나요?</h2>
+				<a href="/auth/login" class="cta-btn">무료로 시작하기</a>
 			</div>
 		</section>
 	</main>
@@ -116,9 +138,7 @@ const user = Astro.locals.user;
 		margin-inline: auto;
 	}
 
-	.section {
-		padding-block: var(--ls-space-16);
-	}
+	.section { padding-block: var(--ls-space-16); }
 
 	.section-raised {
 		background: var(--ls-surface-raised);
@@ -126,61 +146,64 @@ const user = Astro.locals.user;
 		border-bottom: 1px solid var(--ls-border-subtle);
 	}
 
-	.section-gradient {
-		background: var(--ls-gradient-soft);
-	}
+	.section-gradient { background: var(--ls-gradient-soft); }
 
-	.section-narrow {
-		max-width: 720px;
+	/* Mission card */
+	.mission-card {
+		max-width: 800px;
 		margin-inline: auto;
+		text-align: center;
+		background: var(--ls-surface);
+		border: 1px solid var(--ls-border);
+		border-radius: var(--ls-r-xl);
+		padding: var(--ls-space-12) var(--ls-space-8);
 	}
 
-	.section-title {
+	.mission-label {
+		font-family: var(--ls-font-ui);
+		font-size: var(--ls-text-xs);
+		font-weight: 600;
+		color: var(--ls-text-muted);
+		letter-spacing: var(--ls-tracking-widest);
+		text-transform: uppercase;
+		margin-bottom: var(--ls-space-6);
+	}
+
+	.mission-text {
 		font-family: var(--ls-font-display);
 		font-size: var(--ls-text-2xl);
 		font-weight: 700;
 		color: var(--ls-text);
+		line-height: var(--ls-leading-snug);
 		margin-bottom: var(--ls-space-5);
 	}
 
-	.section-body {
+	.mission-sub {
 		font-family: var(--ls-font-story);
 		font-size: var(--ls-text-base);
 		color: var(--ls-text-secondary);
 		line-height: var(--ls-leading-relaxed);
+		max-width: 48ch;
+		margin-inline: auto;
 	}
 
-	.section-body a {
-		color: var(--ls-interactive);
-		text-decoration: underline;
-		text-underline-offset: 3px;
+	/* Center title */
+	.center-title {
+		font-family: var(--ls-font-display);
+		font-size: var(--ls-text-2xl);
+		font-weight: 700;
+		color: var(--ls-text);
+		text-align: center;
+		margin-bottom: var(--ls-space-8);
 	}
 
-	.section-cta {
-		display: inline-block;
-		margin-top: var(--ls-space-8);
-		font-family: var(--ls-font-ui);
-		font-size: var(--ls-text-base);
-		font-weight: 600;
-		color: #fff;
-		padding: var(--ls-space-3) var(--ls-space-8);
-		background: var(--ls-gradient);
-		border-radius: var(--ls-r-full);
-		transition: transform var(--ls-dur-fast), box-shadow var(--ls-dur-fast);
-	}
-
-	.section-cta:hover {
-		transform: translateY(-3px);
-		box-shadow: 0 12px 48px var(--ls-glow-plum);
-	}
-
+	/* App cards */
 	.app-grid {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
 		gap: var(--ls-space-6);
 		max-width: 860px;
 		margin-inline: auto;
-		margin-top: var(--ls-space-8);
 	}
 
 	.app-card {
@@ -224,6 +247,91 @@ const user = Astro.locals.user;
 		font-family: var(--ls-font-ui);
 		font-size: var(--ls-text-sm);
 		font-weight: 600;
+	}
+
+	/* Ecosystem card */
+	.eco-card {
+		max-width: 800px;
+		margin-inline: auto;
+		text-align: center;
+		background: var(--ls-surface);
+		border: 1px solid var(--ls-border);
+		border-radius: var(--ls-r-xl);
+		padding: var(--ls-space-10) var(--ls-space-8);
+	}
+
+	.eco-title {
+		font-family: var(--ls-font-display);
+		font-size: var(--ls-text-xl);
+		font-weight: 700;
+		color: var(--ls-text);
+		margin-bottom: var(--ls-space-5);
+	}
+
+	.eco-body {
+		font-family: var(--ls-font-story);
+		font-size: var(--ls-text-base);
+		color: var(--ls-text-secondary);
+		line-height: var(--ls-leading-relaxed);
+		margin-bottom: var(--ls-space-6);
+		max-width: 48ch;
+		margin-inline: auto;
+	}
+
+	.eco-body a {
+		color: var(--ls-interactive);
+		text-decoration: underline;
+		text-underline-offset: 3px;
+	}
+
+	.eco-links {
+		display: flex;
+		justify-content: center;
+		gap: var(--ls-space-4);
+		flex-wrap: wrap;
+	}
+
+	.eco-link {
+		font-family: var(--ls-font-ui);
+		font-size: var(--ls-text-sm);
+		font-weight: 500;
+		color: var(--ls-text-secondary);
+		padding: var(--ls-space-2) var(--ls-space-4);
+		border: 1px solid var(--ls-border);
+		border-radius: var(--ls-r-full);
+		transition: color var(--ls-dur-fast), border-color var(--ls-dur-fast), box-shadow var(--ls-dur-fast);
+	}
+
+	.eco-link:hover {
+		color: var(--ls-text);
+		border-color: var(--ls-interactive);
+		box-shadow: 0 4px 16px var(--ls-glow-plum);
+	}
+
+	/* CTA */
+	.cta-title {
+		font-family: var(--ls-font-display);
+		font-size: var(--ls-text-2xl);
+		font-weight: 700;
+		color: var(--ls-text);
+		margin-bottom: var(--ls-space-8);
+	}
+
+	.cta-btn {
+		display: inline-block;
+		font-family: var(--ls-font-ui);
+		font-size: var(--ls-text-base);
+		font-weight: 600;
+		color: #fff;
+		padding: var(--ls-space-3) var(--ls-space-8);
+		background: var(--ls-gradient);
+		border-radius: var(--ls-r-full);
+		transition: transform var(--ls-dur-fast), box-shadow var(--ls-dur-fast);
+	}
+
+	.cta-btn:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 12px 48px var(--ls-glow-plum);
 	}
 
 	@media (max-width: 640px) {
