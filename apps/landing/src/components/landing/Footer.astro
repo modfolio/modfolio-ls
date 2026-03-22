@@ -159,40 +159,39 @@ const year = new Date().getFullYear();
 
 	.footer-legal {
 		border-top: 1px solid var(--ls-border-subtle);
-		padding-block: var(--ls-space-5);
-		background: var(--ls-surface-raised);
+		padding-block: var(--ls-space-4);
 	}
 
 	.footer-legal-inner {
 		display: flex;
-		flex-direction: column;
-		gap: var(--ls-space-3);
+		justify-content: space-between;
+		align-items: flex-end;
+		gap: var(--ls-space-6);
 	}
 
 	.footer-biz {
 		font-family: var(--ls-font-story);
 		font-size: 0.6875rem;
 		color: var(--ls-text-muted);
-		line-height: 1.8;
-		white-space: nowrap;
-		overflow-x: auto;
-		scrollbar-width: none;
-	}
-
-	.footer-biz::-webkit-scrollbar {
-		display: none;
+		line-height: 1.9;
+		word-break: keep-all;
+		flex: 1;
+		min-width: 0;
 	}
 
 	.footer-copy {
 		font-family: var(--ls-font-story);
 		font-size: 0.6875rem;
 		color: var(--ls-text-muted);
+		white-space: nowrap;
+		flex-shrink: 0;
 	}
 
-	@media (max-width: 1024px) {
-		.footer-biz {
-			white-space: normal;
-			font-size: 0.625rem;
+	@media (max-width: 768px) {
+		.footer-legal-inner {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: var(--ls-space-3);
 		}
 	}
 </style>

@@ -9,37 +9,54 @@ const user = Astro.locals.user;
 <Base title="Blog - Modfolio LS" description="Modfolio LS 그룹의 소식과 이야기.">
 	<Nav user={user} current="/blog" />
 
-	<main id="main" class="page">
-		<div class="container">
-			<header class="page-header reveal">
-				<h1 class="page-title">블로그</h1>
-				<p class="page-lead">라이프스타일 그룹의 소식과 이야기</p>
-			</header>
-
-			<div class="blog-empty reveal" style="--reveal-delay: 0.15s">
-				<p class="blog-empty-text">
-					여행, 웰니스, 그리고 일상에 대한 이야기를 준비하고 있습니다.
+	<main id="main">
+		<!-- Hero -->
+		<section class="hero" aria-labelledby="blog-heading">
+			<div class="container hero-inner">
+				<h1 id="blog-heading" class="hero-title reveal">블로그</h1>
+				<p class="hero-lead reveal" style="--reveal-delay: 0.15s">
+					라이프스타일 그룹의 소식과 이야기
 				</p>
-				<a href="/" class="blog-back">홈으로 돌아가기</a>
 			</div>
-		</div>
+		</section>
+
+		<!-- Coming Soon -->
+		<section class="coming section-gradient">
+			<div class="container">
+				<div class="coming-card reveal" style="--reveal-delay: 0.2s">
+					<h2 class="coming-title">준비하고 있습니다</h2>
+					<p class="coming-desc">
+						여행, 웰니스, 그리고 일상에 대한 이야기를 곧 들려드리겠습니다.
+						<span lang="en">Modfolio Press</span> 뉴스레터와 함께
+						라이프스타일 인사이트를 전해드릴 예정입니다.
+					</p>
+					<a href="/" class="coming-link gradient-text">홈으로 돌아가기 &rarr;</a>
+				</div>
+			</div>
+		</section>
 	</main>
 
 	<Footer />
 </Base>
 
 <style>
-	.page {
-		padding-top: calc(80px + var(--ls-space-12));
-		padding-bottom: var(--ls-space-16);
-	}
-
-	.page-header {
+	.hero {
+		min-height: 40vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 		text-align: center;
-		margin-bottom: var(--ls-space-12);
+		padding-top: calc(80px + var(--ls-space-12));
+		padding-bottom: var(--ls-space-8);
+		background:
+			radial-gradient(600px circle at 30% 40%, var(--ls-glow-plum), transparent 60%),
+			radial-gradient(400px circle at 70% 60%, var(--ls-glow-sky), transparent 60%),
+			var(--ls-void);
 	}
 
-	.page-title {
+	.hero-inner { max-width: 640px; }
+
+	.hero-title {
 		font-family: var(--ls-font-display);
 		font-size: var(--ls-text-3xl);
 		font-weight: 700;
@@ -47,38 +64,52 @@ const user = Astro.locals.user;
 		margin-bottom: var(--ls-space-4);
 	}
 
-	.page-lead {
+	.hero-lead {
 		font-family: var(--ls-font-body);
 		font-size: var(--ls-text-lg);
 		color: var(--ls-text-secondary);
 	}
 
-	.blog-empty {
-		text-align: center;
-		padding: var(--ls-space-12) var(--ls-space-6);
-		background: var(--ls-surface);
-		border: 1px dashed var(--ls-border);
-		border-radius: var(--ls-r-xl);
+	.coming {
+		padding-block: var(--ls-space-16);
+		min-height: 50vh;
+		display: flex;
+		align-items: center;
+	}
+
+	.section-gradient {
+		background: var(--ls-gradient-soft);
+	}
+
+	.coming-card {
 		max-width: 600px;
 		margin-inline: auto;
+		text-align: center;
+		background: var(--ls-surface);
+		border: 1px solid var(--ls-border);
+		border-radius: var(--ls-r-xl);
+		padding: var(--ls-space-12) var(--ls-space-8);
 	}
 
-	.blog-empty-text {
+	.coming-title {
+		font-family: var(--ls-font-display);
+		font-size: var(--ls-text-xl);
+		font-weight: 700;
+		color: var(--ls-text);
+		margin-bottom: var(--ls-space-5);
+	}
+
+	.coming-desc {
 		font-family: var(--ls-font-story);
 		font-size: var(--ls-text-base);
-		color: var(--ls-text-muted);
-		margin-bottom: var(--ls-space-6);
+		color: var(--ls-text-secondary);
+		line-height: var(--ls-leading-relaxed);
+		margin-bottom: var(--ls-space-8);
 	}
 
-	.blog-back {
+	.coming-link {
 		font-family: var(--ls-font-ui);
 		font-size: var(--ls-text-sm);
 		font-weight: 600;
-		color: var(--ls-interactive);
-	}
-
-	.blog-back:hover {
-		text-decoration: underline;
-		text-underline-offset: 3px;
 	}
 </style>

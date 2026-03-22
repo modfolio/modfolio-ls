@@ -9,7 +9,7 @@ const features = [
 	{
 		num: "01",
 		title: "하나의 계정, 모든 라이프스타일",
-		body: "Modfolio Connect로 KeepNBuild와 Worthee 모두 이용할 수 있습니다. 별도 가입 없이, 하나의 인증으로 모든 라이프스타일 도구에 접근하세요. SSO(Single Sign-On) 기반이라 비밀번호 관리 부담도 줄어듭니다.",
+		body: "Modfolio Connect로 KeepNBuild와 Worthee 모두 이용할 수 있습니다. 별도 가입 없이, 하나의 인증으로 모든 라이프스타일 도구에 접근하세요. SSO 기반이라 비밀번호 관리 부담도 줄어듭니다.",
 	},
 	{
 		num: "02",
@@ -19,52 +19,73 @@ const features = [
 	{
 		num: "03",
 		title: "당신의 데이터, 당신의 것",
-		body: "모든 데이터는 암호화되어 안전하게 보관됩니다. 언제든 전체 데이터를 내보낼 수 있으며, 삭제를 요청하면 30일 이내에 완전히 제거됩니다. 데이터 소유권은 언제나 당신에게 있습니다.",
+		body: "모든 데이터는 암호화되어 안전하게 보관됩니다. 언제든 전체 데이터를 내보낼 수 있으며, 삭제를 요청하면 30일 이내에 완전히 제거됩니다.",
 	},
 ];
 ---
 
-<Base title="Features - Modfolio LS" description="Modfolio LS의 핵심 기능 - 통합 계정, 연결된 데이터, 데이터 소유권.">
+<Base title="Features - Modfolio LS" description="Modfolio LS의 핵심 기능.">
 	<Nav user={user} current="/features" />
 
-	<main id="main" class="page">
-		<div class="container">
-			<header class="page-header reveal">
-				<h1 class="page-title">
+	<main id="main">
+		<!-- Hero -->
+		<section class="hero" aria-labelledby="features-heading">
+			<div class="container hero-inner">
+				<h1 id="features-heading" class="hero-title reveal">
 					왜 <span class="gradient-text" lang="en">Modfolio LS</span>인가
 				</h1>
-				<p class="page-lead">세 가지 핵심 가치가 당신의 라이프스타일을 바꿉니다.</p>
-			</header>
-
-			<div class="feature-list">
-				{features.map((f, i) => (
-					<article class="feature-item reveal" style={`--reveal-delay: ${(i + 1) * 0.15}s`}>
-						<span class="feature-num gradient-text">{f.num}</span>
-						<div class="feature-body">
-							<h2 class="feature-title">{f.title}</h2>
-							<p class="feature-text">{f.body}</p>
-						</div>
-					</article>
-				))}
+				<p class="hero-lead reveal" style="--reveal-delay: 0.15s">
+					세 가지 핵심 가치가 당신의 라이프스타일을 바꿉니다.
+				</p>
 			</div>
-		</div>
+		</section>
+
+		<!-- Feature Cards -->
+		<section class="features section-raised">
+			<div class="container">
+				<div class="feature-grid">
+					{features.map((f, i) => (
+						<div class="feature-card reveal" style={`--reveal-delay: ${(i + 1) * 0.15}s`}>
+							<span class="feature-num gradient-text">{f.num}</span>
+							<h2 class="feature-title">{f.title}</h2>
+							<p class="feature-body">{f.body}</p>
+						</div>
+					))}
+				</div>
+			</div>
+		</section>
+
+		<!-- CTA -->
+		<section class="cta-section section-gradient reveal" style="--reveal-delay: 0.2s">
+			<div class="container" style="text-align:center">
+				<h2 class="cta-title">지금 시작해보세요</h2>
+				<p class="cta-sub"><span lang="en">Modfolio Connect</span> 계정 하나면 충분합니다.</p>
+				<a href="/auth/login" class="cta-btn">무료로 시작하기</a>
+			</div>
+		</section>
 	</main>
 
 	<Footer />
 </Base>
 
 <style>
-	.page {
-		padding-top: calc(80px + var(--ls-space-12));
-		padding-bottom: var(--ls-space-16);
-	}
-
-	.page-header {
+	.hero {
+		min-height: 50vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 		text-align: center;
-		margin-bottom: var(--ls-space-16);
+		padding-top: calc(80px + var(--ls-space-12));
+		padding-bottom: var(--ls-space-12);
+		background:
+			radial-gradient(600px circle at 30% 40%, var(--ls-glow-plum), transparent 60%),
+			radial-gradient(400px circle at 70% 60%, var(--ls-glow-sky), transparent 60%),
+			var(--ls-void);
 	}
 
-	.page-title {
+	.hero-inner { max-width: 640px; }
+
+	.hero-title {
 		font-family: var(--ls-font-display);
 		font-size: var(--ls-text-3xl);
 		font-weight: 700;
@@ -72,53 +93,109 @@ const features = [
 		margin-bottom: var(--ls-space-5);
 	}
 
-	.page-lead {
+	.hero-lead {
 		font-family: var(--ls-font-body);
 		font-size: var(--ls-text-lg);
 		color: var(--ls-text-secondary);
 	}
 
-	.feature-list {
-		display: flex;
-		flex-direction: column;
-		gap: var(--ls-space-12);
-		max-width: 800px;
+	.features {
+		padding-block: var(--ls-space-16);
+	}
+
+	.section-raised {
+		background: var(--ls-surface-raised);
+		border-top: 1px solid var(--ls-border-subtle);
+		border-bottom: 1px solid var(--ls-border-subtle);
+	}
+
+	.section-gradient {
+		background: var(--ls-gradient-soft);
+	}
+
+	.feature-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: var(--ls-space-6);
+		max-width: 1080px;
 		margin-inline: auto;
 	}
 
-	.feature-item {
-		display: flex;
-		gap: var(--ls-space-6);
-		align-items: flex-start;
+	.feature-card {
+		background: var(--ls-surface);
+		border: 1px solid var(--ls-border);
+		border-radius: var(--ls-r-xl);
+		padding: var(--ls-space-8);
+		text-align: center;
+		transition: transform var(--ls-dur-fast), box-shadow var(--ls-dur-fast);
+	}
+
+	.feature-card:hover {
+		transform: translateY(-6px);
+		box-shadow: 0 16px 56px var(--ls-glow-plum);
 	}
 
 	.feature-num {
+		display: block;
 		font-family: var(--ls-font-display);
 		font-size: var(--ls-text-4xl);
 		font-weight: 700;
 		line-height: 1;
-		flex-shrink: 0;
+		margin-bottom: var(--ls-space-5);
 	}
 
 	.feature-title {
 		font-family: var(--ls-font-body);
-		font-size: var(--ls-text-xl);
+		font-size: var(--ls-text-lg);
 		font-weight: 600;
 		color: var(--ls-text);
 		margin-bottom: var(--ls-space-4);
 	}
 
-	.feature-text {
+	.feature-body {
 		font-family: var(--ls-font-story);
 		font-size: var(--ls-text-base);
 		color: var(--ls-text-secondary);
-		line-height: var(--ls-leading-relaxed);
+		line-height: var(--ls-leading-normal);
 	}
 
-	@media (max-width: 640px) {
-		.feature-item {
-			flex-direction: column;
-			gap: var(--ls-space-3);
-		}
+	.cta-section {
+		padding-block: var(--ls-space-16);
+	}
+
+	.cta-title {
+		font-family: var(--ls-font-display);
+		font-size: var(--ls-text-2xl);
+		font-weight: 700;
+		color: var(--ls-text);
+		margin-bottom: var(--ls-space-4);
+	}
+
+	.cta-sub {
+		font-family: var(--ls-font-story);
+		font-size: var(--ls-text-md);
+		color: var(--ls-text-secondary);
+		margin-bottom: var(--ls-space-8);
+	}
+
+	.cta-btn {
+		display: inline-block;
+		font-family: var(--ls-font-ui);
+		font-size: var(--ls-text-base);
+		font-weight: 600;
+		color: #fff;
+		padding: var(--ls-space-3) var(--ls-space-8);
+		background: var(--ls-gradient);
+		border-radius: var(--ls-r-full);
+		transition: transform var(--ls-dur-fast), box-shadow var(--ls-dur-fast);
+	}
+
+	.cta-btn:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 12px 48px var(--ls-glow-plum);
+	}
+
+	@media (max-width: 768px) {
+		.feature-grid { grid-template-columns: 1fr; max-width: 420px; }
 	}
 </style>
