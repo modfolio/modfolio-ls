@@ -18,20 +18,18 @@ const pillars = [
 ];
 ---
 
-<section class="value reveal" aria-labelledby="value-heading">
+<section class="value" aria-labelledby="value-heading">
 	<div class="container">
 		<h2 id="value-heading" class="value-title reveal">
 			왜 <span class="gradient-text" lang="en">Modfolio LS</span>인가
 		</h2>
 
-		<div class="value-list">
+		<div class="value-grid">
 			{pillars.map((p, i) => (
-				<div class="value-item reveal" style={`--reveal-delay: ${(i + 1) * 0.12}s`}>
+				<div class="value-card reveal" style={`--reveal-delay: ${(i + 1) * 0.12}s`}>
 					<span class="value-num gradient-text">{p.num}</span>
-					<div class="value-body">
-						<h3 class="value-heading">{p.title}</h3>
-						<p class="value-desc">{p.desc}</p>
-					</div>
+					<h3 class="value-heading">{p.title}</h3>
+					<p class="value-desc">{p.desc}</p>
 				</div>
 			))}
 		</div>
@@ -43,6 +41,9 @@ const pillars = [
 		position: relative;
 		z-index: 1;
 		padding-block: var(--ls-space-16);
+		min-height: 80vh;
+		display: flex;
+		align-items: center;
 		background: var(--ls-surface-raised);
 		border-top: 1px solid var(--ls-border-subtle);
 		border-bottom: 1px solid var(--ls-border-subtle);
@@ -54,37 +55,48 @@ const pillars = [
 		font-weight: 700;
 		color: var(--ls-text);
 		text-align: center;
-		margin-bottom: var(--ls-space-10);
+		margin-bottom: var(--ls-space-12);
 	}
 
-	.value-list {
-		display: flex;
-		flex-direction: column;
-		gap: var(--ls-space-10);
-		max-width: 760px;
+	.value-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: var(--ls-space-6);
+		max-width: 1080px;
 		margin-inline: auto;
 	}
 
-	.value-item {
-		display: flex;
-		gap: var(--ls-space-5);
-		align-items: flex-start;
+	.value-card {
+		background: var(--ls-surface);
+		border: 1px solid var(--ls-border);
+		border-radius: var(--ls-r-xl);
+		padding: var(--ls-space-8);
+		text-align: center;
+		transition:
+			transform var(--ls-dur-fast) var(--ls-ease),
+			box-shadow var(--ls-dur-fast) var(--ls-ease);
+	}
+
+	.value-card:hover {
+		transform: translateY(-6px);
+		box-shadow: 0 16px 56px var(--ls-glow-plum);
 	}
 
 	.value-num {
+		display: block;
 		font-family: var(--ls-font-display);
-		font-size: var(--ls-text-3xl);
+		font-size: var(--ls-text-4xl);
 		font-weight: 700;
 		line-height: 1;
-		flex-shrink: 0;
+		margin-bottom: var(--ls-space-5);
 	}
 
 	.value-heading {
 		font-family: var(--ls-font-body);
-		font-size: var(--ls-text-xl);
+		font-size: var(--ls-text-lg);
 		font-weight: 600;
 		color: var(--ls-text);
-		margin-bottom: var(--ls-space-3);
+		margin-bottom: var(--ls-space-4);
 	}
 
 	.value-desc {
@@ -94,10 +106,10 @@ const pillars = [
 		line-height: var(--ls-leading-normal);
 	}
 
-	@media (max-width: 480px) {
-		.value-item {
-			flex-direction: column;
-			gap: var(--ls-space-3);
+	@media (max-width: 768px) {
+		.value-grid {
+			grid-template-columns: 1fr;
+			max-width: 420px;
 		}
 	}
 </style>

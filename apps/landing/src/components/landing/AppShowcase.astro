@@ -48,7 +48,10 @@ const apps = [
 	.showcase {
 		position: relative;
 		z-index: 1;
-		padding-block: var(--ls-space-12) var(--ls-space-16);
+		padding-block: var(--ls-space-16);
+		min-height: 80vh;
+		display: flex;
+		align-items: center;
 	}
 
 	.showcase-title {
@@ -63,7 +66,9 @@ const apps = [
 
 	.showcase-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+		grid-template-columns: repeat(2, 1fr);
+		max-width: 860px;
+		margin-inline: auto;
 		gap: var(--ls-space-6);
 	}
 
@@ -77,11 +82,11 @@ const apps = [
 			transform 0.4s var(--ls-ease),
 			box-shadow 0.4s var(--ls-ease),
 			border-color 0.3s var(--ls-ease);
-		will-change: transform;
+		backface-visibility: hidden;
 	}
 
 	.showcase-card:hover {
-		transform: translateY(-6px) scale(1.01);
+		transform: translateY(-6px);
 		border-color: var(--ls-border-hover);
 		box-shadow: 0 16px 56px var(--ls-glow-plum);
 	}

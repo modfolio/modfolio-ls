@@ -18,7 +18,6 @@ const links = [
 		<a href="/" class="nav-brand">
 			<span class="nav-logo" lang="en">Modfolio</span>
 			<span class="nav-badge gradient-text" lang="en">LS</span>
-			<span class="nav-brand-line" aria-hidden="true"></span>
 		</a>
 
 		<div class="nav-menu">
@@ -80,45 +79,50 @@ const links = [
 		font-weight: 700;
 	}
 
-	.nav-brand-line {
-		position: absolute;
-		bottom: -4px;
-		left: 50%;
-		width: 0;
-		height: 2px;
-		background: var(--ls-gradient);
-		transform: translateX(-50%);
-		transition: width 0.4s var(--ls-ease);
-	}
-
-	.nav-brand:hover .nav-brand-line {
-		width: 100%;
-	}
-
 	.nav-menu {
 		display: flex;
 		gap: var(--ls-space-1);
 	}
 
 	.nav-link {
+		position: relative;
 		font-family: var(--ls-font-ui);
 		font-size: var(--ls-text-sm);
 		font-weight: 500;
 		color: var(--ls-text-muted);
 		padding: var(--ls-space-2) var(--ls-space-4);
-		border-radius: var(--ls-r-md);
-		transition:
-			color var(--ls-dur-fast) var(--ls-ease),
-			background var(--ls-dur-fast) var(--ls-ease);
+		height: 80px;
+		display: flex;
+		align-items: center;
+		transition: color var(--ls-dur-fast) var(--ls-ease);
+	}
+
+	.nav-link::after {
+		content: "";
+		position: absolute;
+		bottom: 0;
+		left: 50%;
+		width: 0;
+		height: 2px;
+		background: var(--ls-gradient);
+		transform: translateX(-50%);
+		transition: width 0.3s var(--ls-ease);
 	}
 
 	.nav-link:hover {
 		color: var(--ls-text);
-		background: var(--ls-surface-raised);
+	}
+
+	.nav-link:hover::after {
+		width: 100%;
 	}
 
 	.nav-link-active {
 		color: var(--ls-text);
+	}
+
+	.nav-link-active::after {
+		width: 100%;
 	}
 
 	.nav-cta {
