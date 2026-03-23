@@ -13,7 +13,8 @@
 		"check": "biome check .",
 		"check:fix": "biome check --write .",
 		"typecheck": "bun run --cwd apps/landing typecheck",
-		"typecheck:app": "bun run --cwd apps/app typecheck"
+		"typecheck:app": "bun run --cwd apps/app typecheck",
+		"quality:all": "bun run check && bun run typecheck && bun run typecheck:app"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.4.8",
