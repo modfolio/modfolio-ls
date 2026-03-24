@@ -5,16 +5,16 @@ const apps = [
 		name: "KeepNBuild",
 		href: "/apps/keepnbuild",
 		domain: "keepnbuild.com",
-		lead: "당신만의 여정을 직접 그리세요.",
-		desc: "패키지 안에 없는 여행을 만들고 기록합니다.",
+		lead: "당신만의 여정을\n직접 그리세요.",
+		desc: "패키지 안에 없는 여행을\n만들고 기록합니다.",
 	},
 	{
 		id: "worthee",
 		name: "Worthee",
 		href: "/apps/worthee",
 		domain: "worthee.io",
-		lead: "꾸준함이 빛나는 순간.",
-		desc: "매일의 실천을 기록하고, 커뮤니티가 함께 확인합니다.",
+		lead: "꾸준함이\n빛나는 순간.",
+		desc: "매일의 실천을 기록하고,\n커뮤니티가 함께 확인합니다.",
 	},
 ];
 ---
@@ -35,8 +35,12 @@ const apps = [
 					style={`--reveal-delay: ${(i + 1) * 0.15}s`}
 				>
 					<h3 class="showcase-name" lang="en">{app.name}</h3>
-					<p class="showcase-lead">{app.lead}</p>
-					<p class="showcase-desc">{app.desc}</p>
+					<p class="showcase-lead">{app.lead.split("\n").map((line, j) => (
+						<>{j > 0 && <br />}{line}</>
+					))}</p>
+					<p class="showcase-desc">{app.desc.split("\n").map((line, j) => (
+						<>{j > 0 && <br />}{line}</>
+					))}</p>
 					<span class="showcase-link">자세히 보기 &middot; <span lang="en">{app.domain}</span></span>
 				</a>
 			))}
@@ -84,15 +88,33 @@ const apps = [
 	}
 
 	.showcase-card {
+		position: relative;
 		display: block;
 		background: var(--ls-surface);
 		border: 1px solid var(--ls-border);
 		border-radius: var(--ls-r-xl);
-		padding: var(--ls-space-10);
+		padding: var(--ls-space-12);
+		overflow: hidden;
 		transition:
 			transform 0.4s var(--ls-ease),
 			box-shadow 0.4s var(--ls-ease),
 			border-color 0.3s var(--ls-ease);
+	}
+
+	.showcase-card::before {
+		content: "";
+		position: absolute;
+		left: 0;
+		top: var(--ls-space-6);
+		bottom: var(--ls-space-6);
+		width: 3px;
+		background: var(--ls-gradient);
+		border-radius: var(--ls-r-full);
+		opacity: 0;
+		transform: scaleY(0.4);
+		transition:
+			opacity 0.4s var(--ls-ease),
+			transform 0.4s var(--ls-ease);
 	}
 
 	.showcase-card:hover {
@@ -101,19 +123,24 @@ const apps = [
 		box-shadow: 0 16px 56px var(--ls-glow-plum);
 	}
 
+	.showcase-card:hover::before {
+		opacity: 1;
+		transform: scaleY(1);
+	}
+
 	.showcase-name {
 		font-family: var(--ls-font-display);
-		font-size: var(--ls-text-xl);
+		font-size: var(--ls-text-2xl);
 		font-weight: 700;
 		color: var(--ls-text);
-		margin-bottom: var(--ls-space-4);
+		margin-bottom: var(--ls-space-5);
 	}
 
 	.showcase-lead {
-		font-family: var(--ls-font-body);
-		font-size: var(--ls-text-md);
+		font-family: var(--ls-font-display);
+		font-size: var(--ls-text-lg);
 		color: var(--ls-text);
-		font-weight: 500;
+		font-weight: 600;
 		line-height: var(--ls-leading-snug);
 		margin-bottom: var(--ls-space-3);
 	}
@@ -123,7 +150,7 @@ const apps = [
 		font-size: var(--ls-text-sm);
 		color: var(--ls-text-secondary);
 		line-height: var(--ls-leading-normal);
-		margin-bottom: var(--ls-space-6);
+		margin-bottom: var(--ls-space-8);
 	}
 
 	.showcase-link {

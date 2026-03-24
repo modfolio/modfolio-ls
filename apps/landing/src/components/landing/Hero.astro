@@ -5,13 +5,13 @@
 <section class="hero" aria-labelledby="hero-heading">
 	<div class="hero-content container">
 		<p class="hero-eyebrow reveal" lang="en">Modfolio LS</p>
-		<h1 id="hero-heading" class="hero-heading reveal" style="--reveal-delay: 0.1s">
-			<span class="hero-line">당신의 일상에는</span>
-			<span class="hero-line gradient-text">아직 펼쳐지지 않은 장면이 있습니다.</span>
+		<h1 id="hero-heading" class="reveal" style="--reveal-delay: 0.1s">
+			<span class="hero-whisper">당신의 일상에는</span>
+			<span class="hero-shout gradient-text">아직 펼쳐지지 않은<br />장면이 있습니다.</span>
 		</h1>
 
 		<div class="hero-actions reveal" style="--reveal-delay: 0.25s">
-			<a href="/auth/login" class="hero-btn" lang="en">Start Living</a>
+			<a href="/auth/login" class="hero-btn" lang="en">Unfold</a>
 		</div>
 	</div>
 </section>
@@ -45,31 +45,37 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		max-width: 720px;
+		max-width: 860px;
 	}
 
 	.hero-eyebrow {
 		font-family: var(--ls-font-ui);
-		font-size: var(--ls-text-sm);
+		font-size: var(--ls-text-xs);
 		font-weight: 600;
 		color: var(--ls-text-muted);
 		letter-spacing: var(--ls-tracking-widest);
 		text-transform: uppercase;
-		margin-bottom: var(--ls-space-6);
+		margin-bottom: var(--ls-space-8);
 	}
 
-	.hero-heading {
+	.hero-whisper {
+		display: block;
+		font-family: var(--ls-font-body);
+		font-size: var(--ls-text-xl);
+		font-weight: 400;
+		color: var(--ls-text-secondary);
+		letter-spacing: var(--ls-tracking-normal);
+		margin-bottom: var(--ls-space-4);
+	}
+
+	.hero-shout {
+		display: block;
 		font-family: var(--ls-font-display);
 		font-size: var(--ls-text-4xl);
 		font-weight: 700;
 		line-height: var(--ls-leading-tight);
 		letter-spacing: var(--ls-tracking-tight);
-		color: var(--ls-text);
-		margin-bottom: var(--ls-space-8);
-	}
-
-	.hero-line {
-		display: block;
+		margin-bottom: var(--ls-space-10);
 	}
 
 	.hero-btn {
@@ -81,6 +87,7 @@
 		background: var(--ls-gradient);
 		background-size: 200% 200%;
 		border-radius: var(--ls-r-full);
+		letter-spacing: var(--ls-tracking-wide);
 		transition:
 			transform 0.4s var(--ls-ease),
 			box-shadow 0.4s var(--ls-ease),
