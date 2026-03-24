@@ -1,0 +1,85 @@
+---
+const pillars = [
+	{
+		label: "우리가 믿는 것",
+		body: "평범한 하루는 없습니다. 다만 아직 들여다보지 않았을 뿐입니다.",
+	},
+	{
+		label: "우리가 만드는 것",
+		body: "여행, 성장, 그리고 아직 이름 붙이지 못한 경험들까지. 일상의 깊이를 넓히는 방법을 만들어갑니다.",
+	},
+];
+---
+
+<section class="philosophy" aria-label="철학">
+	<div class="container">
+		<div class="philosophy-grid">
+			{pillars.map((p, i) => (
+				<div class="philosophy-card reveal" style={`--reveal-delay: ${i * 0.15}s`}>
+					<p class="philosophy-label">{p.label}</p>
+					<p class="philosophy-body">{p.body}</p>
+				</div>
+			))}
+		</div>
+	</div>
+</section>
+
+<style>
+	.philosophy {
+		position: relative;
+		z-index: 1;
+		padding-block: var(--ls-space-16);
+	}
+
+	.philosophy-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: var(--ls-space-6);
+		max-width: 860px;
+		margin-inline: auto;
+	}
+
+	.philosophy-card {
+		position: relative;
+		background: var(--ls-surface);
+		border: 1px solid var(--ls-border);
+		border-radius: var(--ls-r-xl);
+		padding: var(--ls-space-8);
+		padding-left: calc(var(--ls-space-8) + 3px);
+	}
+
+	.philosophy-card::before {
+		content: "";
+		position: absolute;
+		left: 0;
+		top: var(--ls-space-6);
+		bottom: var(--ls-space-6);
+		width: 3px;
+		background: var(--ls-gradient);
+		border-radius: var(--ls-r-full);
+	}
+
+	.philosophy-label {
+		font-family: var(--ls-font-ui);
+		font-size: var(--ls-text-xs);
+		font-weight: 600;
+		color: var(--ls-text-muted);
+		letter-spacing: var(--ls-tracking-wide);
+		margin-bottom: var(--ls-space-5);
+	}
+
+	.philosophy-body {
+		font-family: var(--ls-font-story);
+		font-size: var(--ls-text-md);
+		color: var(--ls-text);
+		line-height: var(--ls-leading-relaxed);
+		max-width: 30ch;
+	}
+
+	@media (max-width: 768px) {
+		.philosophy-grid {
+			grid-template-columns: 1fr;
+			max-width: 480px;
+		}
+	}
+</style>

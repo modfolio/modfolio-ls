@@ -1,0 +1,214 @@
+---
+import Footer from "../../components/landing/Footer.astro";
+import Nav from "../../components/shared/Nav.astro";
+import Base from "../../layouts/Base.astro";
+
+const user = Astro.locals.user;
+
+const features = [
+	{
+		title: "나만의 일정",
+		body: "숙소, 교통, 활동, 맛집. 원하는 조각을 조합해서 나만의 여정을 그립니다. 정해진 코스 없이, 온전히 내 취향대로.",
+	},
+	{
+		title: "여행을 기록",
+		body: "사진, 메모, 감상을 여행 중에 바로 남깁니다. 돌아온 뒤에도 흩어지지 않는 경험의 기록.",
+	},
+	{
+		title: "다음 여행의 윤곽",
+		body: "지난 여정을 바탕으로 다음 계획의 윤곽을 잡습니다. 경험이 쌓일수록 여행이 깊어집니다.",
+	},
+];
+---
+
+<Base
+	title="KeepNBuild — Modfolio LS"
+	description="당신만의 여정을 직접 그리세요. 일정을 만들고, 경험을 기록하고, 다음 여행을 미리 그려보세요."
+>
+	<Nav user={user} current="/apps" />
+
+	<main id="main">
+		<section class="hero" aria-labelledby="knb-heading">
+			<div class="container hero-inner">
+				<nav class="breadcrumb reveal" aria-label="Breadcrumb">
+					<a href="/" lang="en">LS</a>
+					<span aria-hidden="true">&rarr;</span>
+					<a href="/apps" lang="en">Apps</a>
+					<span aria-hidden="true">&rarr;</span>
+					<span lang="en">KeepNBuild</span>
+				</nav>
+				<h1 id="knb-heading" class="hero-title reveal" style="--reveal-delay: 0.1s">
+					당신만의 여정을 직접 그리세요.
+				</h1>
+				<p class="hero-sub reveal" style="--reveal-delay: 0.2s">
+					패키지 안에 없는 여행을 만들고 기록합니다
+				</p>
+				<div class="hero-actions reveal" style="--reveal-delay: 0.3s">
+					<a href="https://keepnbuild.com" target="_blank" rel="noopener" class="hero-btn" lang="en">keepnbuild.com 방문</a>
+				</div>
+			</div>
+		</section>
+
+		<section class="section">
+			<div class="container">
+				<div class="feature-grid">
+					{features.map((f, i) => (
+						<div class="feature-card reveal" style={`--reveal-delay: ${(i + 1) * 0.15}s`}>
+							<h2 class="feature-title">{f.title}</h2>
+							<p class="feature-body">{f.body}</p>
+						</div>
+					))}
+				</div>
+			</div>
+		</section>
+
+		<section class="section section-gradient">
+			<div class="container">
+				<div class="cta-card reveal" style="--reveal-delay: 0.2s">
+					<p class="cta-body">직접 경험해보세요.</p>
+					<a href="https://keepnbuild.com" target="_blank" rel="noopener" class="cta-link" lang="en">keepnbuild.com 방문 &rarr;</a>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<Footer />
+</Base>
+
+<style>
+	.hero {
+		min-height: 50vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		padding-top: calc(80px + var(--ls-space-12));
+		padding-bottom: var(--ls-space-8);
+		background:
+			radial-gradient(600px circle at 30% 40%, var(--ls-glow-plum), transparent 60%),
+			radial-gradient(400px circle at 70% 60%, var(--ls-glow-sky), transparent 60%),
+			var(--ls-void);
+	}
+
+	.hero-inner { max-width: 640px; }
+
+	.breadcrumb {
+		font-family: var(--ls-font-ui);
+		font-size: var(--ls-text-xs);
+		color: var(--ls-text-muted);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: var(--ls-space-2);
+		margin-bottom: var(--ls-space-6);
+	}
+
+	.breadcrumb a {
+		color: var(--ls-text-muted);
+		transition: color var(--ls-dur-fast);
+	}
+
+	.breadcrumb a:hover { color: var(--ls-interactive); }
+
+	.hero-title {
+		font-family: var(--ls-font-display);
+		font-size: var(--ls-text-3xl);
+		font-weight: 700;
+		line-height: var(--ls-leading-tight);
+		color: var(--ls-text);
+		margin-bottom: var(--ls-space-4);
+	}
+
+	.hero-sub {
+		font-family: var(--ls-font-body);
+		font-size: var(--ls-text-lg);
+		color: var(--ls-text-secondary);
+		margin-bottom: var(--ls-space-8);
+	}
+
+	.hero-btn {
+		display: inline-block;
+		font-family: var(--ls-font-ui);
+		font-size: var(--ls-text-base);
+		font-weight: 600;
+		color: #fff;
+		padding: var(--ls-space-3) var(--ls-space-8);
+		background: var(--ls-gradient);
+		background-size: 200% 200%;
+		border-radius: var(--ls-r-full);
+		transition:
+			transform 0.4s var(--ls-ease),
+			box-shadow 0.4s var(--ls-ease),
+			background-position 0.6s var(--ls-ease-out);
+	}
+
+	.hero-btn:hover {
+		transform: translateY(-3px);
+		box-shadow: 0 12px 48px var(--ls-glow-plum);
+		background-position: 100% 50%;
+	}
+
+	.section { padding-block: var(--ls-space-16); }
+	.section-gradient { background: var(--ls-gradient-soft); }
+
+	.feature-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: var(--ls-space-6);
+		max-width: 1080px;
+		margin-inline: auto;
+	}
+
+	.feature-card {
+		background: var(--ls-surface);
+		border: 1px solid var(--ls-border);
+		border-radius: var(--ls-r-xl);
+		padding: var(--ls-space-8);
+		transition: transform var(--ls-dur-fast), box-shadow var(--ls-dur-fast);
+	}
+
+	.feature-card:hover {
+		transform: translateY(-6px);
+		box-shadow: 0 16px 56px var(--ls-glow-plum);
+	}
+
+	.feature-title {
+		font-family: var(--ls-font-body);
+		font-size: var(--ls-text-lg);
+		font-weight: 600;
+		color: var(--ls-text);
+		margin-bottom: var(--ls-space-4);
+	}
+
+	.feature-body {
+		font-family: var(--ls-font-story);
+		font-size: var(--ls-text-base);
+		color: var(--ls-text-secondary);
+		line-height: var(--ls-leading-relaxed);
+	}
+
+	.cta-card {
+		max-width: 600px;
+		margin-inline: auto;
+		text-align: center;
+	}
+
+	.cta-body {
+		font-family: var(--ls-font-display);
+		font-size: var(--ls-text-xl);
+		font-weight: 700;
+		color: var(--ls-text);
+		margin-bottom: var(--ls-space-5);
+	}
+
+	.cta-link {
+		font-family: var(--ls-font-ui);
+		font-size: var(--ls-text-md);
+		font-weight: 600;
+		color: var(--ls-interactive);
+	}
+
+	@media (max-width: 768px) {
+		.feature-grid { grid-template-columns: 1fr; max-width: 420px; }
+	}
+</style>

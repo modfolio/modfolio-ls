@@ -1,0 +1,178 @@
+---
+import Footer from "../../components/landing/Footer.astro";
+import Nav from "../../components/shared/Nav.astro";
+import Base from "../../layouts/Base.astro";
+
+const user = Astro.locals.user;
+
+const apps = [
+	{
+		id: "keepnbuild",
+		name: "KeepNBuild",
+		href: "/apps/keepnbuild",
+		domain: "keepnbuild.com",
+		lead: "당신만의 여정을 직접 그리세요.",
+		desc: "패키지 안에 없는 여행을 만들고 기록합니다",
+	},
+	{
+		id: "worthee",
+		name: "Worthee",
+		href: "/apps/worthee",
+		domain: "worthee.io",
+		lead: "꾸준함이 빛나는 순간.",
+		desc: "매일의 실천을 기록하고, 커뮤니티가 함께 확인합니다",
+	},
+];
+---
+
+<Base
+	title="Apps — Modfolio LS"
+	description="여행을 그리고, 꾸준함을 빛내고. 일상에 깊이를 더하는 두 가지 경험."
+>
+	<Nav user={user} current="/apps" />
+
+	<main id="main">
+		<section class="hero" aria-labelledby="apps-heading">
+			<div class="container hero-inner">
+				<p class="hero-eyebrow reveal" lang="en">Apps</p>
+				<h1 id="apps-heading" class="hero-title reveal" style="--reveal-delay: 0.1s">
+					각자의 방식으로, 일상을 펼칩니다.
+				</h1>
+				<p class="hero-sub reveal" style="--reveal-delay: 0.2s">
+					여행을 그리고, 꾸준함을 빛내고.<br />
+					두 가지 경험이 각자의 결로 일상에 깊이를 더합니다.
+				</p>
+			</div>
+		</section>
+
+		<section class="section">
+			<div class="container">
+				<div class="app-grid">
+					{apps.map((app, i) => (
+						<a
+							href={app.href}
+							class="app-card reveal"
+							data-app={app.id}
+							style={`--reveal-delay: ${(i + 1) * 0.15}s`}
+						>
+							<h2 class="app-name" lang="en">{app.name}</h2>
+							<p class="app-lead">{app.lead}</p>
+							<p class="app-desc">{app.desc}</p>
+							<span class="app-link">자세히 보기 &middot; <span lang="en">{app.domain}</span></span>
+						</a>
+					))}
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<Footer />
+</Base>
+
+<style>
+	.hero {
+		min-height: 50vh;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		padding-top: calc(80px + var(--ls-space-12));
+		padding-bottom: var(--ls-space-8);
+		background:
+			radial-gradient(600px circle at 30% 40%, var(--ls-glow-plum), transparent 60%),
+			radial-gradient(400px circle at 70% 60%, var(--ls-glow-sky), transparent 60%),
+			var(--ls-void);
+	}
+
+	.hero-inner { max-width: 640px; }
+
+	.hero-eyebrow {
+		font-family: var(--ls-font-ui);
+		font-size: var(--ls-text-xs);
+		font-weight: 600;
+		color: var(--ls-text-muted);
+		letter-spacing: var(--ls-tracking-widest);
+		text-transform: uppercase;
+		margin-bottom: var(--ls-space-4);
+	}
+
+	.hero-title {
+		font-family: var(--ls-font-display);
+		font-size: var(--ls-text-3xl);
+		font-weight: 700;
+		line-height: var(--ls-leading-tight);
+		color: var(--ls-text);
+		margin-bottom: var(--ls-space-5);
+	}
+
+	.hero-sub {
+		font-family: var(--ls-font-body);
+		font-size: var(--ls-text-lg);
+		color: var(--ls-text-secondary);
+		line-height: var(--ls-leading-relaxed);
+	}
+
+	.section { padding-block: var(--ls-space-16); }
+
+	.app-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: var(--ls-space-6);
+		max-width: 860px;
+		margin-inline: auto;
+	}
+
+	.app-card {
+		display: block;
+		background: var(--ls-surface);
+		border: 1px solid var(--ls-border);
+		border-radius: var(--ls-r-xl);
+		padding: var(--ls-space-10);
+		transition:
+			transform 0.4s var(--ls-ease),
+			box-shadow 0.4s var(--ls-ease),
+			border-color 0.3s var(--ls-ease);
+	}
+
+	.app-card:hover {
+		transform: translateY(-6px);
+		border-color: var(--ls-border-hover);
+		box-shadow: 0 16px 56px var(--ls-glow-plum);
+	}
+
+	.app-name {
+		font-family: var(--ls-font-display);
+		font-size: var(--ls-text-xl);
+		font-weight: 700;
+		color: var(--ls-text);
+		margin-bottom: var(--ls-space-4);
+	}
+
+	.app-lead {
+		font-family: var(--ls-font-body);
+		font-size: var(--ls-text-md);
+		color: var(--ls-text);
+		font-weight: 500;
+		line-height: var(--ls-leading-snug);
+		margin-bottom: var(--ls-space-3);
+	}
+
+	.app-desc {
+		font-family: var(--ls-font-story);
+		font-size: var(--ls-text-sm);
+		color: var(--ls-text-secondary);
+		line-height: var(--ls-leading-normal);
+		margin-bottom: var(--ls-space-6);
+	}
+
+	.app-link {
+		font-family: var(--ls-font-ui);
+		font-size: var(--ls-text-sm);
+		font-weight: 600;
+		color: var(--ls-interactive);
+	}
+
+	@media (max-width: 640px) {
+		.app-grid { grid-template-columns: 1fr; max-width: 420px; }
+	}
+</style>

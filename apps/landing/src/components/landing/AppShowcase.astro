@@ -3,41 +3,41 @@ const apps = [
 	{
 		id: "keepnbuild",
 		name: "KeepNBuild",
-		url: "https://keepnbuild.com",
-		lead: "당신만의 여행을 직접 설계하세요.",
-		desc: "일정을 만들고, 경험을 기록하고, 다음 여행을 미리 그려보세요.",
+		href: "/apps/keepnbuild",
+		domain: "keepnbuild.com",
+		lead: "당신만의 여정을 직접 그리세요.",
+		desc: "패키지 안에 없는 여행을 만들고 기록합니다.",
 	},
 	{
 		id: "worthee",
 		name: "Worthee",
-		url: "https://worthee.io",
-		lead: "성실함이 증명되는 순간을 경험하세요.",
-		desc: "매일 습관을 기록하고 인증하면, 커뮤니티가 검증합니다.",
+		href: "/apps/worthee",
+		domain: "worthee.io",
+		lead: "꾸준함이 빛나는 순간.",
+		desc: "매일의 실천을 기록하고, 커뮤니티가 함께 확인합니다.",
 	},
 ];
 ---
 
 <section class="showcase reveal" id="showcase" aria-labelledby="showcase-heading">
 	<div class="container">
-		<h2 id="showcase-heading" class="showcase-title reveal">
-			두 가지 <span class="gradient-text">라이프스타일</span> 도구
+		<p class="showcase-eyebrow reveal" lang="en">Apps</p>
+		<h2 id="showcase-heading" class="showcase-title reveal" style="--reveal-delay: 0.1s">
+			지금, 여기서부터.
 		</h2>
 
 		<div class="showcase-grid">
 			{apps.map((app, i) => (
 				<a
-					href={app.url}
+					href={app.href}
 					class="showcase-card reveal"
 					data-app={app.id}
-
-					target="_blank"
-					rel="noopener"
 					style={`--reveal-delay: ${(i + 1) * 0.15}s`}
 				>
 					<h3 class="showcase-name" lang="en">{app.name}</h3>
 					<p class="showcase-lead">{app.lead}</p>
 					<p class="showcase-desc">{app.desc}</p>
-					<span class="showcase-link" lang="en">{app.name} &rarr;</span>
+					<span class="showcase-link">자세히 보기 &middot; <span lang="en">{app.domain}</span></span>
 				</a>
 			))}
 		</div>
@@ -52,6 +52,17 @@ const apps = [
 		min-height: 80vh;
 		display: flex;
 		align-items: center;
+	}
+
+	.showcase-eyebrow {
+		font-family: var(--ls-font-ui);
+		font-size: var(--ls-text-xs);
+		font-weight: 600;
+		color: var(--ls-text-muted);
+		letter-spacing: var(--ls-tracking-widest);
+		text-transform: uppercase;
+		text-align: center;
+		margin-bottom: var(--ls-space-4);
 	}
 
 	.showcase-title {
@@ -121,5 +132,12 @@ const apps = [
 		font-weight: 600;
 		color: var(--ls-interactive);
 		transition: opacity var(--ls-dur-fast);
+	}
+
+	@media (max-width: 640px) {
+		.showcase-grid {
+			grid-template-columns: 1fr;
+			max-width: 420px;
+		}
 	}
 </style>
