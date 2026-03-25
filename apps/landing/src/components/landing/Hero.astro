@@ -11,7 +11,7 @@
 		</h1>
 
 		<div class="hero-actions reveal" style="--reveal-delay: 0.25s">
-			<a href="/auth/login" class="hero-btn" lang="en">Unfold</a>
+			<a href="/auth/login" class="btn-gradient" lang="en">Unfold</a>
 		</div>
 	</div>
 </section>
@@ -38,7 +38,6 @@
 				transparent 60%
 			),
 			var(--ls-void);
-		transition: background 0.15s ease;
 	}
 
 	.hero-content {
@@ -78,25 +77,4 @@
 		margin-bottom: var(--ls-space-10);
 	}
 
-	.hero-btn {
-		font-family: var(--ls-font-ui);
-		font-size: var(--ls-text-base);
-		font-weight: 600;
-		color: #fff;
-		padding: var(--ls-space-3) var(--ls-space-8);
-		background: var(--ls-gradient);
-		background-size: 200% 200%;
-		border-radius: var(--ls-r-full);
-		letter-spacing: var(--ls-tracking-wide);
-		transition:
-			transform 0.4s var(--ls-ease),
-			box-shadow 0.4s var(--ls-ease),
-			background-position 0.6s var(--ls-ease-out);
-	}
-
-	.hero-btn:hover {
-		transform: translateY(-3px) scale(1.03);
-		box-shadow: 0 16px 56px var(--ls-glow-plum);
-		background-position: 100% 50%;
-	}
 </style>

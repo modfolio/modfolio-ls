@@ -14,8 +14,8 @@ const pillars = [
 <section class="philosophy" aria-label="철학">
 	<div class="container">
 		<div class="philosophy-block reveal">
-			{pillars.map((p, i) => (
-				<div class={`philosophy-row ${i < pillars.length - 1 ? "philosophy-row--border" : ""}`}>
+			{pillars.map((p) => (
+				<div class="philosophy-row">
 					<p class="philosophy-label gradient-text">{p.label}</p>
 					<p class="philosophy-body">{p.body.split("\n").map((line, j) => (
 						<>{j > 0 && <br />}{line}</>
@@ -57,10 +57,6 @@ const pillars = [
 		gap: var(--ls-space-8);
 		align-items: start;
 		padding-block: var(--ls-space-8);
-	}
-
-	.philosophy-row--border {
-		margin-bottom: var(--ls-space-2);
 	}
 
 	.philosophy-label {

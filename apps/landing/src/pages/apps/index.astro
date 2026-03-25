@@ -64,6 +64,12 @@ const apps = [
 				</div>
 			</div>
 		</section>
+		<section class="section section-gradient">
+			<div class="container cta-inner">
+				<h2 class="cta-title reveal">오늘, 한 장면 더.</h2>
+				<a href="/auth/login" class="btn-gradient reveal" style="--reveal-delay: 0.15s" lang="en">Unfold</a>
+			</div>
+		</section>
 	</main>
 
 	<Footer />
@@ -125,7 +131,7 @@ const apps = [
 	.app-card {
 		display: block;
 		background: var(--ls-surface);
-		border: 1px solid var(--ls-border);
+		border: 1px solid var(--ls-border-ghost);
 		border-radius: var(--ls-r-xl);
 		padding: var(--ls-space-10);
 		transition:
@@ -170,6 +176,25 @@ const apps = [
 		font-size: var(--ls-text-sm);
 		font-weight: 600;
 		color: var(--ls-interactive);
+	}
+
+	.section-gradient { background: var(--ls-gradient-soft); }
+
+	.cta-inner {
+		text-align: center;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding-block: var(--ls-space-12);
+	}
+
+	.cta-title {
+		font-family: var(--ls-font-display);
+		font-size: var(--ls-text-3xl);
+		font-weight: 700;
+		color: var(--ls-text);
+		line-height: var(--ls-leading-tight);
+		margin-bottom: var(--ls-space-8);
 	}
 
 	@media (max-width: 640px) {

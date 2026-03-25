@@ -7,7 +7,7 @@
 		<h2 id="cta-heading" class="cta-heading">
 			오늘, 한 장면 더.
 		</h2>
-		<a href="/auth/login" class="cta-btn" lang="en">Unfold</a>
+		<a href="/auth/login" class="btn-gradient" lang="en">Unfold</a>
 	</div>
 </section>
 
@@ -15,7 +15,7 @@
 	.cta {
 		position: relative;
 		z-index: 1;
-		padding-block: var(--ls-space-16);
+		padding-block: var(--ls-space-20);
 		min-height: 60vh;
 		display: flex;
 		align-items: center;
@@ -40,31 +40,11 @@
 
 	.cta-heading {
 		font-family: var(--ls-font-display);
-		font-size: var(--ls-text-2xl);
+		font-size: var(--ls-text-3xl);
 		font-weight: 700;
 		line-height: var(--ls-leading-tight);
 		color: var(--ls-text);
 		margin-bottom: var(--ls-space-8);
 	}
 
-	.cta-btn {
-		font-family: var(--ls-font-ui);
-		font-size: var(--ls-text-base);
-		font-weight: 600;
-		color: #fff;
-		padding: var(--ls-space-3) var(--ls-space-8);
-		background: var(--ls-gradient);
-		background-size: 200% 200%;
-		border-radius: var(--ls-r-full);
-		transition:
-			transform 0.4s var(--ls-ease),
-			box-shadow 0.4s var(--ls-ease),
-			background-position 0.6s var(--ls-ease-out);
-	}
-
-	.cta-btn:hover {
-		transform: translateY(-3px) scale(1.03);
-		box-shadow: 0 16px 56px var(--ls-glow-plum);
-		background-position: 100% 50%;
-	}
 </style>

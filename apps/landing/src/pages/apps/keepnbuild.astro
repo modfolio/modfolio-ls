@@ -30,7 +30,7 @@ const features = [
 	<main id="main">
 		<section class="hero" aria-labelledby="knb-heading">
 			<div class="container hero-inner">
-				<nav class="breadcrumb reveal" aria-label="Breadcrumb">
+				<nav class="breadcrumb reveal" aria-label="현재 위치">
 					<a href="/" lang="en">LS</a>
 					<span aria-hidden="true">&rarr;</span>
 					<a href="/apps" lang="en">Apps</a>
@@ -44,7 +44,7 @@ const features = [
 					패키지 안에 없는 여행을 만들고 기록합니다
 				</p>
 				<div class="hero-actions reveal" style="--reveal-delay: 0.3s">
-					<a href="https://keepnbuild.com" target="_blank" rel="noopener" class="hero-btn" lang="en">keepnbuild.com 방문</a>
+					<a href="https://keepnbuild.com" target="_blank" rel="noopener" class="btn-gradient" lang="en">keepnbuild.com 방문</a>
 				</div>
 			</div>
 		</section>
@@ -66,7 +66,7 @@ const features = [
 			<div class="container">
 				<div class="cta-card reveal" style="--reveal-delay: 0.2s">
 					<p class="cta-body">직접 경험해보세요.</p>
-					<a href="https://keepnbuild.com" target="_blank" rel="noopener" class="cta-link" lang="en">keepnbuild.com 방문 &rarr;</a>
+					<a href="https://keepnbuild.com" target="_blank" rel="noopener" class="btn-gradient" lang="en">keepnbuild.com</a>
 				</div>
 			</div>
 		</section>
@@ -126,30 +126,11 @@ const features = [
 		margin-bottom: var(--ls-space-8);
 	}
 
-	.hero-btn {
-		display: inline-block;
-		font-family: var(--ls-font-ui);
-		font-size: var(--ls-text-base);
-		font-weight: 600;
-		color: #fff;
-		padding: var(--ls-space-3) var(--ls-space-8);
-		background: var(--ls-gradient);
-		background-size: 200% 200%;
-		border-radius: var(--ls-r-full);
-		transition:
-			transform 0.4s var(--ls-ease),
-			box-shadow 0.4s var(--ls-ease),
-			background-position 0.6s var(--ls-ease-out);
-	}
-
-	.hero-btn:hover {
-		transform: translateY(-3px);
-		box-shadow: 0 12px 48px var(--ls-glow-plum);
-		background-position: 100% 50%;
-	}
-
 	.section { padding-block: var(--ls-space-16); }
-	.section-gradient { background: var(--ls-gradient-soft); }
+	.section-gradient {
+		background: var(--ls-gradient-soft);
+		padding-block: var(--ls-space-12);
+	}
 
 	.feature-grid {
 		display: grid;
@@ -161,7 +142,7 @@ const features = [
 
 	.feature-card {
 		background: var(--ls-surface);
-		border: 1px solid var(--ls-border);
+		border: 1px solid var(--ls-border-ghost);
 		border-radius: var(--ls-r-xl);
 		padding: var(--ls-space-8);
 		transition: transform var(--ls-dur-fast), box-shadow var(--ls-dur-fast);
@@ -173,7 +154,7 @@ const features = [
 	}
 
 	.feature-title {
-		font-family: var(--ls-font-body);
+		font-family: var(--ls-font-display);
 		font-size: var(--ls-text-lg);
 		font-weight: 600;
 		color: var(--ls-text);
@@ -199,13 +180,6 @@ const features = [
 		font-weight: 700;
 		color: var(--ls-text);
 		margin-bottom: var(--ls-space-5);
-	}
-
-	.cta-link {
-		font-family: var(--ls-font-ui);
-		font-size: var(--ls-text-md);
-		font-weight: 600;
-		color: var(--ls-interactive);
 	}
 
 	@media (max-width: 768px) {

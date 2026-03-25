@@ -46,7 +46,7 @@ const links = [
 		right: 0;
 		z-index: 100;
 		backdrop-filter: blur(24px) saturate(1.4);
-		background: oklch(0.98 0.005 80 / 0.75);
+		background: var(--ls-nav-bg);
 		border-bottom: 1px solid var(--ls-border-ghost);
 	}
 
@@ -55,7 +55,7 @@ const links = [
 		align-items: center;
 		justify-content: space-between;
 		height: 80px;
-		padding-inline: clamp(1rem, 4vw, 2rem);
+		padding-inline: var(--ls-content-gutter);
 	}
 
 	.nav-brand {

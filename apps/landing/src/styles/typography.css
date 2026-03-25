@@ -58,8 +58,6 @@
 		"brandon-grotesque", "brandon-grotesque-fallback", "Pretendard Variable",
 		"Pretendard", sans-serif;
 
-	--ls-font-code: "degular-mono", "JetBrains Mono", monospace;
-
 	/* ── Line Heights ── */
 	--ls-leading-tight: 1.15;
 	--ls-leading-snug: 1.3;
