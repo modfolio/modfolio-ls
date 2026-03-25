@@ -29,12 +29,12 @@
 		background:
 			radial-gradient(
 				600px circle at var(--mx, 30%) var(--my, 40%),
-				var(--ls-glow-plum),
+				color-mix(in oklch, var(--ls-plum) 12%, transparent),
 				transparent 60%
 			),
 			radial-gradient(
 				500px circle at calc(100% - var(--mx, 30%)) calc(100% - var(--my, 40%)),
-				var(--ls-glow-sky),
+				color-mix(in oklch, var(--ls-sky) 12%, transparent),
 				transparent 60%
 			),
 			var(--ls-void);
@@ -61,11 +61,11 @@
 	.hero-whisper {
 		display: block;
 		font-family: var(--ls-font-body);
-		font-size: var(--ls-text-xl);
+		font-size: var(--ls-text-lg);
 		font-weight: 400;
-		color: var(--ls-text-secondary);
+		color: var(--ls-text-muted);
 		letter-spacing: var(--ls-tracking-normal);
-		margin-bottom: var(--ls-space-4);
+		margin-bottom: var(--ls-space-5);
 	}
 
 	.hero-shout {

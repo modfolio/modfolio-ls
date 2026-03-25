@@ -48,6 +48,7 @@
 	--ls-border: #e2e0dc;
 	--ls-border-hover: #d0cec9;
 	--ls-border-subtle: #edebe8;
+	--ls-border-ghost: oklch(0 0 0 / 0.06);
 
 	/* ── Status ── */
 	--ls-status-active: oklch(0.45 0.15 170);
@@ -67,6 +68,7 @@
 	--ls-space-10: 4rem;
 	--ls-space-12: 5rem;
 	--ls-space-16: 8rem;
+	--ls-space-20: 10rem;
 
 	/* ── Radius ── */
 	--ls-r-sm: 6px;
