@@ -9,7 +9,11 @@
 			<span class="hero-whisper">당신이 누릴 수 있는 일상은</span>
 			<span class="hero-shout gradient-text">아직 더 있습니다.</span>
 		</h1>
-		<p class="hero-tagline reveal" style="--reveal-delay: 0.2s" lang="en">Modfolio LS — 삶을 누리는 방법.</p>
+		<p class="hero-sub reveal" style="--reveal-delay: 0.2s">
+			여행을 그리고, 성장을 기록하고,<br />
+			아직 이름 붙이지 못한 경험까지.
+		</p>
+		<p class="hero-tagline reveal" style="--reveal-delay: 0.3s">삶을 누리는 방법.</p>
 	</div>
 </section>
 
@@ -74,13 +78,23 @@
 		margin-bottom: var(--ls-space-10);
 	}
 
+	.hero-sub {
+		font-family: var(--ls-font-story);
+		font-size: var(--ls-text-md);
+		color: var(--ls-text-secondary);
+		line-height: var(--ls-leading-relaxed);
+		text-align: center;
+		max-width: 32ch;
+		margin-bottom: var(--ls-space-6);
+	}
+
 	.hero-tagline {
 		font-family: var(--ls-font-ui);
-		font-size: var(--ls-text-sm);
-		font-weight: 500;
+		font-size: var(--ls-text-xs);
+		font-weight: 600;
 		color: var(--ls-text-muted);
-		letter-spacing: var(--ls-tracking-wide);
-		margin-top: var(--ls-space-10);
+		letter-spacing: var(--ls-tracking-widest);
+		text-transform: uppercase;
 	}
 
 </style>

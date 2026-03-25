@@ -5,16 +5,18 @@ const apps = [
 		name: "KeepNBuild",
 		href: "/apps/keepnbuild",
 		domain: "keepnbuild.com",
-		lead: "당신만의 여정을\n직접 그리세요.",
-		desc: "패키지 안에 없는 여행을 만들고 기록합니다.",
+		tagline: "Custom Travel Design",
+		lead: "당신만의 여정을 직접 그리세요.",
+		desc: "어디로 떠날지, 무엇을 경험할지. 패키지 안에 없는 여행을 직접 설계하고 기록합니다. 경험이 쌓일수록 여행이 깊어집니다.",
 	},
 	{
 		id: "worthee",
 		name: "Worthee",
 		href: "/apps/worthee",
 		domain: "worthee.io",
-		lead: "꾸준함이\n빛나는 순간.",
-		desc: "매일의 실천을 기록하고, 커뮤니티가 함께 확인합니다.",
+		tagline: "Honor & Self-Management",
+		lead: "꾸준함이 빛나는 순간.",
+		desc: "매일의 실천을 기록하고, 과정을 인증하고, 커뮤니티가 함께 확인합니다. 혼자만의 다짐이 아닌, 함께 빛나는 꾸준함.",
 	},
 ];
 ---
@@ -38,9 +40,8 @@ const apps = [
 						<h3 class="portfolio-name" lang="en">{app.name}</h3>
 						<span class="portfolio-domain" lang="en">{app.domain}</span>
 					</div>
-					<p class="portfolio-lead">{app.lead.split("\n").map((line, j) => (
-						<>{j > 0 && <br />}{line}</>
-					))}</p>
+					<p class="portfolio-tagline" lang="en">{app.tagline}</p>
+					<p class="portfolio-lead">{app.lead}</p>
 					<p class="portfolio-desc">{app.desc}</p>
 				</a>
 			))}
@@ -83,8 +84,10 @@ const apps = [
 
 	.portfolio-item {
 		display: block;
-		padding: var(--ls-space-10) 0;
+		padding: var(--ls-space-10) var(--ls-space-6);
+		margin-inline: calc(-1 * var(--ls-space-6));
 		border-top: 1px solid var(--ls-border-subtle);
+		border-radius: var(--ls-r-lg);
 		transition: background-color var(--ls-dur-fast) var(--ls-ease);
 	}
 
@@ -94,9 +97,6 @@ const apps = [
 
 	.portfolio-item:hover {
 		background-color: var(--ls-surface);
-		padding-inline: var(--ls-space-6);
-		margin-inline: calc(-1 * var(--ls-space-6));
-		border-radius: var(--ls-r-lg);
 	}
 
 	.portfolio-header {
@@ -108,9 +108,10 @@ const apps = [
 
 	.portfolio-name {
 		font-family: var(--ls-font-display);
-		font-size: var(--ls-text-2xl);
+		font-size: var(--ls-text-3xl);
 		font-weight: 700;
 		color: var(--ls-text);
+		letter-spacing: var(--ls-tracking-tight);
 	}
 
 	.portfolio-domain {
@@ -121,20 +122,30 @@ const apps = [
 		letter-spacing: var(--ls-tracking-wide);
 	}
 
+	.portfolio-tagline {
+		font-family: var(--ls-font-ui);
+		font-size: var(--ls-text-xs);
+		font-weight: 500;
+		color: var(--ls-text-muted);
+		letter-spacing: var(--ls-tracking-wide);
+		margin-bottom: var(--ls-space-5);
+	}
+
 	.portfolio-lead {
 		font-family: var(--ls-font-display);
-		font-size: var(--ls-text-lg);
+		font-size: var(--ls-text-xl);
 		font-weight: 600;
 		color: var(--ls-text);
 		line-height: var(--ls-leading-snug);
-		margin-bottom: var(--ls-space-3);
+		margin-bottom: var(--ls-space-4);
 	}
 
 	.portfolio-desc {
 		font-family: var(--ls-font-story);
-		font-size: var(--ls-text-sm);
+		font-size: var(--ls-text-base);
 		color: var(--ls-text-secondary);
-		line-height: var(--ls-leading-normal);
+		line-height: var(--ls-leading-relaxed);
+		max-width: 50ch;
 	}
 
 	@media (max-width: 768px) {
