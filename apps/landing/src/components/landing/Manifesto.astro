@@ -1,0 +1,76 @@
+---
+const beliefs = [
+	{
+		label: "우리가 믿는 것",
+		body: "모든 사람은 자신의 일상을\n더 깊이 누릴 자격이 있습니다.",
+	},
+	{
+		label: "우리가 만드는 것",
+		body: "여행, 성장, 그리고\n아직 이름 붙이지 못한 경험들까지.\n삶을 누리는 방법을 만들어갑니다.",
+	},
+];
+---
+
+<section class="manifesto" aria-label="매니페스토">
+	<div class="container">
+		<div class="manifesto-block reveal">
+			{beliefs.map((p) => (
+				<div class="manifesto-row">
+					<p class="manifesto-label gradient-text">{p.label}</p>
+					<p class="manifesto-body">{p.body.split("\n").map((line, j) => (
+						<>{j > 0 && <br />}{line}</>
+					))}</p>
+				</div>
+			))}
+		</div>
+	</div>
+</section>
+
+<style>
+	.manifesto {
+		position: relative;
+		z-index: 1;
+		padding-block: var(--ls-space-20);
+		background: linear-gradient(
+			180deg,
+			color-mix(in oklch, var(--ls-plum-soft) 8%, var(--ls-void)),
+			var(--ls-void)
+		);
+		border-top: 1px solid var(--ls-border-subtle);
+		border-bottom: 1px solid var(--ls-border-subtle);
+	}
+
+	.manifesto-block {
+		max-width: 860px;
+		margin-inline: auto;
+	}
+
+	.manifesto-row {
+		display: grid;
+		grid-template-columns: 200px 1fr;
+		gap: var(--ls-space-8);
+		align-items: start;
+		padding-block: var(--ls-space-8);
+	}
+
+	.manifesto-label {
+		font-family: var(--ls-font-display);
+		font-size: var(--ls-text-lg);
+		font-weight: 700;
+		line-height: var(--ls-leading-snug);
+	}
+
+	.manifesto-body {
+		font-family: var(--ls-font-story);
+		font-size: var(--ls-text-md);
+		color: var(--ls-text-secondary);
+		line-height: var(--ls-leading-relaxed);
+	}
+
+	@media (max-width: 768px) {
+		.manifesto-row {
+			grid-template-columns: 1fr;
+			gap: var(--ls-space-3);
+		}
+	}
+</style>

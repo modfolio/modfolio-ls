@@ -1,11 +1,9 @@
 ---
 import AppShowcase from "../components/landing/AppShowcase.astro";
 import CallToAction from "../components/landing/CallToAction.astro";
-import FAQ from "../components/landing/FAQ.astro";
 import Footer from "../components/landing/Footer.astro";
 import Hero from "../components/landing/Hero.astro";
-import HowItWorks from "../components/landing/HowItWorks.astro";
-import Philosophy from "../components/landing/Philosophy.astro";
+import Manifesto from "../components/landing/Manifesto.astro";
 import Nav from "../components/shared/Nav.astro";
 import Base from "../layouts/Base.astro";
 
@@ -17,16 +15,14 @@ if (user) {
 ---
 
 <Base
-	title="Modfolio LS — Life, Unfolded"
-	description="일상에 아직 펼쳐지지 않은 장면을 더합니다. Modfolio의 라이프스타일 그룹."
+	title="Modfolio LS — 삶을 누리는 방법."
+	description="당신이 누릴 수 있는 일상은 아직 더 있습니다. Modfolio의 라이프스타일 그룹."
 >
 	<Nav user={user} current="/" />
 	<main id="main">
 		<Hero />
-		<Philosophy />
+		<Manifesto />
 		<AppShowcase />
-		<HowItWorks />
-		<FAQ />
 		<CallToAction />
 	</main>
 	<Footer />

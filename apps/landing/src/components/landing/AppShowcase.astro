@@ -6,7 +6,7 @@ const apps = [
 		href: "/apps/keepnbuild",
 		domain: "keepnbuild.com",
 		lead: "당신만의 여정을\n직접 그리세요.",
-		desc: "패키지 안에 없는 여행을\n만들고 기록합니다.",
+		desc: "패키지 안에 없는 여행을 만들고 기록합니다.",
 	},
 	{
 		id: "worthee",
@@ -14,34 +14,34 @@ const apps = [
 		href: "/apps/worthee",
 		domain: "worthee.io",
 		lead: "꾸준함이\n빛나는 순간.",
-		desc: "매일의 실천을 기록하고,\n커뮤니티가 함께 확인합니다.",
+		desc: "매일의 실천을 기록하고, 커뮤니티가 함께 확인합니다.",
 	},
 ];
 ---
 
-<section class="showcase reveal" id="showcase" aria-labelledby="showcase-heading">
+<section class="portfolio" id="portfolio" aria-labelledby="portfolio-heading">
 	<div class="container">
-		<p class="showcase-eyebrow reveal" lang="en">Apps</p>
-		<h2 id="showcase-heading" class="showcase-title reveal" style="--reveal-delay: 0.1s">
-			지금, 여기서부터.
+		<p class="portfolio-eyebrow reveal" lang="en">Portfolio</p>
+		<h2 id="portfolio-heading" class="portfolio-title reveal" style="--reveal-delay: 0.1s">
+			우리가 만드는 것.
 		</h2>
 
-		<div class="showcase-grid">
+		<div class="portfolio-list">
 			{apps.map((app, i) => (
 				<a
 					href={app.href}
-					class="showcase-card reveal"
+					class="portfolio-item reveal"
 					data-app={app.id}
 					style={`--reveal-delay: ${(i + 1) * 0.15}s`}
 				>
-					<h3 class="showcase-name" lang="en">{app.name}</h3>
-					<p class="showcase-lead">{app.lead.split("\n").map((line, j) => (
+					<div class="portfolio-header">
+						<h3 class="portfolio-name" lang="en">{app.name}</h3>
+						<span class="portfolio-domain" lang="en">{app.domain}</span>
+					</div>
+					<p class="portfolio-lead">{app.lead.split("\n").map((line, j) => (
 						<>{j > 0 && <br />}{line}</>
 					))}</p>
-					<p class="showcase-desc">{app.desc.split("\n").map((line, j) => (
-						<>{j > 0 && <br />}{line}</>
-					))}</p>
-					<span class="showcase-link">자세히 보기 &middot; <span lang="en">{app.domain}</span></span>
+					<p class="portfolio-desc">{app.desc}</p>
 				</a>
 			))}
 		</div>
@@ -49,125 +49,98 @@ const apps = [
 </section>
 
 <style>
-	.showcase {
+	.portfolio {
 		position: relative;
 		z-index: 1;
 		padding-block: var(--ls-space-20);
-		min-height: 80vh;
-		display: flex;
-		align-items: center;
 		background: var(--ls-surface-raised);
+		border-top: 1px solid var(--ls-border-subtle);
+		border-bottom: 1px solid var(--ls-border-subtle);
 	}
 
-	.showcase-eyebrow {
+	.portfolio-eyebrow {
 		font-family: var(--ls-font-ui);
 		font-size: var(--ls-text-xs);
 		font-weight: 600;
 		color: var(--ls-text-muted);
 		letter-spacing: var(--ls-tracking-widest);
 		text-transform: uppercase;
-		text-align: center;
 		margin-bottom: var(--ls-space-4);
 	}
 
-	.showcase-title {
+	.portfolio-title {
 		font-family: var(--ls-font-display);
 		font-size: var(--ls-text-3xl);
 		font-weight: 700;
 		line-height: var(--ls-leading-tight);
 		color: var(--ls-text);
-		text-align: center;
-		margin-bottom: var(--ls-space-10);
+		margin-bottom: var(--ls-space-12);
 	}
 
-	.showcase-grid {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
+	.portfolio-list {
 		max-width: 860px;
-		margin-inline: auto;
-		gap: var(--ls-space-6);
 	}
 
-	.showcase-card {
-		position: relative;
+	.portfolio-item {
 		display: block;
-		background: var(--ls-surface);
-		border: 1px solid var(--ls-border-ghost);
-		border-radius: var(--ls-r-xl);
-		padding: var(--ls-space-12);
-		overflow: hidden;
-		transition:
-			transform 0.45s var(--ls-ease),
-			box-shadow 0.45s var(--ls-ease);
+		padding: var(--ls-space-10) 0;
+		border-top: 1px solid var(--ls-border-subtle);
+		transition: background-color var(--ls-dur-fast) var(--ls-ease);
 	}
 
-	.showcase-card::before {
-		content: "";
-		position: absolute;
-		left: 0;
-		top: var(--ls-space-6);
-		bottom: var(--ls-space-6);
-		width: 3px;
-		background: var(--ls-app-accent, var(--ls-gradient));
-		border-radius: var(--ls-r-full);
-		opacity: 0;
-		transform: scaleY(0.4);
-		transition:
-			opacity 0.4s var(--ls-ease),
-			transform 0.4s var(--ls-ease);
+	.portfolio-item:last-child {
+		border-bottom: 1px solid var(--ls-border-subtle);
 	}
 
-	.showcase-card:hover {
-		transform: translateY(-6px);
-		box-shadow: var(--ls-shadow-ambient);
+	.portfolio-item:hover {
+		background-color: var(--ls-surface);
+		padding-inline: var(--ls-space-6);
+		margin-inline: calc(-1 * var(--ls-space-6));
+		border-radius: var(--ls-r-lg);
 	}
 
-	.showcase-card:hover::before {
-		opacity: 1;
-		transform: scaleY(1);
+	.portfolio-header {
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		margin-bottom: var(--ls-space-5);
 	}
 
-	.showcase-name {
+	.portfolio-name {
 		font-family: var(--ls-font-display);
 		font-size: var(--ls-text-2xl);
 		font-weight: 700;
 		color: var(--ls-text);
-		margin-bottom: var(--ls-space-5);
 	}
 
-	.showcase-lead {
+	.portfolio-domain {
+		font-family: var(--ls-font-ui);
+		font-size: var(--ls-text-xs);
+		font-weight: 500;
+		color: var(--ls-text-muted);
+		letter-spacing: var(--ls-tracking-wide);
+	}
+
+	.portfolio-lead {
 		font-family: var(--ls-font-display);
 		font-size: var(--ls-text-lg);
-		color: var(--ls-text);
 		font-weight: 600;
+		color: var(--ls-text);
 		line-height: var(--ls-leading-snug);
 		margin-bottom: var(--ls-space-3);
 	}
 
-	.showcase-desc {
+	.portfolio-desc {
 		font-family: var(--ls-font-story);
 		font-size: var(--ls-text-sm);
 		color: var(--ls-text-secondary);
 		line-height: var(--ls-leading-normal);
-		margin-bottom: var(--ls-space-8);
 	}
 
-	.showcase-link {
-		font-family: var(--ls-font-ui);
-		font-size: var(--ls-text-sm);
-		font-weight: 600;
-		color: var(--ls-interactive);
-		transition: opacity var(--ls-dur-fast);
-	}
-
-	.showcase-card:hover .showcase-link {
-		opacity: 0.7;
-	}
-
-	@media (max-width: 640px) {
-		.showcase-grid {
-			grid-template-columns: 1fr;
-			max-width: 420px;
+	@media (max-width: 768px) {
+		.portfolio-header {
+			flex-direction: column;
+			gap: var(--ls-space-1);
 		}
 	}
 </style>
