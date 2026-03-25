@@ -1,19 +1,14 @@
 ---
-/* Hero: 마우스 반응형 자개 배경 + 누리다 */
+/* Hero: 마우스 반응형 배경 + 두 줄 평행 구조 */
 ---
 
 <section class="hero" aria-labelledby="hero-heading">
 	<div class="hero-content container">
 		<p class="hero-eyebrow reveal" lang="en">Modfolio LS</p>
 		<h1 id="hero-heading" class="reveal" style="--reveal-delay: 0.1s">
-			<span class="hero-whisper">당신이 누릴 수 있는 일상은</span>
-			<span class="hero-shout gradient-text">아직 더 있습니다.</span>
+			<span class="hero-line">같은 여행도, 직접 그리면 달라집니다.</span>
+			<span class="hero-line">같은 하루도, 직접 기록하면 달라집니다.</span>
 		</h1>
-		<p class="hero-sub reveal" style="--reveal-delay: 0.2s">
-			여행을 그리고, 성장을 기록하고,<br />
-			아직 이름 붙이지 못한 경험까지.
-		</p>
-		<p class="hero-tagline reveal" style="--reveal-delay: 0.3s">삶을 누리는 방법.</p>
 	</div>
 </section>
 
@@ -58,43 +53,21 @@
 		margin-bottom: var(--ls-space-8);
 	}
 
-	.hero-whisper {
-		display: block;
-		font-family: var(--ls-font-body);
-		font-size: var(--ls-text-lg);
-		font-weight: 400;
-		color: var(--ls-text-muted);
-		letter-spacing: var(--ls-tracking-normal);
-		margin-bottom: var(--ls-space-5);
+	h1 {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: var(--ls-space-3);
+		margin: 0;
 	}
 
-	.hero-shout {
+	.hero-line {
 		display: block;
-		font-family: var(--ls-font-display);
-		font-size: var(--ls-text-4xl);
-		font-weight: 700;
-		line-height: var(--ls-leading-tight);
-		letter-spacing: var(--ls-tracking-tight);
-		margin-bottom: var(--ls-space-10);
-	}
-
-	.hero-sub {
 		font-family: var(--ls-font-story);
-		font-size: var(--ls-text-md);
+		font-size: var(--ls-text-2xl);
+		font-weight: 400;
 		color: var(--ls-text-secondary);
-		line-height: var(--ls-leading-relaxed);
-		text-align: center;
-		max-width: 32ch;
-		margin-bottom: var(--ls-space-6);
+		line-height: var(--ls-leading-snug);
+		letter-spacing: var(--ls-tracking-normal);
 	}
-
-	.hero-tagline {
-		font-family: var(--ls-font-ui);
-		font-size: var(--ls-text-xs);
-		font-weight: 600;
-		color: var(--ls-text-muted);
-		letter-spacing: var(--ls-tracking-widest);
-		text-transform: uppercase;
-	}
-
 </style>

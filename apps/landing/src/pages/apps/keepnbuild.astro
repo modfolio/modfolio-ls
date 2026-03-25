@@ -8,22 +8,22 @@ const user = Astro.locals.user;
 const features = [
 	{
 		title: "나만의 일정",
-		body: "숙소, 교통, 활동, 맛집. 원하는 조각을 조합해서 나만의 여정을 그립니다. 정해진 코스 없이, 온전히 내 취향대로.",
+		body: "어디로 떠날지, 무엇을 남길지. 원하는 조각을 조합해서 나만의 여정을 그립니다.",
 	},
 	{
-		title: "여행을 기록",
+		title: "여행의 기록",
 		body: "사진, 메모, 감상을 여행 중에 바로 남깁니다. 돌아온 뒤에도 흩어지지 않는 경험의 기록.",
 	},
 	{
-		title: "다음 여행의 윤곽",
-		body: "지난 여정을 바탕으로 다음 계획의 윤곽을 잡습니다. 경험이 쌓일수록 여행이 깊어집니다.",
+		title: "다음 여행의 출발점",
+		body: "지난 여정을 바탕으로 다음 계획의 윤곽을 잡습니다. 다음 여행은 거기서 시작됩니다.",
 	},
 ];
 ---
 
 <Base
 	title="KeepNBuild — Modfolio LS"
-	description="당신만의 여정을 직접 그리세요. 일정을 만들고, 경험을 기록하고, 다음 여행을 미리 그려보세요."
+	description="여행을 직접 그리세요. 일정을 만들고, 경험을 기록하는 커스텀 트래블 디자인."
 >
 	<Nav user={user} current="/apps" />
 
@@ -38,10 +38,10 @@ const features = [
 					<span lang="en">KeepNBuild</span>
 				</nav>
 				<h1 id="knb-heading" class="hero-title reveal" style="--reveal-delay: 0.1s">
-					당신만의 여정을 직접 그리세요.
+					여행을 직접 그립니다.
 				</h1>
 				<p class="hero-sub reveal" style="--reveal-delay: 0.2s">
-					패키지 안에 없는 여행을 만들고 기록합니다
+					일정을 만들고, 경험을 기록하는 커스텀 트래블 디자인.
 				</p>
 				<div class="hero-actions reveal" style="--reveal-delay: 0.3s">
 					<a href="https://keepnbuild.com" target="_blank" rel="noopener" class="btn-gradient" lang="en">keepnbuild.com 방문</a>
@@ -65,7 +65,7 @@ const features = [
 		<section class="section section-gradient">
 			<div class="container">
 				<div class="cta-card reveal" style="--reveal-delay: 0.2s">
-					<p class="cta-body">직접 경험해보세요.</p>
+					<p class="cta-body">여행을 직접 그려보세요.</p>
 					<a href="https://keepnbuild.com" target="_blank" rel="noopener" class="btn-gradient" lang="en">keepnbuild.com</a>
 				</div>
 			</div>

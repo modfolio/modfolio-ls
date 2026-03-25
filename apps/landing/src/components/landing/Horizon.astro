@@ -1,0 +1,67 @@
+---
+/* Horizon: 앞으로 — 관조적 전망 섹션 */
+
+const bodyParagraphs = [
+	"여행과 일상, 두 가지에서 시작했습니다.",
+	"하지만 삶에는 여행과 일상 사이에도,\n그 너머에도 수많은 경험들이 있습니다.\n누군가와 함께하는 시간, 처음 마주하는 감각,\n오래 품어왔지만 꺼내보지 못한 것들.",
+	"우리는 그 하나하나가\n직접 그리고 기록할 가치가 있다고 생각합니다.",
+	"Modfolio LS는 삶의 더 많은 순간과 만나려 합니다.",
+];
+
+const closingLine = "천천히, 하지만 분명하게.";
+---
+
+<section class="horizon" aria-label="앞으로">
+	<div class="horizon-inner reveal">
+		{bodyParagraphs.map((para) => (
+			<p class="horizon-body">
+				{para.split("\n").map((line, i) => (
+					<>{i > 0 && <br />}{line}</>
+				))}
+			</p>
+		))}
+		<p class="horizon-closing">{closingLine}</p>
+	</div>
+</section>
+
+<style>
+	.horizon {
+		position: relative;
+		z-index: 1;
+		padding-block: var(--ls-space-20);
+		border-top: 1px solid var(--ls-border-subtle);
+		background: linear-gradient(
+			180deg,
+			color-mix(in oklch, var(--ls-sky-soft) 6%, var(--ls-void)),
+			var(--ls-void)
+		);
+		text-align: center;
+	}
+
+	.horizon-inner {
+		max-width: 480px;
+		margin-inline: auto;
+		padding-inline: var(--ls-content-gutter);
+		display: flex;
+		flex-direction: column;
+		gap: var(--ls-space-6);
+	}
+
+	.horizon-body {
+		font-family: var(--ls-font-story);
+		font-size: var(--ls-text-lg);
+		color: var(--ls-text-secondary);
+		line-height: var(--ls-leading-relaxed);
+		margin: 0;
+	}
+
+	.horizon-closing {
+		font-family: var(--ls-font-display);
+		font-size: var(--ls-text-xl);
+		font-weight: 600;
+		color: var(--ls-text);
+		line-height: var(--ls-leading-snug);
+		margin: 0;
+		margin-top: var(--ls-space-3);
+	}
+</style>

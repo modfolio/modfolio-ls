@@ -1,25 +1,49 @@
 ---
-const beliefs = [
+const chapters: { label: string; paragraphs: string[] }[] = [
 	{
 		label: "우리가 믿는 것",
-		body: "모든 사람은 자신의 일상을 더 깊이 누릴 자격이 있습니다. 평범한 하루란 없습니다 — 다만 아직 들여다보지 않았을 뿐.",
+		paragraphs: [
+			"여행을 다녀오고, 습관을 시도하고, 하루를 보냅니다.\n누구나 그렇습니다.",
+			"하지만 같은 경험도 어떻게 마주하느냐에 따라 다르게 남습니다.\n직접 그려본 여행은 다녀온 뒤에도 이어지고,\n직접 기록한 하루는 지나간 뒤에도 선명합니다.",
+			"우리는 그 차이에 주목합니다.\n대단한 변화가 아닙니다.\n이미 하고 있는 것에, 한 걸음을 더하는 것.\n그것만으로 경험은 달라집니다.",
+		],
+	},
+	{
+		label: "우리가 바라보는 것",
+		paragraphs: [
+			"삶에는 아직 들여다보지 않은 순간들이 있습니다.\n당연하게 지나치는 것들, 해보지 않아서 모르는 것들,\n관심은 있지만 시작하지 못한 것들.",
+			"우리는 그 가능성에 관심이 있습니다.\n누군가에게 보여주거나, 정해주거나, 이끄는 것이 아니라\n아직 발견되지 않은 경험의 문 앞까지 함께 걸어가는 것.\nModfolio LS는 그런 곳이고 싶습니다.",
+		],
 	},
 	{
 		label: "우리가 만드는 것",
-		body: "여행을 직접 그리고, 매일의 성장을 기록하고, 꾸준함을 함께 확인하는 경험. 그리고 아직 이름 붙이지 못한 영역까지. 삶을 누리는 방법을 하나씩 만들어갑니다.",
+		paragraphs: [
+			"여행을 그리는 경험, 매일을 기록하는 경험.\n거기서 시작했습니다.",
+			"하지만 직접 그리고 기록할 수 있는 경험은\n여행과 일상만이 아닙니다.",
+			"우리는 삶의 더 많은 순간들을 향해 걸어가고 있습니다.",
+		],
 	},
 ];
 ---
 
 <section class="manifesto" aria-label="매니페스토">
 	<div class="container">
-		<div class="manifesto-block reveal">
-			{beliefs.map((p) => (
-				<div class="manifesto-row">
-					<p class="manifesto-label gradient-text">{p.label}</p>
-					<p class="manifesto-body">{p.body.split("\n").map((line, j) => (
-						<>{j > 0 && <br />}{line}</>
-					))}</p>
+		<div class="manifesto-inner">
+			{chapters.map((chapter, i) => (
+				<div
+					class={`manifesto-chapter reveal${i < chapters.length - 1 ? " manifesto-chapter--bordered" : ""}`}
+					style={`--reveal-delay: ${i * 0.15}s`}
+				>
+					<p class="chapter-label">{chapter.label}</p>
+					<div class="chapter-body">
+						{chapter.paragraphs.map((para) => (
+							<p>
+								{para.split("\n").map((line, j) => (
+									<>{j > 0 && <br />}{line}</>
+								))}
+							</p>
+						))}
+					</div>
 				</div>
 			))}
 		</div>
@@ -40,37 +64,40 @@ const beliefs = [
 		border-bottom: 1px solid var(--ls-border-subtle);
 	}
 
-	.manifesto-block {
-		max-width: 860px;
+	.manifesto-inner {
+		max-width: 720px;
 		margin-inline: auto;
 	}
 
-	.manifesto-row {
-		display: grid;
-		grid-template-columns: 200px 1fr;
-		gap: var(--ls-space-8);
-		align-items: start;
-		padding-block: var(--ls-space-8);
+	.manifesto-chapter {
+		padding-block: var(--ls-space-12);
 	}
 
-	.manifesto-label {
-		font-family: var(--ls-font-display);
-		font-size: var(--ls-text-xl);
-		font-weight: 700;
-		line-height: var(--ls-leading-snug);
+	.manifesto-chapter--bordered {
+		border-bottom: 1px solid var(--ls-border-subtle);
 	}
 
-	.manifesto-body {
+	.chapter-label {
+		font-family: var(--ls-font-ui);
+		font-size: var(--ls-text-xs);
+		font-weight: 600;
+		color: var(--ls-text-muted);
+		text-transform: uppercase;
+		letter-spacing: var(--ls-tracking-widest);
+		margin-bottom: var(--ls-space-6);
+	}
+
+	.chapter-body {
+		display: flex;
+		flex-direction: column;
+		gap: var(--ls-space-5);
+	}
+
+	.chapter-body p {
 		font-family: var(--ls-font-story);
 		font-size: var(--ls-text-lg);
 		color: var(--ls-text-secondary);
 		line-height: var(--ls-leading-relaxed);
-	}
-
-	@media (max-width: 768px) {
-		.manifesto-row {
-			grid-template-columns: 1fr;
-			gap: var(--ls-space-3);
-		}
+		margin: 0;
 	}
 </style>

@@ -6,8 +6,8 @@ const apps = [
 		href: "/apps/keepnbuild",
 		domain: "keepnbuild.com",
 		tagline: "Custom Travel Design",
-		lead: "당신만의 여정을 직접 그리세요.",
-		desc: "어디로 떠날지, 무엇을 경험할지. 패키지 안에 없는 여행을 직접 설계하고 기록합니다. 경험이 쌓일수록 여행이 깊어집니다.",
+		lead: "여행을 직접 그립니다.",
+		desc: "어디로 떠날지, 무엇을 남길지. 일정을 만들고, 경험을 기록하고, 다음 여행은 거기서 시작됩니다.",
 	},
 	{
 		id: "worthee",
@@ -15,18 +15,15 @@ const apps = [
 		href: "/apps/worthee",
 		domain: "worthee.io",
 		tagline: "Honor & Self-Management",
-		lead: "꾸준함이 빛나는 순간.",
-		desc: "매일의 실천을 기록하고, 과정을 인증하고, 커뮤니티가 함께 확인합니다. 혼자만의 다짐이 아닌, 함께 빛나는 꾸준함.",
+		lead: "꾸준함을 눈에 보이게.",
+		desc: "매일의 실천을 기록하고, 함께 인증합니다. 혼자만의 다짐이 선명한 궤적이 됩니다.",
 	},
 ];
 ---
 
-<section class="portfolio" id="portfolio" aria-labelledby="portfolio-heading">
+<section class="portfolio" id="portfolio" aria-label="Portfolio">
 	<div class="container">
 		<p class="portfolio-eyebrow reveal" lang="en">Portfolio</p>
-		<h2 id="portfolio-heading" class="portfolio-title reveal" style="--reveal-delay: 0.1s">
-			우리가 만드는 것.
-		</h2>
 
 		<div class="portfolio-list">
 			{apps.map((app, i) => (
@@ -66,15 +63,6 @@ const apps = [
 		color: var(--ls-text-muted);
 		letter-spacing: var(--ls-tracking-widest);
 		text-transform: uppercase;
-		margin-bottom: var(--ls-space-4);
-	}
-
-	.portfolio-title {
-		font-family: var(--ls-font-display);
-		font-size: var(--ls-text-3xl);
-		font-weight: 700;
-		line-height: var(--ls-leading-tight);
-		color: var(--ls-text);
 		margin-bottom: var(--ls-space-12);
 	}
 
