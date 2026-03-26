@@ -1,17 +1,27 @@
-/* ── Animations ── */
+/* ── Animations — Accessibility ── */
 
-@media (prefers-reduced-motion: reduce) {
-	html {
-		scroll-behavior: auto;
-	}
+@layer utilities {
+	@media (prefers-reduced-motion: reduce) {
+		html {
+			scroll-behavior: auto;
+		}
 
-	.reveal {
-		opacity: 1;
-		transform: none;
-		transition: none;
-	}
+		.reveal {
+			opacity: 1;
+			transform: none;
+			transition: none;
+		}
 
-	.gradient-text {
-		animation: none;
+		.gradient-text {
+			animation: none;
+		}
+
+		/* Suppress all hover/interaction transitions */
+		*,
+		*::before,
+		*::after {
+			transition-duration: 0.01ms;
+			animation-duration: 0.01ms;
+		}
 	}
 }

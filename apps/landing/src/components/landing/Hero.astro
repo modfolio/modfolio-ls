@@ -1,5 +1,7 @@
 ---
-/* Hero: 마우스 반응형 배경 + 두 줄 평행 구조 */
+/* Hero: 마우스 반응형 배경 + 두 줄 평행 구조
+   의도적으로 --ls-font-story(acumin-pro)를 h1에 사용 — 에디토리얼 톤.
+   병렬 구문은 선언이 아닌 산문이므로 display font 대신 story font 선택. */
 ---
 
 <section class="hero" aria-labelledby="hero-heading">
@@ -21,7 +23,7 @@
 		justify-content: center;
 		min-height: 100vh;
 		text-align: center;
-		padding-block: calc(80px + var(--ls-space-12)) var(--ls-space-12);
+		padding-block: calc(var(--ls-nav-height) + var(--ls-space-12)) var(--ls-space-12);
 		background:
 			radial-gradient(
 				600px circle at var(--mx, 30%) var(--my, 40%),

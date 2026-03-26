@@ -66,8 +66,7 @@ const apps = [
 		</section>
 		<section class="section section-gradient">
 			<div class="container cta-inner">
-				<h2 class="cta-title reveal">직접 그리고, 직접 기록합니다.</h2>
-				<a href="/auth/login" class="btn-gradient reveal" style="--reveal-delay: 0.15s" lang="en">Discover</a>
+				<a href="/auth/login" class="btn-gradient reveal" lang="en">Discover</a>
 			</div>
 		</section>
 	</main>
@@ -82,7 +81,7 @@ const apps = [
 		align-items: center;
 		justify-content: center;
 		text-align: center;
-		padding-top: calc(80px + var(--ls-space-12));
+		padding-top: calc(var(--ls-nav-height) + var(--ls-space-12));
 		padding-bottom: var(--ls-space-8);
 		background:
 			radial-gradient(600px circle at 30% 40%, var(--ls-glow-plum), transparent 60%),
@@ -186,15 +185,6 @@ const apps = [
 		flex-direction: column;
 		align-items: center;
 		padding-block: var(--ls-space-12);
-	}
-
-	.cta-title {
-		font-family: var(--ls-font-display);
-		font-size: var(--ls-text-3xl);
-		font-weight: 700;
-		color: var(--ls-text);
-		line-height: var(--ls-leading-tight);
-		margin-bottom: var(--ls-space-8);
 	}
 
 	@media (max-width: 640px) {

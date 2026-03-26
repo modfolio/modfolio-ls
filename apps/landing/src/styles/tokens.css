@@ -1,104 +1,134 @@
 /* ============================================================
-   Modfolio LS — Design Tokens
+   Modfolio LS — Design Tokens (3-Tier)
    "Iridescent Lifestyle: 자개빛 일상"
-   White canvas + plum-to-sky iridescent highlights
+   Tier 1: Primitives → Tier 2: Semantic → Tier 3: Accent
    ============================================================ */
 
-:root {
-	/* ── Surfaces: Warm White ── */
-	--ls-void: #f9f8f6;
-	--ls-surface: #ffffff;
-	--ls-surface-raised: #edecea;
-	--ls-surface-overlay: #eeedea;
+@layer tokens {
+	:root {
+		/* ══════════════════════════════════════════════
+		   Tier 1: Primitives — Raw values
+		   ══════════════════════════════════════════════ */
 
-	/* ── Ink: Dark Text ── */
-	--ls-ink: #1a1a1a;
-	--ls-ink-2: #5a5a5a;
-	--ls-ink-3: #8a8a8a;
+		/* ── Neutrals ── */
+		--ls-white: #ffffff;
+		--ls-warm-white: #f9f8f6;
+		--ls-stone-50: #eeedea;
+		--ls-stone-100: #edecea;
+		--ls-stone-200: #e2e0dc;
+		--ls-stone-300: #d0cec9;
+		--ls-stone-400: #edebe8;
+		--ls-ink-900: #1a1a1a;
+		--ls-ink-600: #5a5a5a;
+		--ls-ink-400: #717171;
 
-	/* ── Iridescent Palette (자개) ── */
-	--ls-plum: oklch(0.72 0.14 320);
-	--ls-plum-soft: oklch(0.8 0.1 320);
-	--ls-sky: oklch(0.78 0.1 225);
-	--ls-sky-soft: oklch(0.85 0.07 225);
+		/* ── Iridescent Palette (자개) ── */
+		--ls-plum-raw: oklch(0.52 0.16 320);
+		--ls-plum-soft-raw: oklch(0.8 0.1 320);
+		--ls-sky-raw: oklch(0.55 0.12 225);
+		--ls-sky-soft-raw: oklch(0.85 0.07 225);
 
-	/* ── Glow (자개 빛) ── */
-	--ls-glow-plum: color-mix(in oklch, var(--ls-plum) 10%, transparent);
-	--ls-glow-sky: color-mix(in oklch, var(--ls-sky) 10%, transparent);
+		/* ══════════════════════════════════════════════
+		   Tier 2: Semantic — Role-based aliases
+		   ══════════════════════════════════════════════ */
 
-	/* ── Gradients ── */
-	--ls-gradient: linear-gradient(135deg, var(--ls-plum), var(--ls-sky));
-	--ls-gradient-soft: linear-gradient(
-		135deg,
-		color-mix(in oklch, var(--ls-plum-soft) 12%, transparent),
-		color-mix(in oklch, var(--ls-sky-soft) 12%, transparent)
-	);
+		/* ── Surfaces ── */
+		--ls-bg: var(--ls-warm-white);
+		--ls-void: var(--ls-warm-white);
+		--ls-surface: var(--ls-white);
+		--ls-surface-raised: var(--ls-stone-100);
+		--ls-surface-overlay: var(--ls-stone-50);
 
-	/* ── Semantic ── */
-	--ls-bg: var(--ls-void);
-	--ls-text: var(--ls-ink);
-	--ls-text-secondary: var(--ls-ink-2);
-	--ls-text-muted: var(--ls-ink-3);
-	--ls-on-gradient: #ffffff;
-	--ls-interactive: var(--ls-plum);
-	--ls-focus-ring: var(--ls-plum);
-	--ls-nav-bg: oklch(0.98 0.005 80 / 0.75);
+		/* ── Text ── */
+		--ls-text: var(--ls-ink-900);
+		--ls-text-secondary: var(--ls-ink-600);
+		--ls-text-muted: var(--ls-ink-400);
+		--ls-on-gradient: var(--ls-white);
 
-	/* ── Borders ── */
-	--ls-border: #e2e0dc;
-	--ls-border-hover: #d0cec9;
-	--ls-border-subtle: #edebe8;
-	--ls-border-ghost: oklch(0 0 0 / 0.06);
+		/* ── Interactive ── */
+		--ls-interactive: var(--ls-plum-raw);
+		--ls-focus-ring: var(--ls-plum-raw);
 
-	/* ── Spacing (8pt) ── */
-	--ls-space-1: 0.25rem;
-	--ls-space-2: 0.5rem;
-	--ls-space-3: 0.75rem;
-	--ls-space-4: 1rem;
-	--ls-space-5: 1.5rem;
-	--ls-space-6: 2rem;
-	--ls-space-7: 2.5rem;
-	--ls-space-8: 3rem;
-	--ls-space-10: 4rem;
-	--ls-space-12: 5rem;
-	--ls-space-16: 8rem;
-	--ls-space-20: 10rem;
+		/* ── Iridescent Semantic ── */
+		--ls-plum: var(--ls-plum-raw);
+		--ls-plum-soft: var(--ls-plum-soft-raw);
+		--ls-sky: var(--ls-sky-raw);
+		--ls-sky-soft: var(--ls-sky-soft-raw);
 
-	/* ── Radius ── */
-	--ls-r-sm: 6px;
-	--ls-r-md: 10px;
-	--ls-r-lg: 16px;
-	--ls-r-xl: 24px;
-	--ls-r-full: 9999px;
+		/* ── Glow (자개 빛) ── */
+		--ls-glow-plum: color-mix(in oklch, var(--ls-plum) 10%, transparent);
+		--ls-glow-sky: color-mix(in oklch, var(--ls-sky) 10%, transparent);
 
-	/* ── Timing ── */
-	--ls-ease: cubic-bezier(0.16, 1, 0.3, 1);
-	--ls-ease-out: cubic-bezier(0.33, 1, 0.68, 1);
-	--ls-ease-float: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-	--ls-dur-fast: 0.3s;
-	--ls-dur-base: 0.5s;
-	--ls-dur-slow: 0.8s;
+		/* ── Gradients ── */
+		--ls-gradient: linear-gradient(135deg, var(--ls-plum), var(--ls-sky));
+		--ls-gradient-soft: linear-gradient(
+			135deg,
+			color-mix(in oklch, var(--ls-plum-soft) 12%, transparent),
+			color-mix(in oklch, var(--ls-sky-soft) 12%, transparent)
+		);
 
-	/* ── Shadows ── */
-	--ls-shadow-sm: 0 1px 3px oklch(0 0 0 / 0.05);
-	--ls-shadow-md: 0 4px 16px oklch(0 0 0 / 0.08);
-	--ls-shadow-glow: 0 8px 40px var(--ls-glow-plum);
-	--ls-shadow-ambient: 0 24px 60px oklch(0 0 0 / 0.04);
+		/* ── Nav ── */
+		--ls-nav-bg: oklch(0.98 0.005 80 / 0.75);
 
-	/* ── Typography: Legal ── */
-	--ls-text-legal-size: 0.5625rem;
+		/* ── Borders ── */
+		--ls-border: var(--ls-stone-200);
+		--ls-border-hover: var(--ls-stone-300);
+		--ls-border-subtle: var(--ls-stone-400);
+		--ls-border-ghost: oklch(0 0 0 / 0.06);
 
-	/* ── Layout ── */
-	--ls-content-max: 1200px;
-	--ls-content-wide: 1280px;
-	--ls-content-gutter: clamp(1rem, 4vw, 2rem);
-}
+		/* ── Spacing (8pt grid) ── */
+		--ls-space-1: 0.25rem;
+		--ls-space-2: 0.5rem;
+		--ls-space-3: 0.75rem;
+		--ls-space-4: 1rem;
+		--ls-space-5: 1.5rem;
+		--ls-space-6: 2rem;
+		--ls-space-7: 2.5rem;
+		--ls-space-8: 3rem;
+		--ls-space-10: 4rem;
+		--ls-space-12: 5rem;
+		--ls-space-16: 8rem;
+		--ls-space-20: 10rem;
 
-/* ── Per-app accents ── */
-[data-app="keepnbuild"] {
-	--ls-app-accent: oklch(0.65 0.14 75);
-}
+		/* ── Radius ── */
+		--ls-r-sm: 6px;
+		--ls-r-md: 10px;
+		--ls-r-lg: 16px;
+		--ls-r-xl: 24px;
+		--ls-r-full: 9999px;
 
-[data-app="worthee"] {
-	--ls-app-accent: oklch(0.6 0.16 55);
+		/* ── Timing ── */
+		--ls-ease: cubic-bezier(0.16, 1, 0.3, 1);
+		--ls-ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+		--ls-ease-float: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+		--ls-dur-fast: 0.3s;
+		--ls-dur-base: 0.5s;
+		--ls-dur-slow: 0.8s;
+
+		/* ── Shadows ── */
+		--ls-shadow-sm: 0 1px 3px oklch(0 0 0 / 0.05);
+		--ls-shadow-md: 0 4px 16px oklch(0 0 0 / 0.08);
+		--ls-shadow-glow: 0 8px 40px var(--ls-glow-plum);
+		--ls-shadow-ambient: 0 24px 60px oklch(0 0 0 / 0.04);
+
+		/* ── Typography: Legal ── */
+		--ls-text-legal-size: 0.6875rem;
+
+		/* ── Layout ── */
+		--ls-nav-height: 80px;
+		--ls-content-max: 1280px;
+		--ls-content-gutter: clamp(1rem, 4vw, 2rem);
+	}
+
+	/* ══════════════════════════════════════════════
+	   Tier 3: Accent — Per-app overrides
+	   ══════════════════════════════════════════════ */
+
+	[data-app="keepnbuild"] {
+		--ls-app-accent: oklch(0.65 0.14 75);
+	}
+
+	[data-app="worthee"] {
+		--ls-app-accent: oklch(0.6 0.16 55);
+	}
 }

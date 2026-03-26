@@ -24,6 +24,7 @@ const links = [
 				<a
 					href={link.href}
 					class={`nav-link ${current === link.href ? "nav-link-active" : ""}`}
+					aria-current={current === link.href ? "page" : undefined}
 				>
 					{link.label}
 				</a>
@@ -54,7 +55,7 @@ const links = [
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		height: 80px;
+		height: var(--ls-nav-height);
 		padding-inline: var(--ls-content-gutter);
 	}
 
@@ -90,7 +91,7 @@ const links = [
 		font-weight: 500;
 		color: var(--ls-text-muted);
 		padding: var(--ls-space-2) var(--ls-space-4);
-		height: 80px;
+		height: var(--ls-nav-height);
 		display: flex;
 		align-items: center;
 		transition: color var(--ls-dur-fast) var(--ls-ease);
