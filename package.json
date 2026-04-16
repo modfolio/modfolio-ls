@@ -14,7 +14,8 @@
 		"check:fix": "biome check --write .",
 		"typecheck": "bun run --cwd apps/landing typecheck",
 		"typecheck:app": "bun run --cwd apps/app typecheck",
-		"quality:all": "bun run check && bun run typecheck && bun run typecheck:app"
+		"quality:all": "bun run check && bun run typecheck && bun run typecheck:app",
+		"harness-pull": "bun run ../modfolio-universe/scripts/harness-pull.ts"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.4.8",
