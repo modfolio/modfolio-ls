@@ -15,10 +15,14 @@
 		"typecheck": "bun run --cwd apps/landing typecheck",
 		"typecheck:app": "bun run --cwd apps/app typecheck",
 		"quality:all": "bun run check && bun run typecheck && bun run typecheck:app",
-		"harness-pull": "bun run ../modfolio-universe/scripts/harness-pull.ts"
+		"harness-pull": "modfolio-harness-pull"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.4.8",
+		"@modfolio/harness": "^2.12.0",
 		"typescript": "^5.9.3"
+	},
+	"overrides": {
+		"@biomejs/cli-linux-x64-musl": "npm:@biomejs/cli-linux-x64@^2.4.8"
 	}
 }
