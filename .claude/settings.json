@@ -23,99 +23,42 @@
 			"Bash(bun run preview)",
 			"Bash(bun run preview:*)"
 		],
-		"defaultMode": "bypassPermissions"
+		"defaultMode": "bypassPermissions",
+		"deny": [
+			"Write(.claude/payment-approval.json)",
+			"Edit(.claude/payment-approval.json)",
+			"Bash(*payment-approval.json*)"
+		]
 	},
 	"hooks": {
-		"PostToolUse": [
-			{
-				"matcher": "Edit|Write",
-				"hooks": [
-					{
-						"type": "command",
-						"command": "bun run .claude/hooks/post-biome-check.ts"
-					},
-					{
-						"type": "command",
-						"command": "bun run .claude/hooks/post-contract-touch.ts"
-					}
-				]
-			},
-			{
-				"matcher": "Bash|Read",
-				"hooks": [
-					{
-						"type": "command",
-						"command": "bun run .claude/hooks/post-secret-redact.ts"
-					}
-				]
-			}
-		],
 		"PreToolUse": [
 			{
 				"matcher": "Bash",
 				"hooks": [
 					{
 						"type": "command",
-						"command": "bun run .claude/hooks/pre-destructive-guard.ts"
+						"command": "bun run \"$CLAUDE_PROJECT_DIR/.claude/hooks/pre-destructive-guard.ts\""
 					},
 					{
 						"type": "command",
-						"command": "bun run .claude/hooks/pre-commit-guard.ts"
-					},
-					{
-						"type": "command",
-						"command": "bun run .claude/hooks/pre-push-guard.ts"
-					},
-					{
-						"type": "command",
-						"command": "bun run .claude/hooks/pre-gh-api-guard.ts"
-					},
-					{
-						"type": "command",
-						"command": "bun run .claude/hooks/pre-injection-detect.ts"
+						"command": "bun run \"$CLAUDE_PROJECT_DIR/.claude/hooks/pre-payment-guard.ts\""
 					}
 				]
 			},
 			{
-				"matcher": "Read|WebFetch|WebSearch",
+				"matcher": "mcp__.*",
 				"hooks": [
 					{
 						"type": "command",
-						"command": "bun run .claude/hooks/pre-injection-detect.ts"
-					}
-				]
-			},
-			{
-				"matcher": "Edit|Write",
-				"hooks": [
-					{
-						"type": "command",
-						"command": "bun run .claude/hooks/pre-ui-edit-notice.ts"
-					}
-				]
-			}
-		],
-		"PreCompact": [
-			{
-				"hooks": [
-					{
-						"type": "command",
-						"command": "bun run .claude/hooks/pre-compact-guard.ts"
+						"command": "bun run \"$CLAUDE_PROJECT_DIR/.claude/hooks/pre-payment-guard.ts\""
 					}
 				]
 			}
 		],
 		"Stop": [
 			{
+				"matcher": "",
 				"hooks": [
-					{
-						"type": "command",
-						"command": "bun run .claude/hooks/stop-pattern-history.ts"
-					},
-					{
-						"type": "command",
-						"command": "bun run .claude/hooks/stop-feedback-log.ts"
-					},
 					{
 						"type": "agent",
 						"prompt": "End-of-turn quality gate for Astro dual-workspace project (apps/landing + apps/app).\n\nSTEP 1: Run `git status --porcelain` to identify changed files. If no changed files, respond {\"ok\": true}.\nCategorize changed files:\n- ASTRO: .astro files\n- CSS: .css files\n- TS: .ts/.js files (split: API if in pages/auth/ or api/, Middleware if middleware.ts, Library if in lib/)\n- CONFIG: astro.config.*, wrangler.*, biome.*, package.json\n\nSTEP 2: Per category, grep changed files for violations.\n\nASTRO violations:\n- [P0] Hardcoded colors (#hex, rgb(, hsl( not inside var()) in <style> blocks\n- [P0] Hardcoded spacing (raw px values like margin: 16px not using var(--space-*)) in <style> blocks\n- [P0] Missing lang attribute on <html> tag\n- [P0] client:load on components that have no event handlers, state, or user interaction (should be client:idle or client:visible)\n- [P1] Missing alt attribute on <img> tags (empty alt=\"\" OK for decorative only)\n- [P1] Missing loading=\"lazy\" on images NOT in Hero components\n- [P1] Missing decoding=\"async\" on <img> tags\n- [P1] Inline style=\"\" attributes with >3 properties (extract to <style> block)\n- [P1] <script> with is:inline that could use Astro bundling instead\n- [P2] client:load count > 2 in a single page file (island overload)\n- [P2] Missing aria-label on buttons/links containing only icon content\n- [P2] Direct document/window access in Astro component frontmatter (must be in <script> block)\n\nCSS violations:\n- [P0] Hardcoded colors (#hex, rgb(, hsl( not inside var())\n- [P0] !important usage\n- [P0] Hardcoded font-family (not var(--font-*))\n- [P1] Hardcoded spacing values (margin/padding/gap with raw px, not var(--space-*))\n- [P1] text-align: justify\n- [P1] Animation/transition without @media (prefers-reduced-motion: reduce) fallback\n- [P2] Animate on width/height/top/left/right/bottom (use transform/opacity for performance)\n- [P2] Missing @layer declaration in new CSS files\n\nTS violations:\n- [P0] @ts-ignore or @ts-expect-error (정공법 원칙 위반)\n- [P0] biome-ignore or eslint-disable (정공법 원칙 위반)\n- [P0] as any type assertion\n- [P0] Hardcoded secrets — string literals matching patterns: API_KEY, SECRET, TOKEN, PASSWORD, PRIVATE_KEY\n- [P1] console.log or console.debug left in code (console.error/warn are OK)\n- [P1] tokens.token usage (Connect SDK v4 deprecated → must be tokens.access_token)\n- [P2] Async function in API route without try/catch\n\nCONFIG violations:\n- [P0] Missing @astrojs/cloudflare adapter in astro.config\n- [P1] Missing nodejs_compat in wrangler compatibility_flags\n\nSTEP 3: Check AND UPDATE memory/pattern-history.md:\n- If violations found: read the table. If the violation pattern already exists, increment count and update date. If new, append a row: | violation description | 1 | today's date | TRACKING |.\n- If any pattern reaches count 3, change its status to ESCALATE and prepend [ESCALATED] to the violation in the reason output.\n- If no violations found: read only, do not modify.\n\nRESPONSE FORMAT: You MUST respond with ONLY a JSON object, no other text.\nIf no violations: {\"ok\": true}\nIf violations found: {\"ok\": false, \"reason\": \"## Quality Gate: FAIL\\n- [P0] file:line — description\\n- [P1] file:line — description\"}",
@@ -125,37 +68,6 @@
 						"type": "agent",
 						"prompt": "Check if architecture/design decisions were made in this turn. Look for:\n- Technology choices (library, framework, pattern selection)\n- Design system decisions (token structure, component architecture)\n- API design decisions (endpoint structure, auth flow)\n- Infrastructure decisions (deployment, caching, routing)\n\nIf decisions found, append to memory/decisions-log.md with format:\n\n## [date] [title]\n- 결정: ...\n- 근거: ...\n- 대안: ...\n- 선택 이유: ...\n\nRESPONSE FORMAT: You MUST respond with ONLY a JSON object, no other text.\nIf no decisions were made: {\"ok\": true}\nIf decisions were logged: {\"ok\": true}",
 						"timeout": 15
-					}
-				]
-			}
-		],
-		"SessionEnd": [
-			{
-				"hooks": [
-					{
-						"type": "command",
-						"command": "bun run .claude/hooks/stop-session-end.ts"
-					}
-				]
-			}
-		],
-		"SubagentStop": [
-			{
-				"hooks": [
-					{
-						"type": "command",
-						"command": "bun run .claude/hooks/stop-subagent.ts"
-					}
-				]
-			}
-		],
-		"SessionStart": [
-			{
-				"matcher": ".*",
-				"hooks": [
-					{
-						"type": "command",
-						"command": "bun run .claude/hooks/session-start-pickup.ts"
 					}
 				]
 			}
