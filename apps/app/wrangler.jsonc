@@ -1,9 +1,15 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "modfolio-ls-app",
-	"main": "dist/_worker.js/index.js",
+	"main": "@astrojs/cloudflare/entrypoints/server",
 	"compatibility_date": "2026-03-01",
 	"compatibility_flags": ["nodejs_compat"],
-	"assets": { "directory": "dist", "binding": "ASSETS" },
+	"assets": { "directory": "./dist", "binding": "ASSETS" },
+	// adapter 14 enables Astro sessions via a SESSION KV binding. Pin the namespace id
+	// explicitly — wrangler automatic provisioning is create-only (not idempotent) and
+	// fails on redeploy once the namespace exists (API code 10014).
+	"kv_namespaces": [
+		{ "binding": "SESSION", "id": "49132e0e33e54bff84e100016c51d3b5" }
+	],
 	"observability": { "enabled": true }
 }
