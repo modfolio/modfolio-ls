@@ -1,6 +1,6 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "modfolio-ls-app",
+	"name": "modfolio-ls",
 	"main": "dist/_worker.js/index.js",
 	"compatibility_date": "2026-03-01",
 	"compatibility_flags": ["nodejs_compat"],
