@@ -1,44 +1,252 @@
 ---
-const tabs = [
+import { categoryLabels, type FeedCategory, feedItems } from "../../lib/feed";
+
+// Tabs: "전체" (all) + one per category. Single source = categoryLabels.
+const tabs: { id: "all" | FeedCategory; label: string }[] = [
 	{ id: "all", label: "전체" },
-	{ id: "travel", label: "여행" },
-	{ id: "wellness", label: "웰니스" },
+	{ id: "travel", label: categoryLabels.travel },
+	{ id: "wellness", label: categoryLabels.wellness },
 ];
+
+// Group items per tab so each tabpanel renders its real entries.
+// SSR renders every panel; the progressive-enhancement script toggles
+// visibility so the feed filters without JS-only dependency ("전체" default).
+const itemsFor = (id: "all" | FeedCategory) =>
+	id === "all" ? feedItems : feedItems.filter((item) => item.category === id);
+
+const dateFmt = new Intl.DateTimeFormat("ko-KR", {
+	month: "long",
+	day: "numeric",
+});
+const formatDate = (iso: string) => {
+	const d = new Date(`${iso}T00:00:00Z`);
+	return Number.isNaN(d.getTime()) ? "" : dateFmt.format(d);
+};
 ---
 
-<section class="feed" id="feed" aria-labelledby="feed-heading">
+<section class="feed" id="feed" aria-labelledby="feed-heading" data-feed data-state="ready">
 	<h2 id="feed-heading" class="feed-title">라이프스타일 피드</h2>
 
-	<div class="feed-tabs" role="tablist">
-		{tabs.map((tab, i) => (
-			<button
-				role="tab"
-				aria-selected={i === 0 ? "true" : "false"}
-				class={`feed-tab ${i === 0 ? "feed-tab-active" : ""}`}
-			>
-				{tab.label}
-			</button>
-		))}
+	<div class="feed-tabs" role="tablist" aria-label="피드 카테고리">
+		{
+			tabs.map((tab, i) => (
+				<button
+					type="button"
+					role="tab"
+					id={`feed-tab-${tab.id}`}
+					aria-controls={`feed-panel-${tab.id}`}
+					aria-selected={i === 0 ? "true" : "false"}
+					tabindex={i === 0 ? 0 : -1}
+					class={`feed-tab ${i === 0 ? "feed-tab-active" : ""}`}
+					data-feed-tab={tab.id}
+				>
+					{tab.label}
+				</button>
+			))
+		}
 	</div>
 
-	<div class="feed-grid" role="tabpanel">
-		{Array.from({ length: 3 }).map((_, i) => (
-			<div class="feed-card" aria-hidden="true">
-				<div class="feed-card-badge">{i % 2 === 0 ? "여행" : "웰니스"}</div>
-				<div class="feed-skeleton feed-skeleton-title" />
-				<div class="feed-skeleton" />
-				<div class="feed-skeleton feed-skeleton-short" />
-			</div>
-		))}
+	{
+		tabs.map((tab, i) => {
+			const items = itemsFor(tab.id);
+			return (
+				<div
+					id={`feed-panel-${tab.id}`}
+					role="tabpanel"
+					aria-labelledby={`feed-tab-${tab.id}`}
+					class="feed-panel"
+					data-feed-panel={tab.id}
+					tabindex="0"
+					hidden={i !== 0}
+				>
+					{items.length > 0 ? (
+						<ul class="feed-grid" role="list">
+							{items.map((item) => (
+								<li class="feed-card-wrap">
+									{item.href ? (
+										<a
+											class="feed-card feed-card-link"
+											href={item.href}
+											target="_blank"
+											rel="noopener"
+										>
+											<div class="feed-card-head">
+												<span class={`feed-card-badge badge-${item.category}`}>
+													{categoryLabels[item.category]}
+												</span>
+												<span class="feed-card-source" lang="en">
+													{item.source}
+												</span>
+											</div>
+											<h3 class="feed-card-title">{item.title}</h3>
+											<p class="feed-card-summary">{item.summary}</p>
+											<div class="feed-card-foot">
+												<time class="feed-card-date" datetime={item.publishedAt}>
+													{formatDate(item.publishedAt)}
+												</time>
+												<span class="feed-card-cta gradient-text">읽기 &rarr;</span>
+											</div>
+										</a>
+									) : (
+										<article class="feed-card">
+											<div class="feed-card-head">
+												<span class={`feed-card-badge badge-${item.category}`}>
+													{categoryLabels[item.category]}
+												</span>
+												<span class="feed-card-source" lang="en">
+													{item.source}
+												</span>
+											</div>
+											<h3 class="feed-card-title">{item.title}</h3>
+											<p class="feed-card-summary">{item.summary}</p>
+											<div class="feed-card-foot">
+												<time class="feed-card-date" datetime={item.publishedAt}>
+													{formatDate(item.publishedAt)}
+												</time>
+											</div>
+										</article>
+									)}
+								</li>
+							))}
+						</ul>
+					) : (
+						<div class="feed-empty" role="status">
+							<p class="feed-empty-title">이 카테고리의 글이 아직 없어요</p>
+							<p class="feed-empty-sub">
+								새로운 {tab.label} 이야기가 준비되면 가장 먼저 보여드릴게요.
+							</p>
+						</div>
+					)}
+				</div>
+			);
+		})
+	}
+
+	{/* Loading shell — hidden by default (data-state="ready"); shown only while
+	    the client holds data-state="loading" around a refresh. Honest transient
+	    surface the seam toggles, never a permanent freeze. */}
+	<div class="feed-loading" data-feed-loading aria-hidden="true">
+		{
+			Array.from({ length: 3 }).map(() => (
+				<div class="feed-card feed-card--skeleton">
+					<div class="feed-skeleton feed-skeleton-badge" />
+					<div class="feed-skeleton feed-skeleton-title" />
+					<div class="feed-skeleton" />
+					<div class="feed-skeleton feed-skeleton-short" />
+				</div>
+			))
+		}
 	</div>
 
-	<p class="feed-note">
-		여행 뉴스, 웰니스 아티클, <span lang="en">Modfolio Press</span> 뉴스레터가 곧 여기에 표시됩니다.
-	</p>
+	{/* Error fallback — revealed by the script if wiring fails. */}
+	<div class="feed-error" data-feed-error role="alert" hidden>
+		<p class="feed-error-title">피드를 불러오지 못했어요</p>
+		<p class="feed-error-sub">잠시 후 다시 시도해 주세요.</p>
+		<button type="button" class="feed-error-retry" data-feed-retry>다시 시도</button>
+	</div>
 </section>
 
+<script is:inline>
+	(function () {
+		var root = document.querySelector("[data-feed]");
+		if (!root) return;
+
+		var tabs = Array.prototype.slice.call(root.querySelectorAll("[data-feed-tab]"));
+		var panels = Array.prototype.slice.call(root.querySelectorAll("[data-feed-panel]"));
+		var errorBox = root.querySelector("[data-feed-error]");
+		var retryBtn = root.querySelector("[data-feed-retry]");
+
+		function fail() {
+			// Graceful error fallback: surface the error block, keep tabs usable.
+			root.setAttribute("data-state", "ready");
+			panels.forEach(function (p) {
+				p.hidden = true;
+			});
+			if (errorBox) errorBox.hidden = false;
+		}
+
+		function showLoading() {
+			// Honest transient surface: shell visible, panels hidden, until resolve.
+			if (errorBox) errorBox.hidden = true;
+			panels.forEach(function (p) {
+				p.hidden = true;
+			});
+			root.setAttribute("data-state", "loading");
+		}
+
+		function activate(id, focusTab) {
+			var matched = false;
+			tabs.forEach(function (tab) {
+				var on = tab.getAttribute("data-feed-tab") === id;
+				tab.setAttribute("aria-selected", on ? "true" : "false");
+				tab.setAttribute("tabindex", on ? "0" : "-1");
+				tab.classList.toggle("feed-tab-active", on);
+				if (on && focusTab) tab.focus();
+			});
+			panels.forEach(function (panel) {
+				var on = panel.getAttribute("data-feed-panel") === id;
+				panel.hidden = !on;
+				if (on) matched = true;
+			});
+			return matched;
+		}
+
+		try {
+			if (errorBox) errorBox.hidden = true;
+
+			tabs.forEach(function (tab) {
+				tab.addEventListener("click", function () {
+					activate(tab.getAttribute("data-feed-tab"), false);
+				});
+			});
+
+			// Roving-tabindex keyboard support: Arrow / Home / End.
+			var tablist = root.querySelector('[role="tablist"]');
+			if (tablist) {
+				tablist.addEventListener("keydown", function (e) {
+					var idx = tabs.indexOf(document.activeElement);
+					if (idx === -1) return;
+					var next = -1;
+					if (e.key === "ArrowRight" || e.key === "ArrowDown") next = (idx + 1) % tabs.length;
+					else if (e.key === "ArrowLeft" || e.key === "ArrowUp")
+						next = (idx - 1 + tabs.length) % tabs.length;
+					else if (e.key === "Home") next = 0;
+					else if (e.key === "End") next = tabs.length - 1;
+					if (next === -1) return;
+					e.preventDefault();
+					activate(tabs[next].getAttribute("data-feed-tab"), true);
+				});
+			}
+
+			if (retryBtn) {
+				retryBtn.addEventListener("click", function () {
+					// Real loading -> ready transition so the shell is an honest
+					// surface, then resolve back to the active panel.
+					showLoading();
+					requestAnimationFrame(function () {
+						root.setAttribute("data-state", "ready");
+						if (!activate("all", true)) fail();
+					});
+				});
+			}
+
+			// Mark ready: hides the loading shell, reveals the active panel.
+			if (!activate("all", false)) {
+				fail();
+			} else {
+				root.setAttribute("data-state", "ready");
+			}
+		} catch (_err) {
+			fail();
+		}
+	})();
+</script>
+
 <style>
-	.feed { flex: 1; min-width: 0; }
+	.feed {
+		flex: 1;
+		min-width: 0;
+	}
 
 	.feed-title {
 		font-family: var(--ls-font-body);
@@ -48,7 +256,13 @@ const tabs = [
 		margin-bottom: var(--ls-space-4);
 	}
 
-	.feed-tabs { display: flex; gap: var(--ls-space-2); margin-bottom: var(--ls-space-5); }
+	/* ── Tabs ── */
+	.feed-tabs {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--ls-space-2);
+		margin-bottom: var(--ls-space-5);
+	}
 
 	.feed-tab {
 		font-family: var(--ls-font-ui);
@@ -58,35 +272,175 @@ const tabs = [
 		border-radius: var(--ls-r-full);
 		color: var(--ls-text-muted);
 		border: 1px solid var(--ls-border);
-		transition: color var(--ls-dur-fast), border-color var(--ls-dur-fast);
+		cursor: pointer;
+		transition: color var(--ls-dur-fast), border-color var(--ls-dur-fast),
+			background-color var(--ls-dur-fast);
 	}
-	.feed-tab:hover { color: var(--ls-text-secondary); border-color: var(--ls-border-hover); }
-	.feed-tab-active { color: var(--ls-interactive); border-color: var(--ls-interactive); }
+	.feed-tab:hover {
+		color: var(--ls-text-secondary);
+		border-color: var(--ls-border-hover);
+	}
+	.feed-tab-active {
+		color: var(--ls-interactive);
+		border-color: var(--ls-interactive);
+		background: var(--ls-gradient-soft);
+	}
+	.feed-tab:focus-visible {
+		outline: 2px solid var(--ls-focus-ring);
+		outline-offset: 2px;
+	}
 
+	/* ── Grid + cards ── */
 	.feed-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+		grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
 		gap: var(--ls-space-4);
 		margin-bottom: var(--ls-space-6);
+		list-style: none;
+		padding: 0;
+	}
+
+	.feed-card-wrap {
+		display: flex;
+		min-width: 0;
 	}
 
 	.feed-card {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
 		background: var(--ls-surface);
 		border: 1px solid var(--ls-border);
 		border-radius: var(--ls-r-md);
 		padding: var(--ls-space-4);
-		opacity: 0.5;
+	}
+
+	.feed-card-link {
+		text-decoration: none;
+		transition: transform 0.4s var(--ls-ease), box-shadow 0.4s var(--ls-ease),
+			border-color var(--ls-dur-fast);
+		will-change: transform;
+	}
+	.feed-card-link:hover {
+		transform: translateY(-2px);
+		border-color: var(--ls-border-hover);
+		box-shadow: var(--ls-shadow-glow);
+	}
+	.feed-card-link:focus-visible {
+		outline: 2px solid var(--ls-focus-ring);
+		outline-offset: 2px;
+	}
+
+	.feed-card-head {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--ls-space-2);
+		margin-bottom: var(--ls-space-3);
 	}
 
 	.feed-card-badge {
 		font-family: var(--ls-font-ui);
 		font-size: var(--ls-text-xs);
-		color: var(--ls-text-muted);
-		background: var(--ls-surface-raised);
+		font-weight: 600;
 		padding: 2px var(--ls-space-2);
 		border-radius: var(--ls-r-sm);
-		display: inline-block;
-		margin-bottom: var(--ls-space-3);
+	}
+	.badge-travel {
+		color: var(--ls-status-pending);
+		background: var(--ls-status-pending-bg);
+	}
+	.badge-wellness {
+		color: var(--ls-status-active);
+		background: var(--ls-status-active-bg);
+	}
+
+	.feed-card-source {
+		font-family: var(--ls-font-code);
+		font-size: var(--ls-text-xs);
+		color: var(--ls-text-muted);
+		white-space: nowrap;
+	}
+
+	.feed-card-title {
+		font-family: var(--ls-font-display);
+		font-size: var(--ls-text-base);
+		font-weight: 700;
+		line-height: var(--ls-leading-snug);
+		color: var(--ls-text);
+		margin-bottom: var(--ls-space-2);
+	}
+
+	.feed-card-summary {
+		font-family: var(--ls-font-story);
+		font-size: var(--ls-text-sm);
+		line-height: var(--ls-leading-normal);
+		color: var(--ls-text-secondary);
+		margin-bottom: var(--ls-space-4);
+	}
+
+	.feed-card-foot {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--ls-space-2);
+		margin-top: auto;
+	}
+
+	.feed-card-date {
+		font-family: var(--ls-font-code);
+		font-size: var(--ls-text-xs);
+		color: var(--ls-text-muted);
+	}
+
+	.feed-card-cta {
+		font-family: var(--ls-font-ui);
+		font-size: var(--ls-text-sm);
+		font-weight: 600;
+	}
+
+	/* ── Empty state (per filter) ── */
+	.feed-empty {
+		text-align: center;
+		padding: var(--ls-space-8) var(--ls-space-5);
+		border: 1px dashed var(--ls-border);
+		border-radius: var(--ls-r-md);
+		margin-bottom: var(--ls-space-6);
+	}
+	.feed-empty-title {
+		font-family: var(--ls-font-body);
+		font-size: var(--ls-text-sm);
+		font-weight: 600;
+		color: var(--ls-text-secondary);
+		margin-bottom: var(--ls-space-2);
+	}
+	.feed-empty-sub {
+		font-family: var(--ls-font-story);
+		font-size: var(--ls-text-xs);
+		color: var(--ls-text-muted);
+	}
+
+	/* ── Loading shell ──
+	   Default + no-JS state is "ready": SSR panels show, shell stays hidden, so
+	   content is visible without JavaScript. The shell is shown ONLY in the
+	   explicit "loading" state the client sets around an async refresh — an
+	   honest transient surface, never a permanent freeze. */
+	.feed-loading {
+		display: none;
+		grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+		gap: var(--ls-space-4);
+		margin-bottom: var(--ls-space-6);
+	}
+	.feed[data-state="loading"] .feed-loading {
+		display: grid;
+	}
+	.feed[data-state="loading"] .feed-panel {
+		display: none;
+	}
+
+	.feed-card--skeleton {
+		opacity: 0.6;
+		pointer-events: none;
 	}
 
 	.feed-skeleton {
@@ -95,16 +449,75 @@ const tabs = [
 		border-radius: var(--ls-r-sm);
 		margin-bottom: var(--ls-space-2);
 	}
-	.feed-skeleton-title { height: 14px; width: 70%; margin-bottom: var(--ls-space-3); }
-	.feed-skeleton-short { width: 45%; }
+	.feed-skeleton-badge {
+		height: 14px;
+		width: 40px;
+		margin-bottom: var(--ls-space-3);
+	}
+	.feed-skeleton-title {
+		height: 14px;
+		width: 70%;
+		margin-bottom: var(--ls-space-3);
+	}
+	.feed-skeleton-short {
+		width: 45%;
+	}
 
-	.feed-note {
-		font-family: var(--ls-font-story);
-		font-size: var(--ls-text-sm);
-		color: var(--ls-text-muted);
+	@media (prefers-reduced-motion: no-preference) {
+		.feed-skeleton {
+			animation: feed-pulse 1.4s ease-in-out infinite;
+		}
+	}
+
+	@keyframes feed-pulse {
+		0%,
+		100% {
+			opacity: 1;
+		}
+		50% {
+			opacity: 0.55;
+		}
+	}
+
+	/* ── Error state ── */
+	.feed-error {
 		text-align: center;
-		padding: var(--ls-space-5);
-		border: 1px dashed var(--ls-border);
+		padding: var(--ls-space-7) var(--ls-space-5);
+		border: 1px solid var(--ls-border);
 		border-radius: var(--ls-r-md);
+		background: var(--ls-surface);
+		margin-bottom: var(--ls-space-6);
+	}
+	.feed-error-title {
+		font-family: var(--ls-font-body);
+		font-size: var(--ls-text-sm);
+		font-weight: 600;
+		color: var(--ls-text);
+		margin-bottom: var(--ls-space-2);
+	}
+	.feed-error-sub {
+		font-family: var(--ls-font-story);
+		font-size: var(--ls-text-xs);
+		color: var(--ls-text-muted);
+		margin-bottom: var(--ls-space-4);
+	}
+	.feed-error-retry {
+		font-family: var(--ls-font-ui);
+		font-size: var(--ls-text-xs);
+		font-weight: 600;
+		padding: var(--ls-space-2) var(--ls-space-5);
+		border-radius: var(--ls-r-full);
+		color: var(--ls-interactive);
+		border: 1px solid var(--ls-interactive);
+		background: transparent;
+		cursor: pointer;
+		transition: background-color var(--ls-dur-fast);
+	}
+	.feed-error-retry:hover {
+		background: var(--ls-gradient-soft);
+	}
+	.feed-error-retry:focus-visible {
+		outline: 2px solid var(--ls-focus-ring);
+		outline-offset: 2px;
 	}
 </style>
