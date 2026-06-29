@@ -1,18 +1,41 @@
 ---
-import { categoryLabels, type FeedCategory, feedItems } from "../../lib/feed";
+import {
+	categoryLabels,
+	type FeedCategory,
+	type FeedItem,
+	feedItems,
+	normalizeSavedIds,
+	savedItems,
+} from "../../lib/feed";
 
-// Tabs: "전체" (all) + one per category. Single source = categoryLabels.
-const tabs: { id: "all" | FeedCategory; label: string }[] = [
+// Per-user saved set (read-later), read at SSR from the Astro Session (KV-backed
+// via the SESSION binding). Normalizing here drops any stale/forged ids so the
+// server-rendered state is always coherent, and every card renders its correct
+// saved/unsaved state up front — no client flash. Auth middleware guarantees a
+// signed-in user, so the session is implicitly this user's.
+const saved = normalizeSavedIds(await Astro.session?.get("savedFeedIds"));
+const savedSet = new Set(saved);
+const isSaved = (id: string) => savedSet.has(id);
+const savedFeedItems = savedItems(saved);
+
+// Tabs: "전체" (all) + one per category + "저장한 글" (saved). Single source =
+// categoryLabels for the category tabs; "saved" is a virtual view over the set.
+type TabId = "all" | FeedCategory | "saved";
+const tabs: { id: TabId; label: string }[] = [
 	{ id: "all", label: "전체" },
 	{ id: "travel", label: categoryLabels.travel },
 	{ id: "wellness", label: categoryLabels.wellness },
+	{ id: "saved", label: "저장한 글" },
 ];
 
 // Group items per tab so each tabpanel renders its real entries.
 // SSR renders every panel; the progressive-enhancement script toggles
 // visibility so the feed filters without JS-only dependency ("전체" default).
-const itemsFor = (id: "all" | FeedCategory) =>
-	id === "all" ? feedItems : feedItems.filter((item) => item.category === id);
+const itemsFor = (id: TabId): FeedItem[] => {
+	if (id === "all") return feedItems;
+	if (id === "saved") return savedFeedItems;
+	return feedItems.filter((item) => item.category === id);
+};
 
 const dateFmt = new Intl.DateTimeFormat("ko-KR", {
 	month: "long",
@@ -24,7 +47,14 @@ const formatDate = (iso: string) => {
 };
 ---
 
-<section class="feed" id="feed" aria-labelledby="feed-heading" data-feed data-state="ready">
+<section
+	class="feed"
+	id="feed"
+	aria-labelledby="feed-heading"
+	data-feed
+	data-state="ready"
+	data-saved-count={saved.length}
+>
 	<h2 id="feed-heading" class="feed-title">라이프스타일 피드</h2>
 
 	<div class="feed-tabs" role="tablist" aria-label="피드 카테고리">
@@ -41,6 +71,15 @@ const formatDate = (iso: string) => {
 					data-feed-tab={tab.id}
 				>
 					{tab.label}
+					{tab.id === "saved" && (
+						<span
+							class="feed-tab-count"
+							data-feed-saved-badge
+							hidden={saved.length === 0}
+						>
+							{saved.length}
+						</span>
+					)}
 				</button>
 			))
 		}
@@ -49,6 +88,7 @@ const formatDate = (iso: string) => {
 	{
 		tabs.map((tab, i) => {
 			const items = itemsFor(tab.id);
+			const isSavedPanel = tab.id === "saved";
 			return (
 				<div
 					id={`feed-panel-${tab.id}`}
@@ -59,18 +99,19 @@ const formatDate = (iso: string) => {
 					tabindex="0"
 					hidden={i !== 0}
 				>
-					{items.length > 0 ? (
-						<ul class="feed-grid" role="list">
-							{items.map((item) => (
-								<li class="feed-card-wrap">
-									{item.href ? (
-										<a
-											class="feed-card feed-card-link"
-											href={item.href}
-											target="_blank"
-											rel="noopener"
-										>
-											<div class="feed-card-head">
+					<ul
+						class="feed-grid"
+						role="list"
+						data-feed-list={tab.id}
+						hidden={items.length === 0}
+					>
+						{items.map((item) => {
+							const savedNow = isSaved(item.id);
+							return (
+								<li class="feed-card-wrap" data-feed-card-wrap={item.id}>
+									<article class="feed-card" data-feed-card={item.id}>
+										<div class="feed-card-head">
+											<div class="feed-card-meta">
 												<span class={`feed-card-badge badge-${item.category}`}>
 													{categoryLabels[item.category]}
 												</span>
@@ -78,45 +119,105 @@ const formatDate = (iso: string) => {
 													{item.source}
 												</span>
 											</div>
+											<form
+												class="feed-save-form"
+												method="POST"
+												action="/api/feed/save"
+												data-feed-save-form={item.id}
+											>
+												<input type="hidden" name="id" value={item.id} />
+												<input
+													type="hidden"
+													name="action"
+													value={savedNow ? "unsave" : "save"}
+													data-feed-save-action
+												/>
+												<button
+													type="submit"
+													class="feed-save-btn"
+													data-feed-save-btn={item.id}
+													aria-pressed={savedNow ? "true" : "false"}
+													aria-label={savedNow ? "저장 취소" : "저장"}
+													title={savedNow ? "저장 취소" : "저장"}
+												>
+													<svg
+														class="feed-save-icon"
+														viewBox="0 0 24 24"
+														width="16"
+														height="16"
+														aria-hidden="true"
+														focusable="false"
+													>
+														<path
+															d="M6 3.5h12a1 1 0 0 1 1 1V21l-7-4.2L5 21V4.5a1 1 0 0 1 1-1Z"
+															fill="none"
+															stroke="currentColor"
+															stroke-width="1.6"
+															stroke-linejoin="round"
+														/>
+													</svg>
+													<span class="feed-save-label">
+														{savedNow ? "저장됨" : "저장"}
+													</span>
+												</button>
+											</form>
+										</div>
+										{item.href ? (
+											<a
+												class="feed-card-titlelink"
+												href={item.href}
+												target="_blank"
+												rel="noopener"
+											>
+												<h3 class="feed-card-title">{item.title}</h3>
+											</a>
+										) : (
 											<h3 class="feed-card-title">{item.title}</h3>
-											<p class="feed-card-summary">{item.summary}</p>
-											<div class="feed-card-foot">
-												<time class="feed-card-date" datetime={item.publishedAt}>
-													{formatDate(item.publishedAt)}
-												</time>
-												<span class="feed-card-cta gradient-text">읽기 &rarr;</span>
-											</div>
-										</a>
-									) : (
-										<article class="feed-card">
-											<div class="feed-card-head">
-												<span class={`feed-card-badge badge-${item.category}`}>
-													{categoryLabels[item.category]}
-												</span>
-												<span class="feed-card-source" lang="en">
-													{item.source}
-												</span>
-											</div>
-											<h3 class="feed-card-title">{item.title}</h3>
-											<p class="feed-card-summary">{item.summary}</p>
-											<div class="feed-card-foot">
-												<time class="feed-card-date" datetime={item.publishedAt}>
-													{formatDate(item.publishedAt)}
-												</time>
-											</div>
-										</article>
-									)}
+										)}
+										<p class="feed-card-summary">{item.summary}</p>
+										<div class="feed-card-foot">
+											<time class="feed-card-date" datetime={item.publishedAt}>
+												{formatDate(item.publishedAt)}
+											</time>
+											{item.href && (
+												<a
+													class="feed-card-cta gradient-text"
+													href={item.href}
+													target="_blank"
+													rel="noopener"
+													aria-label={`${item.title} 읽기`}
+												>
+													읽기 &rarr;
+												</a>
+											)}
+										</div>
+									</article>
 								</li>
-							))}
-						</ul>
-					) : (
-						<div class="feed-empty" role="status">
-							<p class="feed-empty-title">이 카테고리의 글이 아직 없어요</p>
-							<p class="feed-empty-sub">
-								새로운 {tab.label} 이야기가 준비되면 가장 먼저 보여드릴게요.
-							</p>
-						</div>
-					)}
+							);
+						})}
+					</ul>
+					<div
+						class="feed-empty"
+						role="status"
+						data-feed-empty={tab.id}
+						hidden={items.length !== 0}
+					>
+						{isSavedPanel ? (
+							<>
+								<p class="feed-empty-title">아직 저장한 글이 없어요</p>
+								<p class="feed-empty-sub">
+									마음에 드는 글의 저장 버튼을 누르면 여기 모아둘게요.
+								</p>
+							</>
+						) : (
+							<>
+								<p class="feed-empty-title">이 카테고리의 글이 아직 없어요</p>
+								<p class="feed-empty-sub">
+									새로운 {tab.label} 이야기가 준비되면 가장 먼저 보여드릴게요.
+								</p>
+							</>
+						)}
+					</div>
 				</div>
 			);
 		})
@@ -144,6 +245,9 @@ const formatDate = (iso: string) => {
 		<p class="feed-error-sub">잠시 후 다시 시도해 주세요.</p>
 		<button type="button" class="feed-error-retry" data-feed-retry>다시 시도</button>
 	</div>
+
+	{/* Polite live region for save feedback (e.g. when a network save fails). */}
+	<p class="sr-only" role="status" aria-live="polite" data-feed-announce></p>
 </section>
 
 <script is:inline>
@@ -155,6 +259,12 @@ const formatDate = (iso: string) => {
 		var panels = Array.prototype.slice.call(root.querySelectorAll("[data-feed-panel]"));
 		var errorBox = root.querySelector("[data-feed-error]");
 		var retryBtn = root.querySelector("[data-feed-retry]");
+		var announce = root.querySelector("[data-feed-announce]");
+		var savedBadge = root.querySelector("[data-feed-saved-badge]");
+
+		function setAnnounce(msg) {
+			if (announce) announce.textContent = msg || "";
+		}
 
 		function fail() {
 			// Graceful error fallback: surface the error block, keep tabs usable.
@@ -191,6 +301,141 @@ const formatDate = (iso: string) => {
 			return matched;
 		}
 
+		// ── Saved-set client state ──
+		// Source of truth on the client is the set of card ids whose save button
+		// is currently pressed. The "saved" panel is rebuilt by cloning the
+		// matching cards from the "all" list, so it always mirrors the real cards.
+		var allList = root.querySelector('[data-feed-list="all"]');
+		var savedPanel = root.querySelector('[data-feed-panel="saved"]');
+		var savedList = root.querySelector('[data-feed-list="saved"]');
+		var savedEmpty = root.querySelector('[data-feed-empty="saved"]');
+
+		function savedIdsFromDom() {
+			var ids = [];
+			if (!allList) return ids;
+			var btns = allList.querySelectorAll("[data-feed-save-btn]");
+			Array.prototype.forEach.call(btns, function (btn) {
+				if (btn.getAttribute("aria-pressed") === "true") {
+					ids.push(btn.getAttribute("data-feed-save-btn"));
+				}
+			});
+			return ids;
+		}
+
+		function updateSavedCount() {
+			var ids = savedIdsFromDom();
+			root.setAttribute("data-saved-count", String(ids.length));
+			if (savedBadge) {
+				savedBadge.textContent = String(ids.length);
+				savedBadge.hidden = ids.length === 0;
+			}
+			return ids;
+		}
+
+		// Reflect a given saved-state onto every save control for an id (a card can
+		// appear in both the "all" panel and the "saved" panel).
+		function applyState(id, isSavedNow) {
+			var forms = root.querySelectorAll('[data-feed-save-form="' + cssEscape(id) + '"]');
+			Array.prototype.forEach.call(forms, function (form) {
+				var btn = form.querySelector("[data-feed-save-btn]");
+				var actionInput = form.querySelector("[data-feed-save-action]");
+				var label = form.querySelector(".feed-save-label");
+				if (btn) {
+					btn.setAttribute("aria-pressed", isSavedNow ? "true" : "false");
+					btn.setAttribute("aria-label", isSavedNow ? "저장 취소" : "저장");
+					btn.setAttribute("title", isSavedNow ? "저장 취소" : "저장");
+				}
+				if (actionInput) actionInput.value = isSavedNow ? "unsave" : "save";
+				if (label) label.textContent = isSavedNow ? "저장됨" : "저장";
+			});
+		}
+
+		// Minimal attribute-selector escaping for ids (our ids are slug-like, but
+		// stay defensive). Prefer native CSS.escape when available.
+		function cssEscape(value) {
+			if (window.CSS && typeof window.CSS.escape === "function") {
+				return window.CSS.escape(value);
+			}
+			return String(value).replace(/["\\\]]/g, "\\$&");
+		}
+
+		function rebuildSavedPanel() {
+			if (!savedList || !allList || !savedPanel) return;
+			var ids = updateSavedCount();
+
+			// Clear current saved cards.
+			savedList.innerHTML = "";
+
+			if (ids.length === 0) {
+				savedList.hidden = true;
+				if (savedEmpty) savedEmpty.hidden = false;
+				return;
+			}
+
+			// Clone source cards in the order they appear in the full feed so the
+			// saved view keeps the newest-first ordering.
+			var sourceWraps = allList.querySelectorAll("[data-feed-card-wrap]");
+			Array.prototype.forEach.call(sourceWraps, function (wrap) {
+				var id = wrap.getAttribute("data-feed-card-wrap");
+				if (ids.indexOf(id) === -1) return;
+				var clone = wrap.cloneNode(true);
+				savedList.appendChild(clone);
+				// Re-wire the cloned save form (event delegation covers it, but make
+				// sure its state matches — it was cloned in the pressed state).
+				applyState(id, true);
+			});
+
+			savedList.hidden = false;
+			if (savedEmpty) savedEmpty.hidden = true;
+		}
+
+		// ── Save toggle: optimistic, real POST, graceful failure ──
+		function onSaveSubmit(form) {
+			var id = form.getAttribute("data-feed-save-form");
+			if (!id) return;
+			var btn = form.querySelector("[data-feed-save-btn]");
+			var wasSaved = btn && btn.getAttribute("aria-pressed") === "true";
+			var nextSaved = !wasSaved;
+
+			// Optimistic flip across all instances + rebuild saved view.
+			applyState(id, nextSaved);
+			rebuildSavedPanel();
+			if (btn) btn.setAttribute("data-pending", "true");
+
+			fetch(form.getAttribute("action"), {
+				method: "POST",
+				headers: {
+					"content-type": "application/json",
+					accept: "application/json",
+				},
+				body: JSON.stringify({ id: id, action: nextSaved ? "save" : "unsave" }),
+			})
+				.then(function (res) {
+					if (!res.ok) throw new Error("save failed: " + res.status);
+					return res.json();
+				})
+				.then(function (data) {
+					// Reconcile with the server's authoritative set.
+					var serverSaved = data && Array.isArray(data.saved) ? data.saved : null;
+					if (serverSaved) {
+						var allBtns = root.querySelectorAll("[data-feed-save-btn]");
+						Array.prototype.forEach.call(allBtns, function (b) {
+							var bid = b.getAttribute("data-feed-save-btn");
+							applyState(bid, serverSaved.indexOf(bid) !== -1);
+						});
+						rebuildSavedPanel();
+					}
+					if (btn) btn.removeAttribute("data-pending");
+				})
+				.catch(function () {
+					// Revert optimistic change; tell the user.
+					applyState(id, wasSaved);
+					rebuildSavedPanel();
+					if (btn) btn.removeAttribute("data-pending");
+					setAnnounce("저장 상태를 바꾸지 못했어요. 잠시 후 다시 시도해 주세요.");
+				});
+		}
+
 		try {
 			if (errorBox) errorBox.hidden = true;
 
@@ -218,6 +463,16 @@ const formatDate = (iso: string) => {
 				});
 			}
 
+			// Delegate save-form submits (covers cloned cards in the saved panel).
+			root.addEventListener("submit", function (e) {
+				var form = e.target && e.target.closest
+					? e.target.closest("[data-feed-save-form]")
+					: null;
+				if (!form) return;
+				e.preventDefault();
+				onSaveSubmit(form);
+			});
+
 			if (retryBtn) {
 				retryBtn.addEventListener("click", function () {
 					// Real loading -> ready transition so the shell is an honest
@@ -229,6 +484,9 @@ const formatDate = (iso: string) => {
 					});
 				});
 			}
+
+			// Sync the saved panel/count from the server-rendered DOM on load.
+			rebuildSavedPanel();
 
 			// Mark ready: hides the loading shell, reveals the active panel.
 			if (!activate("all", false)) {
@@ -265,6 +523,9 @@ const formatDate = (iso: string) => {
 	}
 
 	.feed-tab {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--ls-space-2);
 		font-family: var(--ls-font-ui);
 		font-size: var(--ls-text-xs);
 		font-weight: 500;
@@ -290,6 +551,26 @@ const formatDate = (iso: string) => {
 		outline-offset: 2px;
 	}
 
+	.feed-tab-count {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		min-width: 1.1rem;
+		height: 1.1rem;
+		padding: 0 0.3rem;
+		font-family: var(--ls-font-code);
+		font-size: 0.65rem;
+		font-weight: 600;
+		line-height: 1;
+		color: var(--ls-interactive);
+		background: var(--ls-gradient-soft);
+		border: 1px solid var(--ls-border);
+		border-radius: var(--ls-r-full);
+	}
+	.feed-tab-active .feed-tab-count {
+		border-color: var(--ls-interactive);
+	}
+
 	/* ── Grid + cards ── */
 	.feed-grid {
 		display: grid;
@@ -306,6 +587,7 @@ const formatDate = (iso: string) => {
 	}
 
 	.feed-card {
+		position: relative;
 		display: flex;
 		flex-direction: column;
 		width: 100%;
@@ -313,22 +595,16 @@ const formatDate = (iso: string) => {
 		border: 1px solid var(--ls-border);
 		border-radius: var(--ls-r-md);
 		padding: var(--ls-space-4);
-	}
-
-	.feed-card-link {
-		text-decoration: none;
 		transition: transform 0.4s var(--ls-ease), box-shadow 0.4s var(--ls-ease),
 			border-color var(--ls-dur-fast);
 		will-change: transform;
 	}
-	.feed-card-link:hover {
+	/* Lift the card on hover when it has an outbound link inside. */
+	.feed-card:has(.feed-card-titlelink:hover),
+	.feed-card:has(.feed-card-cta:hover) {
 		transform: translateY(-2px);
 		border-color: var(--ls-border-hover);
 		box-shadow: var(--ls-shadow-glow);
-	}
-	.feed-card-link:focus-visible {
-		outline: 2px solid var(--ls-focus-ring);
-		outline-offset: 2px;
 	}
 
 	.feed-card-head {
@@ -337,6 +613,13 @@ const formatDate = (iso: string) => {
 		justify-content: space-between;
 		gap: var(--ls-space-2);
 		margin-bottom: var(--ls-space-3);
+	}
+
+	.feed-card-meta {
+		display: flex;
+		align-items: center;
+		gap: var(--ls-space-2);
+		min-width: 0;
 	}
 
 	.feed-card-badge {
@@ -360,6 +643,62 @@ const formatDate = (iso: string) => {
 		font-size: var(--ls-text-xs);
 		color: var(--ls-text-muted);
 		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	/* ── Save toggle ── */
+	.feed-save-form {
+		margin: 0;
+		flex-shrink: 0;
+	}
+
+	.feed-save-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: var(--ls-space-1);
+		font-family: var(--ls-font-ui);
+		font-size: var(--ls-text-xs);
+		font-weight: 600;
+		padding: var(--ls-space-1) var(--ls-space-2);
+		border-radius: var(--ls-r-full);
+		color: var(--ls-text-muted);
+		background: transparent;
+		border: 1px solid var(--ls-border);
+		cursor: pointer;
+		transition: color var(--ls-dur-fast), border-color var(--ls-dur-fast),
+			background-color var(--ls-dur-fast);
+	}
+	.feed-save-btn:hover {
+		color: var(--ls-interactive);
+		border-color: var(--ls-border-hover);
+	}
+	.feed-save-btn:focus-visible {
+		outline: 2px solid var(--ls-focus-ring);
+		outline-offset: 2px;
+	}
+	.feed-save-btn[aria-pressed="true"] {
+		color: var(--ls-interactive);
+		border-color: var(--ls-interactive);
+		background: var(--ls-gradient-soft);
+	}
+	.feed-save-btn[data-pending="true"] {
+		opacity: 0.6;
+	}
+
+	.feed-save-icon {
+		flex-shrink: 0;
+		transition: transform var(--ls-dur-fast) var(--ls-ease);
+	}
+	/* Fill the bookmark when saved. */
+	.feed-save-btn[aria-pressed="true"] .feed-save-icon path {
+		fill: var(--ls-interactive);
+		stroke: var(--ls-interactive);
+	}
+	@media (prefers-reduced-motion: no-preference) {
+		.feed-save-btn[aria-pressed="true"] .feed-save-icon {
+			transform: scale(1.05);
+		}
 	}
 
 	.feed-card-title {
@@ -369,6 +708,19 @@ const formatDate = (iso: string) => {
 		line-height: var(--ls-leading-snug);
 		color: var(--ls-text);
 		margin-bottom: var(--ls-space-2);
+	}
+
+	.feed-card-titlelink {
+		text-decoration: none;
+		color: inherit;
+	}
+	.feed-card-titlelink:hover .feed-card-title {
+		color: var(--ls-interactive);
+	}
+	.feed-card-titlelink:focus-visible {
+		outline: 2px solid var(--ls-focus-ring);
+		outline-offset: 2px;
+		border-radius: var(--ls-r-sm);
 	}
 
 	.feed-card-summary {
@@ -397,6 +749,12 @@ const formatDate = (iso: string) => {
 		font-family: var(--ls-font-ui);
 		font-size: var(--ls-text-sm);
 		font-weight: 600;
+		text-decoration: none;
+	}
+	.feed-card-cta:focus-visible {
+		outline: 2px solid var(--ls-focus-ring);
+		outline-offset: 2px;
+		border-radius: var(--ls-r-sm);
 	}
 
 	/* ── Empty state (per filter) ── */

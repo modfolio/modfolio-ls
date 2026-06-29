@@ -106,3 +106,39 @@ export const feedItems: FeedItem[] = [
 		publishedAt: "2026-06-03",
 	},
 ];
+
+// ── Per-user saved set (read-later) ─────────────────────────────────────────
+// The saved-set is the portal's first per-user persisted state: a list of feed
+// item *ids* held in the Astro Session (KV-backed), referencing the curated
+// `feedItems` above. Keeping it id-only means the source of truth for content
+// stays this module — a saved entry is a pointer, never a copy — so the same
+// seam that feeds a future KV/contracts content source also defines what is
+// valid to save. The helpers below are the guardrail + selectors the API route
+// and ContentFeed share, so validation lives in one place.
+
+/** Every known feed id — the authoritative allow-set for what can be saved. */
+const feedItemIds: ReadonlySet<string> = new Set(
+	feedItems.map((item) => item.id),
+);
+
+/** True only for ids that map to a real curated entry. Rejects stale/forged ids. */
+export const isValidFeedId = (id: unknown): id is string =>
+	typeof id === "string" && feedItemIds.has(id);
+
+/**
+ * Normalize an arbitrary stored value into a clean saved-id list: keeps only
+ * currently-valid ids, de-duplicates, and preserves `feedItems` order so the
+ * "saved" view reads newest-first like every other panel. Tolerates a malformed
+ * or stale session payload (e.g. an item later removed from the curation) by
+ * simply dropping unknown ids rather than throwing.
+ */
+export const normalizeSavedIds = (raw: unknown): string[] => {
+	const set = new Set(Array.isArray(raw) ? raw.filter(isValidFeedId) : []);
+	return feedItems.filter((item) => set.has(item.id)).map((item) => item.id);
+};
+
+/** The curated items currently saved, in feed order. */
+export const savedItems = (savedIds: readonly string[]): FeedItem[] => {
+	const set = new Set(savedIds);
+	return feedItems.filter((item) => set.has(item.id));
+};
