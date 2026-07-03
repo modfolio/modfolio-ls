@@ -58,7 +58,7 @@
 - **DB**: 없음 (하위 앱들이 각자 DB 보유)
 - **인증**: modfolio-connect SSO (OIDC PKCE)
 - **도메인**: `ls.modfolio.io`
-- **배포**: CF Pages (`modfolio-ls`)
+- **배포**: CF Workers (`modfolio-ls`)
 - **버전**: `0.1.0`
 
 ## 하위 앱

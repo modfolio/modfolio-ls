@@ -1,9 +1,13 @@
 {
 	"$schema": "https://biomejs.dev/schemas/2.5.2/schema.json",
-	"assist": { "enabled": true },
+	"assist": {
+		"enabled": true
+	},
 	"linter": {
 		"enabled": true,
-		"rules": { "preset": "recommended" }
+		"rules": {
+			"preset": "recommended"
+		}
 	},
 	"formatter": {
 		"enabled": true,
@@ -18,7 +22,9 @@
 						"noUnusedImports": "off",
 						"noUnusedVariables": "off"
 					},
-					"style": { "useImportType": "off" }
+					"style": {
+						"useImportType": "off"
+					}
 				}
 			}
 		}
@@ -31,7 +37,10 @@
 			"apps/*/src/**/*.css",
 			"apps/*/*.ts",
 			"apps/*/*.json",
-			"*.json"
+			"*.json",
+			"!.claude/app-registry.json",
+			"!.claude/payment-approval.json",
+			"!**/migrations"
 		]
 	}
 }
