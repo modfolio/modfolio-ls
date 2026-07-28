@@ -21,3 +21,5 @@ memory/
 .claude/app-registry.json
 .claude/payment-approval.json
 memory/dream-report*.md
+# @modfolio/harness runtime — regenerated/per-machine, do not commit
+.claude/harness-feedback/
