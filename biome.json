@@ -43,7 +43,8 @@
 			"!**/migrations",
 			"!.claude/harness-feedback",
 			"!**/fonts.css",
-			"!.claude/harness-state.json"
+			"!.claude/harness-state.json",
+			"!**/coverage"
 		]
 	}
 }
