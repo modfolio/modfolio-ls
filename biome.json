@@ -42,7 +42,8 @@
 			"!.claude/payment-approval.json",
 			"!**/migrations",
 			"!.claude/harness-feedback",
-			"!**/fonts.css"
+			"!**/fonts.css",
+			"!.claude/harness-state.json"
 		]
 	}
 }
