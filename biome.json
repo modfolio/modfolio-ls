@@ -41,7 +41,8 @@
 			"!.claude/app-registry.json",
 			"!.claude/payment-approval.json",
 			"!**/migrations",
-			"!.claude/harness-feedback"
+			"!.claude/harness-feedback",
+			"!**/fonts.css"
 		]
 	}
 }
