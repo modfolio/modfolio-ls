@@ -43,13 +43,13 @@
 /* ── Font Stacks ── */
 
 :root {
-	--ls-font-display:"Gambetta", "Freesent", "Pretendard", serif;
+	--ls-font-display: "Gambetta", "Freesent", "Pretendard", serif;
 
-	--ls-font-body:"Satoshi", "Freesent", "Pretendard", sans-serif;
+	--ls-font-body: "Satoshi", "Freesent", "Pretendard", sans-serif;
 
-	--ls-font-story:"Satoshi", "Freesent", "Pretendard", sans-serif;
+	--ls-font-story: "Satoshi", "Freesent", "Pretendard", sans-serif;
 
-	--ls-font-ui:"Satoshi", "Freesent", "Pretendard", sans-serif;
+	--ls-font-ui: "Satoshi", "Freesent", "Pretendard", sans-serif;
 
 	--ls-font-code: "Sligoil", "Freesent", "Pretendard", monospace;
 

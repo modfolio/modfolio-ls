@@ -48,13 +48,13 @@
 	   When Typekit 404s (e.g. localhost), Pretendard renders instantly. */
 
 	:root {
-		--ls-font-display:"Gambetta", "Freesent", "Pretendard", serif;
+		--ls-font-display: "Gambetta", "Freesent", "Pretendard", serif;
 
-		--ls-font-body:"Satoshi", "Freesent", "Pretendard", sans-serif;
+		--ls-font-body: "Satoshi", "Freesent", "Pretendard", sans-serif;
 
-		--ls-font-story:"Satoshi", "Freesent", "Pretendard", sans-serif;
+		--ls-font-story: "Satoshi", "Freesent", "Pretendard", sans-serif;
 
-		--ls-font-ui:"Satoshi", "Freesent", "Pretendard", sans-serif;
+		--ls-font-ui: "Satoshi", "Freesent", "Pretendard", sans-serif;
 
 		/* ── Line Heights ── */
 		--ls-leading-tight: 1.15;
