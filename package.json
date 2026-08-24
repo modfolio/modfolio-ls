@@ -28,7 +28,7 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^2.5.2",
-		"@modfolio/harness": "^3.70.0",
+		"@modfolio/harness": "^3.72.0",
 		"typescript": "^6.0.3"
 	},
 	"overrides": {
