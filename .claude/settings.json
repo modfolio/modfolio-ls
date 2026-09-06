@@ -33,7 +33,6 @@
 			"Bash(bun run preview)",
 			"Bash(bun run preview:*)"
 		],
-		"defaultMode": "bypassPermissions",
 		"deny": [
 			"Edit(.claude/payment-approval.json)",
 			"Bash(*payment-approval.json*)"
