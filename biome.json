@@ -44,7 +44,9 @@
 			"!.claude/harness-feedback",
 			"!**/fonts.css",
 			"!.claude/harness-state.json",
-			"!**/coverage"
+			"!**/coverage",
+			"!.claude/gate-receipt.json",
+			"!.claude/gate-timings.json"
 		]
 	}
 }
